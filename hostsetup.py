@@ -1055,7 +1055,8 @@ def init_cc_algo(algo='default', *args, **kwargs):
 
     if algo != 'default' and algo != 'newreno' and algo != 'cubic' and \
             algo != 'cdg' and algo != 'htcp' and \
-            algo != 'compound' and algo != 'hd' and algo != 'vegas':
+            algo != 'compound' and algo != 'hd' and algo != 'vegas' and \
+            algo != 'bbr':
         abort(
             'Available TCP algorithms: ' +
             'default, newreno, cubic, cdg, hd, htcp, compound, vegas')
@@ -1108,6 +1109,8 @@ def init_cc_algo(algo='default', *args, **kwargs):
             run('modprobe tcp_htcp')
         elif algo == 'vegas':
             run('modprobe tcp_vegas')
+        elif algo == 'bbr':
+            run('modprobe tcp_bbr')
         else:
             abort("Congestion algorithm '%s' not supported by Linux" % algo)
 
