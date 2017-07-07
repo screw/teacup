@@ -461,7 +461,7 @@ def animate(address='127.0.0.1',
 
 
     server = Popen(['uwsgi',
-                   '--http', '%s:%s' % (address, port),
+                   '--http-socket', '%s:%s' % (address, port),
                    '--chdir', '%s' % (os.path.join(config.TPCONF_script_path, animate_dir), ),
                    '--processes', '%s' % (processes, ),
                    '--threads', '%s' % (threads, ),
