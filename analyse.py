@@ -39,9 +39,11 @@ from fabric.api import task, warn, put, puts, get, local, run, execute, \
     settings, abort, hosts, env, runs_once, parallel, hide
 
 import config
+from math import exp
+
 from internalutil import _list
 from clockoffset import adjust_timestamps
-from filefinder import get_testid_file_list
+from filefinder import get_testid_file_list, filter_duplicates
 from flowcache import append_flow_cache, lookup_flow_cache
 from sourcefilter import SourceFilter
 from analyseutil import get_out_dir, get_out_name, filter_min_values, \
@@ -375,10 +377,10 @@ def _extract_dash_goodput(test_id='', out_dir='', replot_only='0', dash_log_list
     out_groups = {}
     # input dash log files
     dash_files = []
- 
+
     test_id_arr = test_id.split(';')
     dash_files = get_testid_file_list(dash_log_list, test_id,
-				      ifile_ext, '') 
+				      ifile_ext, '')
 
     for dash_file in dash_files:
         # set and create result directory if necessary
@@ -386,7 +388,7 @@ def _extract_dash_goodput(test_id='', out_dir='', replot_only='0', dash_log_list
 
         dash_file = dash_file.strip()
         name = os.path.basename(dash_file.replace(ifile_ext, ''))
-        out = out_dirname + name + ofile_ext 
+        out = out_dirname + name + ofile_ext
 
         # this extracts the req time, request size, byte rate, response time,
         # nominal cycle length, nominal rate in kbps and block number
@@ -413,7 +415,7 @@ def _extract_dash_goodput(test_id='', out_dir='', replot_only='0', dash_log_list
         if dash_log_list != '':
             # need to build test_id_arr
             if test_id not in test_id_arr:
-                test_id_arr.append(test_id) 
+                test_id_arr.append(test_id)
         # else test_id_arr has the list of test ids
 
         # group number is just the index in the list plus one (start with 1)
@@ -432,7 +434,7 @@ def extract_dash_goodput(test_id='', out_dir='', replot_only='0', dash_log_list=
                          out_name='', ts_correct='1'):
     "Extract DASH goodput from httperf logs"
 
-    _extract_dash_goodput(test_id, out_dir, replot_only, dash_log_list, ts_correct) 
+    _extract_dash_goodput(test_id, out_dir, replot_only, dash_log_list, ts_correct)
 
     # done
     puts('\n[MAIN] COMPLETED extracting DASH goodput %s \n' % test_id)
@@ -467,10 +469,10 @@ def analyse_dash_goodput(test_id='', out_dir='', replot_only='0', dash_log_list=
     "Plot DASH goodput from httperf logs"
 
     # get list of test_ids and data files for plot
-    (test_id_arr, 
-     out_files, 
-     out_groups) = _extract_dash_goodput(test_id, out_dir, replot_only, dash_log_list, 
-                                         ts_correct) 
+    (test_id_arr,
+     out_files,
+     out_groups) = _extract_dash_goodput(test_id, out_dir, replot_only, dash_log_list,
+                                         ts_correct)
 
     # set output file name and plot title
     out_name = ''
@@ -526,7 +528,7 @@ def analyse_dash_goodput(test_id='', out_dir='', replot_only='0', dash_log_list=
 #                       seconds since the first burst @ t = 0 (e.g. incast query/response bursts)
 #  @param sburst Start plotting with burst N (bursts are numbered from 1)
 #  @param eburst End plotting with burst N (bursts are numbered from 1)
-#  @return Test ID list, map of flow names to interim data file names and 
+#  @return Test ID list, map of flow names to interim data file names and
 #          map of file names and group IDs
 def _extract_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                 udp_map='', ts_correct='1', burst_sep='0.0', sburst='1', eburst='0'):
@@ -562,12 +564,12 @@ def _extract_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
 
         # first process tcpdump files (ignore router and ctl interface tcpdumps)
         tcpdump_files = get_testid_file_list('', test_id,
-                                ifile_ext, 
+                                ifile_ext,
                                 'grep -v "router.dmp.gz" | grep -v "ctl.dmp.gz"')
 
         for tcpdump_file in tcpdump_files:
             # get input directory name and create result directory if necessary
-            out_dirname = get_out_dir(tcpdump_file, out_dir) 
+            out_dirname = get_out_dir(tcpdump_file, out_dir)
             dir_name = os.path.dirname(tcpdump_file)
 
             # get unique flows
@@ -618,8 +620,8 @@ def _extract_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                 if long_name not in already_done and long_rev_name not in already_done:
 
                     # the two dump files
-                    dump1 = dir_name + '/' + test_id + '_' + src + ifile_ext 
-                    dump2 = dir_name + '/' + test_id + '_' + dst + ifile_ext 
+                    dump1 = dir_name + '/' + test_id + '_' + src + ifile_ext
+                    dump2 = dir_name + '/' + test_id + '_' + dst + ifile_ext
 
                     # control the fields used by spp for generating the packet
                     # ids (hashes)
@@ -632,7 +634,7 @@ def _extract_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                         filter1 = '(src host ' + src_internal + ' && src port ' + src_port + \
                                   ') || (' + \
                                   'dst host ' + src_internal + ' && dst port ' + src_port + ')'
-                        filter2 = filter1 
+                        filter2 = filter1
                     else:
                         entry = udp_reverse_map.get(
                             src_internal + ',' + src_port, '')
@@ -645,22 +647,22 @@ def _extract_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                             filter1 = '(src host ' + src_internal + ' && src port ' + src_port + \
                                 ') || ( ' + \
                                 'src host ' + src2_internal + ' && src port ' + src2_port + ')'
-                            filter2 = filter1 
+                            filter2 = filter1
                             if rev_name in out_files:
                                 continue
                         else:
-                            warn('No entry in udp_map for %s:%s' % (src_internal, src_port)) 
+                            warn('No entry in udp_map for %s:%s' % (src_internal, src_port))
                             continue
 
                     out1 = out_dirname + test_id + \
                         '_' + src + '_filtered_' + name + '_ref.dmp'
                     out2 = out_dirname + test_id + \
                         '_' + dst + '_filtered_' + name + '_mon.dmp'
-                    out_rtt = out_dirname + test_id + '_' + name + ofile_ext 
-                    rev_out_rtt = out_dirname + test_id + '_' + rev_name + ofile_ext 
+                    out_rtt = out_dirname + test_id + '_' + name + ofile_ext
+                    rev_out_rtt = out_dirname + test_id + '_' + rev_name + ofile_ext
 
                     if replot_only == '0' or not ( os.path.isfile(out_rtt) and \
-                                                   os.path.isfile(rev_out_rtt) ): 
+                                                   os.path.isfile(rev_out_rtt) ):
                         # create filtered tcpdumps
                         local(
                             'zcat %s | tcpdump -nr - -w %s "%s"' %
@@ -692,7 +694,7 @@ def _extract_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                         if ts_correct == '1':
                             out_rtt = adjust_timestamps(test_id, out_rtt, src, ' ', out_dir)
 
-                        (out_files, 
+                        (out_files,
                          out_groups) = select_bursts(long_name, group, out_rtt, burst_sep, sburst, eburst,
                                       out_files, out_groups)
 
@@ -701,8 +703,8 @@ def _extract_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                             rev_out_rtt = adjust_timestamps(test_id, rev_out_rtt, dst, ' ',
                                           out_dir)
 
-                        (out_files, 
-                         out_groups) = select_bursts(long_rev_name, group, rev_out_rtt, burst_sep, sburst, 
+                        (out_files,
+                         out_groups) = select_bursts(long_rev_name, group, rev_out_rtt, burst_sep, sburst,
                                       eburst, out_files, out_groups)
 
         group += 1
@@ -766,15 +768,15 @@ def analyse_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                 sburst='1', eburst='0'):
     "Plot RTT of flows with SPP"
 
-    (test_id_arr, 
-     out_files, 
-     out_groups) = _extract_rtt(test_id, out_dir, replot_only, 
+    (test_id_arr,
+     out_files,
+     out_groups) = _extract_rtt(test_id, out_dir, replot_only,
                                  source_filter, udp_map, ts_correct,
                                  burst_sep, sburst, eburst)
 
     (out_files, out_groups) = filter_min_values(out_files, out_groups, min_values)
     out_name = get_out_name(test_id_arr, out_name)
- 
+
     burst_sep = float(burst_sep)
     if burst_sep == 0.0:
         plot_time_series(out_name, out_files, 'SPP RTT (ms)', 2, 1000.0, 'pdf',
@@ -812,10 +814,10 @@ def analyse_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
 #  @param io_filter  'i' only use statistics from incoming packets
 #                    'o' only use statistics from outgoing packets
 #                    'io' use statistics from incooming and outgoing packets
-#  @return Map of flow names to interim data file names and 
+#  @return Map of flow names to interim data file names and
 #          map of file names and group IDs
 def extract_siftr(test_id='', out_dir='', replot_only='0', source_filter='',
-                  attributes='', out_file_ext='', post_proc=None, 
+                  attributes='', out_file_ext='', post_proc=None,
                   ts_correct='1', io_filter='o'):
 
     out_files = {}
@@ -933,7 +935,7 @@ def guess_version_web10g(test_id=''):
                                         'web10g.log.gz', '', no_abort=True)
 
     # if there are no web10g files the following will return '2.0.7', but in this
-    # case we don't care anyway 
+    # case we don't care anyway
     try:
         web10g_file = web10g_files[0]
         colnum = local('zcat %s | sed -e "s/,/ /g" | head -1 | wc -w' % web10g_file,
@@ -962,7 +964,7 @@ def guess_version_web10g(test_id=''):
 #  @param ts_correct '0' use timestamps as they are (default)
 #                    '1' correct timestamps based on clock offsets estimated
 #                        from broadcast pings
-#  @return Map of flow names to interim data file names and 
+#  @return Map of flow names to interim data file names and
 #          map of file names and group IDs
 def extract_web10g(test_id='', out_dir='', replot_only='0', source_filter='',
                    attributes='', out_file_ext='', post_proc=None,
@@ -1054,7 +1056,7 @@ def extract_web10g(test_id='', out_dir='', replot_only='0', source_filter='',
                             web10g_file,
                             capture=True)
 
-                        out = adjust_timestamps(test_id, out, host, ',', out_dir) 
+                        out = adjust_timestamps(test_id, out, host, ',', out_dir)
 
                     out_files[long_flow_name] = out
                     out_groups[out] = group
@@ -1079,7 +1081,7 @@ def post_proc_siftr_cwnd(siftr_file, out_file):
 ## The extracted files have an extension of .cwnd. The format is CSV with the
 ## columns:
 ## 1. Timestamp RTT measured (seconds.microseconds)
-## 2. CWND 
+## 2. CWND
 #  @param test_id Test ID prefix of experiment to analyse
 #  @param out_dir Output directory for results
 #  @param replot_only Don't extract data again that is extracted already
@@ -1091,7 +1093,7 @@ def post_proc_siftr_cwnd(siftr_file, out_file):
 #                    'o' only use statistics from outgoing packets
 #                    'io' use statistics from incooming and outgoing packets
 #                    (only effective for SIFTR files)
-#  @return Test ID list, map of flow names to interim data file names and 
+#  @return Test ID list, map of flow names to interim data file names and
 #          map of file names and group IDs
 def _extract_cwnd(test_id='', out_dir='', replot_only='0', source_filter='',
                  ts_correct='1', io_filter='o'):
@@ -1202,8 +1204,8 @@ def analyse_cwnd(test_id='', out_dir='', replot_only='0', source_filter='',
     "Plot CWND over time"
 
     (test_id_arr,
-     out_files, 
-     out_groups) = _extract_cwnd(test_id, out_dir, replot_only, 
+     out_files,
+     out_groups) = _extract_cwnd(test_id, out_dir, replot_only,
                                  source_filter, ts_correct, io_filter)
 
     if len(out_files) > 0:
@@ -1241,12 +1243,12 @@ def post_proc_siftr_rtt(siftr_file, out_file):
           (out_file, scaler, tmp_file, tmp_file, out_file))
 
 
-## Extract RTT over time estimated by TCP 
+## Extract RTT over time estimated by TCP
 ## The extracted files have an extension of .tcp_rtt. The format is CSV with the
 ## columns:
 ## 1. Timestamp RTT measured (seconds.microseconds)
 ## 2. Smoothed RTT
-## 3. Sample/Unsmoothed RTT 
+## 3. Sample/Unsmoothed RTT
 #  @param test_id Test ID prefix of experiment to analyse
 #  @param out_dir Output directory for results
 #  @param replot_only Don't extract data again that is extracted already
@@ -1258,8 +1260,8 @@ def post_proc_siftr_rtt(siftr_file, out_file):
 #                    'o' only use statistics from outgoing packets
 #                    'io' use statistics from incooming and outgoing packets
 #                    (only effective for SIFTR files)
-#  @param web10g_version web10g version string (default is 2.0.9) 
-#  @return Test ID list, map of flow names to interim data file names and 
+#  @param web10g_version web10g version string (default is 2.0.9)
+#  @return Test ID list, map of flow names to interim data file names and
 #          map of file names and group IDs
 def _extract_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                      ts_correct='1', io_filter='o', web10g_version='2.0.9'):
@@ -1283,7 +1285,7 @@ def _extract_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                               io_filter=io_filter)
 
     # output smoothed RTT and sample RTT in milliseconds
-    
+
     if web10g_version == '2.0.9':
         web10g_version = guess_version_web10g(test_id)
 
@@ -1334,21 +1336,21 @@ def _extract_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
     return (test_id_arr, all_files, all_groups)
 
 
-## Extract RTT over time estimated by TCP 
+## Extract RTT over time estimated by TCP
 ## SEE _extract_tcp_rtt
 @task
 def extract_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                      ts_correct='1', io_filter='o', web10g_version='2.0.9'):
     "Extract RTT as seen by TCP (smoothed RTT)"
 
-    _extract_tcp_rtt(test_id, out_dir, replot_only, source_filter, 
+    _extract_tcp_rtt(test_id, out_dir, replot_only, source_filter,
                      ts_correct, io_filter, web10g_version)
 
     # done
     puts('\n[MAIN] COMPLETED extracting TCP RTTs %s \n' % test_id)
 
 
-## Plot RTT estimated by TCP over time 
+## Plot RTT estimated by TCP over time
 #  @param test_id Test ID prefix of experiment to analyse
 #  @param out_dir Output directory for results
 #  @param replot_only Don't extract data again, just redo the plot
@@ -1376,7 +1378,7 @@ def extract_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
 #                   'o' only use statistics from outgoing packets
 #                   'io' use statistics from incooming and outgoing packets
 #                   (only effective for SIFTR files)
-#  @param web10g_version web10g version string (default is 2.0.9) 
+#  @param web10g_version web10g version string (default is 2.0.9)
 #  @param plot_params Set env parameters for plotting
 #  @param plot_script Specify the script used for plotting, must specify full path
 @task
@@ -1388,10 +1390,10 @@ def analyse_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
     "Plot RTT as seen by TCP (smoothed RTT)"
 
     (test_id_arr,
-     out_files, 
-     out_groups) = _extract_tcp_rtt(test_id, out_dir, replot_only, 
+     out_files,
+     out_groups) = _extract_tcp_rtt(test_id, out_dir, replot_only,
                               source_filter, ts_correct, io_filter, web10g_version)
- 
+
     if len(out_files) > 0:
         (out_files, out_groups) = filter_min_values(out_files, out_groups, min_values)
         out_name = get_out_name(test_id_arr, out_name)
@@ -1408,7 +1410,7 @@ def analyse_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
                              out_name + '_tcprtt', pdf_dir=pdf_dir, sep=",",
                              omit_const=omit_const, ymin=float(ymin),
                              ymax=float(ymax), lnames=lnames, stime=stime,
-                             etime=etime, groups=out_groups, 
+                             etime=etime, groups=out_groups,
                              plot_params=plot_params, plot_script=plot_script,
                              source_filter=source_filter)
 
@@ -1420,7 +1422,7 @@ def analyse_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
 ## The extracted files have an extension of .tcpstat_<num>, where <num> is the index
 ## of the statistic. The format is CSV with the columns:
 ## 1. Timestamp RTT measured (seconds.microseconds)
-## 2. TCP statistic chosen 
+## 2. TCP statistic chosen
 #  @param test_id Test ID prefix of experiment to analyse
 #  @param out_dir Output directory for results
 #  @param replot_only Don't extract data again that is already extracted
@@ -1443,7 +1445,7 @@ def analyse_tcp_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
 #                    'o' only use statistics from outgoing packets
 #                    'io' use statistics from incooming and outgoing packets
 #                    (only effective for SIFTR files)
-#  @return Test ID list, map of flow names to interim data file names and 
+#  @return Test ID list, map of flow names to interim data file names and
 #          map of file names and group IDs
 def _extract_tcp_stat(test_id='', out_dir='', replot_only='0', source_filter='',
                      siftr_index='9', web10g_index='26', ttprobe_index='10',
@@ -1596,17 +1598,17 @@ def analyse_tcp_stat(test_id='', out_dir='', replot_only='0', source_filter='',
 ## The extracted files have an extension of .psiz. The format is CSV with the
 ## columns:
 ## 1. Timestamp RTT measured (seconds.microseconds)
-## 2. Packet size (bytes) 
+## 2. Packet size (bytes)
 #  @param test_id Test ID prefix of experiment to analyse
 #  @param out_dir Output directory for results
-#  @param replot_only Don't extract data again that is already extracted 
+#  @param replot_only Don't extract data again that is already extracted
 #  @param source_filter Filter on specific sources
 #  @param link_len '0' throughput based on IP length (default),
 #                  '1' throughput based on link-layer length
 #  @param ts_correct '0' use timestamps as they are (default)
 #                    '1' correct timestamps based on clock offsets estimated
 #                        from broadcast pings
-#  @return Test ID list, map of flow names to interim data file names and 
+#  @return Test ID list, map of flow names to interim data file names and
 #          map of file names and group IDs
 def _extract_pktsizes(test_id='', out_dir='', replot_only='0', source_filter='',
                        link_len='0', ts_correct='1', total_per_experiment='0'):
@@ -1654,7 +1656,7 @@ def _extract_pktsizes(test_id='', out_dir='', replot_only='0', source_filter='',
                                  'sed "s/\.\([0-9]*\) /,\\1 /g" | sed "s/ /,/g" | '
                                  'LC_ALL=C sort -u' %
                                  tcpdump_file, capture=True))
-             
+
                 append_flow_cache(tcpdump_file, flows)
 
             # since client sends first packet to server, client-to-server flows
@@ -1675,7 +1677,7 @@ def _extract_pktsizes(test_id='', out_dir='', replot_only='0', source_filter='',
                 name = src_internal + '_' + src_port + \
                     '_' + dst_internal + '_' + dst_port
                 rev_name = dst_internal + '_' + dst_port + \
-                    '_' + src_internal + '_' + src_port 
+                    '_' + src_internal + '_' + src_port
                 # test id plus flow name
                 if len(test_id_arr) > 1:
                     long_name = test_id + '_' + name
@@ -1685,16 +1687,16 @@ def _extract_pktsizes(test_id='', out_dir='', replot_only='0', source_filter='',
                     long_rev_name = rev_name
 
                 # the two dump files
-                dump1 = dir_name + '/' + test_id + '_' + src + ifile_ext 
-                dump2 = dir_name + '/' + test_id + '_' + dst + ifile_ext 
+                dump1 = dir_name + '/' + test_id + '_' + src + ifile_ext
+                dump2 = dir_name + '/' + test_id + '_' + dst + ifile_ext
 
                 # tcpdump filters and output file names
                 filter1 = 'src host ' + src_internal + ' && src port ' + src_port + \
                     ' && dst host ' + dst_internal + ' && dst port ' + dst_port
                 filter2 = 'src host ' + dst_internal + ' && src port ' + dst_port + \
                     ' && dst host ' + src_internal + ' && dst port ' + src_port
-                out_size1 = out_dirname + test_id + '_' + name + ofile_ext 
-                out_size2 = out_dirname + test_id + '_' + rev_name + ofile_ext 
+                out_size1 = out_dirname + test_id + '_' + name + ofile_ext
+                out_size2 = out_dirname + test_id + '_' + rev_name + ofile_ext
 
                 if long_name not in already_done and long_rev_name not in already_done:
                     if replot_only == '0' or not ( os.path.isfile(out_size1) and \
@@ -1719,7 +1721,7 @@ def _extract_pktsizes(test_id='', out_dir='', replot_only='0', source_filter='',
                                 'zcat %s | tcpdump -e -tt -nr - "%s" | grep "ethertype IP" | '
                                 'awk \'{ print $1 " " $9 }\' | sed -e "s/://" > %s' %
                                 (dump1, filter2, out_size2))
-   
+
                     already_done[long_name] = 1
                     already_done[long_rev_name] = 1
 
@@ -1752,12 +1754,12 @@ def _extract_pktsizes(test_id='', out_dir='', replot_only='0', source_filter='',
             for name in out_files:
                 if out_groups[out_files[name]] == group:
                     delete_list.append(name)
-  
+
             for d in delete_list:
                 del out_groups[out_files[d]]
                 del out_files[d]
 
-            name = test_id 
+            name = test_id
             out_files[name] = out_size1
             out_groups[out_size1] = group
 
@@ -1816,8 +1818,8 @@ def analyse_throughput(test_id='', out_dir='', replot_only='0', source_filter=''
     "Plot throughput for generated traffic flows"
 
     (test_id_arr,
-     out_files, 
-     out_groups) =_extract_pktsizes(test_id, out_dir, replot_only, 
+     out_files,
+     out_groups) =_extract_pktsizes(test_id, out_dir, replot_only,
                               source_filter, link_len, ts_correct,
                               total_per_experiment)
 
@@ -1842,7 +1844,7 @@ def analyse_throughput(test_id='', out_dir='', replot_only='0', source_filter=''
 
 ## Get list of experiment IDs
 #  @param exp_list List of all test IDs
-#  @param test_id Test ID prefix of experiment to analyse 
+#  @param test_id Test ID prefix of experiment to analyse
 def get_experiment_list(exp_list='', test_id=''):
 
     if test_id != '':
@@ -1858,7 +1860,7 @@ def get_experiment_list(exp_list='', test_id=''):
     return experiments
 
 
-## Do all extraction 
+## Do all extraction
 #  @param exp_list List of all test IDs
 #  @param test_id Test ID prefix of experiment to analyse
 #  @param out_dir Output directory for result files
@@ -1878,7 +1880,7 @@ def get_experiment_list(exp_list='', test_id=''):
 #  @param web10g_version web10g version string (default is 2.0.9)
 @task
 def extract_all(exp_list='experiments_completed.txt', test_id='', out_dir='',
-                replot_only='0', source_filter='', resume_id='', 
+                replot_only='0', source_filter='', resume_id='',
                 link_len='0', ts_correct='1', io_filter='o', web10g_version='2.0.9'):
     "Extract SPP RTT, TCP RTT, CWND and throughput statistics"
 
@@ -1897,9 +1899,9 @@ def extract_all(exp_list='experiments_completed.txt', test_id='', out_dir='',
         if do_analyse:
             execute(extract_rtt, test_id, out_dir, replot_only, source_filter,
                     ts_correct=ts_correct)
-            execute(extract_cwnd, test_id, out_dir, replot_only, source_filter, 
+            execute(extract_cwnd, test_id, out_dir, replot_only, source_filter,
                     ts_correct=ts_correct, io_filter=io_filter)
-            execute(extract_tcp_rtt, test_id, out_dir, replot_only, source_filter, 
+            execute(extract_tcp_rtt, test_id, out_dir, replot_only, source_filter,
                     ts_correct=ts_correct, io_filter=io_filter, web10g_version=web10g_version)
             execute(extract_pktsizes, test_id, out_dir, replot_only, source_filter,
                     link_len=link_len, ts_correct=ts_correct)
@@ -1911,7 +1913,7 @@ def extract_all(exp_list='experiments_completed.txt', test_id='', out_dir='',
 #  @param out_dir Output directory for result files
 #  @param replot_only Don't extract data again, just redo the plot
 #  @param source_filter Filter on specific sources
-#  @param min_values Ignore flows with less output values 
+#  @param min_values Ignore flows with less output values
 #  @param omit_const '0' don't omit anything, ]
 #                    '1' omit any series that are 100% constant
 #                    (e.g. because there was no data flow)
@@ -1979,7 +1981,7 @@ def analyse_all(exp_list='experiments_completed.txt', test_id='', out_dir='',
                     ts_correct=ts_correct, plot_params=plot_params, plot_script=plot_script)
 
 
-## Extract incast response times from httperf files 
+## Extract incast response times from httperf files
 ## The extracted files have an extension of .rtimes. The format is CSV with the
 ## columns:
 ## 1. Request timestamp (seconds.microseconds)
@@ -1994,7 +1996,7 @@ def analyse_all(exp_list='experiments_completed.txt', test_id='', out_dir='',
 #                        from broadcast pings
 #  @param sburst Start plotting with burst N (bursts are numbered from 1)
 #  @param eburst End plotting with burst N (bursts are numbered from 1)
-#  @param slowest_only '0' plot response times for individual responders 
+#  @param slowest_only '0' plot response times for individual responders
 #                      '1' plot slowest response time across all responders
 #                      '2' plot time between first request and last response finished
 #  @return Experiment ID list, map of flow names to file names, map of file names
@@ -2005,7 +2007,7 @@ def _extract_incast(test_id='', out_dir='', replot_only='0', source_filter='',
 
     ifile_ext = 'httperf_incast.log.gz'
     ofile_ext = '.rtimes'
-  
+
     # abort in case of responder timeout
     abort_extract = False
 
@@ -2074,7 +2076,7 @@ def _extract_incast(test_id='', out_dir='', replot_only='0', source_filter='',
                 if not sfil.is_in(name):
                     continue
 
-                out_fname = out_dirname + test_id + '_' + name + ofile_ext 
+                out_fname = out_dirname + test_id + '_' + name + ofile_ext
 
                 out_files[long_name] = out_fname
                 out_groups[out_fname] = group
@@ -2086,7 +2088,7 @@ def _extract_incast(test_id='', out_dir='', replot_only='0', source_filter='',
                         log_file, capture=True))
 
                     time = 0.0
-                    bursts = {} 
+                    bursts = {}
                     for response in responses:
                         request_ts = float(response.split()[0])
                         responder_id = int(response.split()[2])
@@ -2097,11 +2099,11 @@ def _extract_incast(test_id='', out_dir='', replot_only='0', source_filter='',
                         if responder_id == cnt:
 
                             if not responder_id in bursts:
-                                bursts[responder_id] = 0                            
+                                bursts[responder_id] = 0
                             bursts[responder_id] += 1
 
                             # do only write the times for burst >= sburst and burst <= eburst
-                            # but sburst=0/eburst=0 means no lower/upper limit 
+                            # but sburst=0/eburst=0 means no lower/upper limit
                             if bursts[responder_id] >= sburst and \
                                (eburst == 0 or bursts[responder_id] <= eburst):
                                 if timed_out == 'no':
@@ -2130,7 +2132,7 @@ def _extract_incast(test_id='', out_dir='', replot_only='0', source_filter='',
     return (test_id_arr, out_files, out_groups)
 
 
-## Extract incast 
+## Extract incast
 ## SEE _extract_incast
 @task
 def extract_incast(test_id='', out_dir='', replot_only='0', source_filter='',
@@ -2212,7 +2214,7 @@ def get_slowest_response_time(out_files, out_groups, mode=0):
         f = open(fname, 'w')
         for _burst in sorted(slowest.keys()):
             if mode == 0:
-                # slowest response time of all 
+                # slowest response time of all
                 f.write('%f %f\n' % (burst_time[_burst], slowest[_burst]))
             else:
                 # time between first request and last response finished
@@ -2226,7 +2228,7 @@ def get_slowest_response_time(out_files, out_groups, mode=0):
     return (out_files, out_groups)
 
 
-## Plot incast response times 
+## Plot incast response times
 #  @param test_id Test ID prefix of experiment to analyse
 #  @param out_dir Output directory for results
 #  @param replot_only Don't extract data again, just redo the plot
@@ -2253,7 +2255,7 @@ def get_slowest_response_time(out_files, out_groups, mode=0):
 #  @param ts_correct '0' use timestamps as they are (default)
 #                    '1' correct timestamps based on clock offsets estimated
 #                        from broadcast pings
-#  @param slowest_only '0' plot response times for individual responders 
+#  @param slowest_only '0' plot response times for individual responders
 #                      '1' plot slowest response time across all responders
 #                      '2' plot time between first request and last response finished
 #  @param boxplot '0' normal time series (default)
@@ -2279,22 +2281,22 @@ def analyse_incast(test_id='', out_dir='', replot_only='0', source_filter='',
             abort('Must specify query_host')
         (test_id_arr,
          out_files,
-         out_groups) = _extract_incast_restimes(test_id, out_dir, replot_only, 
+         out_groups) = _extract_incast_restimes(test_id, out_dir, replot_only,
                              source_filter, ts_correct, query_host, slowest_only)
         yindex = 5
         ofile_ext = '.restimes'
     else:
         (test_id_arr,
          out_files,
-         out_groups) = _extract_incast(test_id, out_dir, replot_only, source_filter, 
-                                       ts_correct, sburst, eburst, slowest_only) 
+         out_groups) = _extract_incast(test_id, out_dir, replot_only, source_filter,
+                                       ts_correct, sburst, eburst, slowest_only)
         yindex = 3
         ofile_ext = '.rtimes'
 
     if slowest_only != '0':
         pdf_name_part = '_restime_slowest'
         sort_flowkey = '0'
-        # the slowest code produces an output file with only two columns 
+        # the slowest code produces an output file with only two columns
         # (time, response time)
         yindex = 2
 
@@ -2302,10 +2304,10 @@ def analyse_incast(test_id='', out_dir='', replot_only='0', source_filter='',
     plot_time_series(out_name, out_files, 'Response time (s)', yindex, 1.0, 'pdf',
                      out_name + pdf_name_part, pdf_dir=pdf_dir,
                      ymin=float(ymin), ymax=float(ymax),
-                     lnames=lnames, stime=stime, etime=etime, 
-                     groups=out_groups, sort_flowkey=sort_flowkey, 
+                     lnames=lnames, stime=stime, etime=etime,
+                     groups=out_groups, sort_flowkey=sort_flowkey,
                      boxplot=boxplot, plot_params=plot_params, plot_script=plot_script,
-                     source_filter=source_filter) 
+                     source_filter=source_filter)
 
     # done
     puts('\n[MAIN] COMPLETED plotting incast response times %s\n' % out_name)
@@ -2482,7 +2484,7 @@ def extract_dupACKs_bursts(acks_file='', burst_sep=0):
 #  @param sburst Start plotting with burst N (bursts are numbered from 1)
 #  @param eburst End plotting with burst N (bursts are numbered from 1)
 #   @param total_per_experiment '0' per-flow data (default)
-#                               '1' total data 
+#                               '1' total data
 #  @return Experiment ID list, map of flow names to file names, map of file names to group IDs
 def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                     ts_correct='1', burst_sep='0.0',
@@ -2536,7 +2538,7 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
             # will always be first
 
             for flow in flows:
-	
+
                 src, src_port, dst, dst_port, proto = flow.split(',')
 
                 # get external and internal addresses
@@ -2560,8 +2562,8 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                     long_rev_name = rev_name
 
                 # the two dump files
-                dump1 = dir_name + '/' + test_id + '_' + src + ifile_ext 
-                dump2 = dir_name + '/' + test_id + '_' + dst + ifile_ext 
+                dump1 = dir_name + '/' + test_id + '_' + src + ifile_ext
+                dump2 = dir_name + '/' + test_id + '_' + dst + ifile_ext
 
                 # tcpdump filters and output file names
                 # 'tcp[tcpflags] == tcp-ack' rule to extract only ACK packets (eliminate SYN and FIN, even if ACK also set)
@@ -2572,8 +2574,8 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                     ' && dst host ' + src_internal + ' && dst port ' + src_port + \
                     ' && tcp[tcpflags] == tcp-ack'
 
-                out_acks1 = out_dirname + test_id + '_' + name + ofile_ext 
-                out_acks2 = out_dirname + test_id + '_' + rev_name + ofile_ext 
+                out_acks1 = out_dirname + test_id + '_' + name + ofile_ext
+                out_acks2 = out_dirname + test_id + '_' + rev_name + ofile_ext
 
                 if long_name not in already_done and long_rev_name not in already_done:
                     if replot_only == '0' or not ( os.path.isfile(out_acks1) and \
@@ -2618,7 +2620,7 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                         # return a new vector of one or more filenames, pointing to file(s) containing
                         # <time> <seq_no> <dupACKs>
                         #
-                        out_acks1_dups_bursts = extract_dupACKs_bursts(acks_file = out_acks1, 
+                        out_acks1_dups_bursts = extract_dupACKs_bursts(acks_file = out_acks1,
                                                           burst_sep = burst_sep)
                         # Incorporate the extracted .N files
                         # as a new, expanded set of filenames to be plotted.
@@ -2658,7 +2660,7 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                         # return a new vector of one or more filenames, pointing to file(s) containing
                         # <time> <seq_no> <dupACKs>
                         #
-                        out_acks2_dups_bursts = extract_dupACKs_bursts(acks_file = out_acks2, 
+                        out_acks2_dups_bursts = extract_dupACKs_bursts(acks_file = out_acks2,
                                                           burst_sep = burst_sep)
 
                         # Incorporate the extracted .N files
@@ -2707,22 +2709,22 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                             fields = line.split()
                             curr_time = float(fields[0])
                             if curr_time not in aggregated:
-                                aggregated[curr_time] = [] 
+                                aggregated[curr_time] = []
                             aggregated[curr_time].append((flow, int(fields[1]), int(fields[2])))
 
                     flow += 1
 
-            total = {} # total cumulative values 
+            total = {} # total cumulative values
             last_flow_val = {} # last values per flow (ackbyte, dupack) tuples
             last_val = (0, 0)  # value from last time
 
-            # second go through by time and total 
+            # second go through by time and total
             for t in sorted(aggregated.keys()):
 
                 # if there is no entry for time t, then create one
                 if t not in total:
-                    total[t] = last_val # start with the last value (cumulative total) 
- 
+                    total[t] = last_val # start with the last value (cumulative total)
+
                 # get delta values for ackbytes and dupacks for each value and add
                 for (flow, cum_byte, cum_ack) in aggregated[t]:
 
@@ -2739,8 +2741,8 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                     #    print(cum_byte, last_flow_val[flow][0], byte)
 
                     # add delta values to value at current time t
-                    total[t] = (total[t][0] + byte, total[t][1] + ack) 
- 
+                    total[t] = (total[t][0] + byte, total[t][1] + ack)
+
                     # memorise last value
                     last_flow_val[flow] = (cum_byte, cum_ack)
 
@@ -2765,7 +2767,7 @@ def _extract_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
                 try:
                     del out_groups[out_files[d]]
                 except KeyError:
-                    # forward and backward name match to same data file 
+                    # forward and backward name match to same data file
                     # XXX investigate
                     pass
                 del out_files[d]
@@ -2848,9 +2850,9 @@ def analyse_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
 
     (test_id_arr,
      out_files,
-     out_groups) =  _extract_ackseq(test_id, out_dir, replot_only, source_filter, 
+     out_groups) =  _extract_ackseq(test_id, out_dir, replot_only, source_filter,
                     ts_correct, burst_sep, sburst, eburst)
-   
+
     (out_files, out_groups) = filter_min_values(out_files, out_groups, min_values)
     out_name = get_out_name(test_id_arr, out_name)
 
@@ -2880,7 +2882,7 @@ def analyse_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
         plot_incast_ACK_series(out_name, out_files, yaxistitle, ycolumn, yaxisscale, 'pdf',
                         out_name + oname, pdf_dir=pdf_dir, aggr='',
                         omit_const=omit_const, ymin=float(ymin), ymax=float(ymax),
-                        lnames=lnames, stime=stime, etime=etime, groups=out_groups, burst_sep=burst_sep, 
+                        lnames=lnames, stime=stime, etime=etime, groups=out_groups, burst_sep=burst_sep,
                         sburst=int(sburst), plot_params=plot_params, plot_script=plot_script,
                         source_filter=source_filter)
 
@@ -2919,7 +2921,7 @@ def analyse_ackseq(test_id='', out_dir='', replot_only='0', source_filter='',
 def analyse_goodput(test_id='', out_dir='', replot_only='0', source_filter='',
                        min_values='3', omit_const='0', ymin='0', ymax='0', lnames='',
                        stime='0.0', etime='0.0', out_name='',
-                       pdf_dir='', ts_correct='1', 
+                       pdf_dir='', ts_correct='1',
                        plot_params='', plot_script='', total_per_experiment='0'):
     "Plot goodput vs time"
 
@@ -2933,7 +2935,7 @@ def analyse_goodput(test_id='', out_dir='', replot_only='0', source_filter='',
 
     yaxistitle = 'Goodput [kbps]'
     ycolumn = 2
-    yaxisscale = 0.008 
+    yaxisscale = 0.008
     oname = '_goodput'
 
     # ackseq always delivers cumulative values, instruct plot code to use the
@@ -2972,18 +2974,18 @@ def analyse_goodput(test_id='', out_dir='', replot_only='0', source_filter='',
 #  @param by_responder '1' plot times for each responder separately
 #                      Limitation: if by_responder=1, then this function only supports one test id
 #                      '0' times for all responders
-#  @param cummulative '0' raw inter-query time for each burst 
+#  @param cummulative '0' raw inter-query time for each burst
 #                     '1' accumulated inter-query time over all bursts
-#  @param burst_sep 'time between burst (default 1.0), must be > 0 
+#  @param burst_sep 'time between burst (default 1.0), must be > 0
 #  @return Experiment ID list, map of flow names and file names, map of file names to group IDs
 #
-# Intermediate files end in ".iqtime.all ".iqtime.<responder>", ".iqtime.<responder>.tscorr" 
+# Intermediate files end in ".iqtime.all ".iqtime.<responder>", ".iqtime.<responder>.tscorr"
 # The files contain the following columns:
 # 1. Timestamp
 # 2. IP of responder
 # 3. port number of responder
-# 4. inter-query time, time between request and first request in burst 
-# 5. inter-query time, time between request and previous request  
+# 4. inter-query time, time between request and first request in burst
+# 5. inter-query time, time between request and previous request
 # Note 4,5 can be cumulative or non-cumulative
 def _extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filter='',
                            ts_correct='1', query_host='', by_responder='1', cumulative='0',
@@ -3030,15 +3032,15 @@ def _extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filt
             # without data)
             filter1 = 'tcp[tcpflags] & tcp-push != 0'
 
-            (dummy, query_host_internal) = get_address_pair_analysis(test_id, query_host, do_abort='0') 
+            (dummy, query_host_internal) = get_address_pair_analysis(test_id, query_host, do_abort='0')
             flow_name = query_host_internal + '_0_0.0.0.0_0'
-            name = test_id + '_' + flow_name 
+            name = test_id + '_' + flow_name
             out1 = out_dirname + name + ofile_ext
 
             if name not in already_done:
                 if replot_only == '0' or not (os.path.isfile(out1)):
 
-                    # Use "-A" option to tcpdump so we get the payload bytes and can check for GET 
+                    # Use "-A" option to tcpdump so we get the payload bytes and can check for GET
                     # XXX this command fails if default snap length is changed because of the magic -B 4
                     local(
                        'zcat %s | tcpdump -A -tt -nr - "%s" | grep -B 5 "GET" | egrep "IP" | '
@@ -3058,7 +3060,7 @@ def _extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filt
                         if replot_only == '0' or not (os.path.isfile(out_name)):
                             last_time = 0.0
                             burst_start = 0.0
-                            cum_time = 0.0 
+                            cum_time = 0.0
 
                             out_f = open(out_name, 'w')
 
@@ -3097,7 +3099,7 @@ def _extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filt
                         last_time = 0.0
                         burst_start = 0.0
                         responders = {}
-                        cum_time = {} 
+                        cum_time = {}
 
 		        with open(out1) as f:
                             lines = f.readlines()
@@ -3106,9 +3108,9 @@ def _extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filt
                                 time = float(fields[0])
                                 responder = fields[1] + '.' + fields[2]
                                 if responder not in responders:
-                                    out_name = out1 + '.' + responder 
+                                    out_name = out1 + '.' + responder
                                     responders[responder] = open(out_name, 'w')
-                                    out_files[responder] = out_name 
+                                    out_files[responder] = out_name
                                     cum_time[responder] = 0
 
                                 out_f = responders[responder]
@@ -3158,7 +3160,7 @@ def extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filte
                            ts_correct='1', query_host='', by_responder='1', cumulative='0',
                            burst_sep='1.0'):
     "Extract incast inter-query times"
-   
+
     _extract_incast_iqtimes(test_id, out_dir, replot_only, source_filter, ts_correct,
                             query_host, by_responder, cumulative, burst_sep)
 
@@ -3178,9 +3180,9 @@ def extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filte
 #  @param query_host Name of the host that sent the queries
 #  @param by_responder '1' plot times for each responder separately
 #                      '0' times for all responders
-#  @param cumulative '0' raw inter-query time for each burst 
+#  @param cumulative '0' raw inter-query time for each burst
 #                     '1' accumulated inter-query time over all bursts
-#  @param burst_sep Time between burst (default 1.0), must be > 0 
+#  @param burst_sep Time between burst (default 1.0), must be > 0
 #  @param min_values Ignore flows with equal less output values / packets
 #  @param omit_const '0' don't omit anything,
 #                    '1' omit any series that are 100% constant
@@ -3190,7 +3192,7 @@ def extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filte
 #                       the times are the differences between request and previous
 #                       request
 #                       '1' print time differences between requests and first requests in
-#                       burst (default) 
+#                       burst (default)
 #   @param ymin Minimum value on y-axis
 #   @param ymax Maximum value on y-axis
 #   @param lnames Semicolon-separated list of legend names
@@ -3207,7 +3209,7 @@ def extract_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filte
 #                      (default is config.TPCONF_script_path/plot_contour.R)
 #
 # Note setting cumulative=1 and diff_to_burst_start=0 does produce a graph, but the
-# graph does not make any sense. 
+# graph does not make any sense.
 @task
 def analyse_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filter='',
                     ts_correct='1', query_host='', by_responder='1', cumulative='0',
@@ -3221,8 +3223,8 @@ def analyse_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filte
 
     (test_id_arr,
      out_files,
-     out_groups) = _extract_incast_iqtimes(test_id, out_dir, replot_only, source_filter, 
-                            ts_correct, query_host, by_responder, cumulative, burst_sep) 
+     out_groups) = _extract_incast_iqtimes(test_id, out_dir, replot_only, source_filter,
+                            ts_correct, query_host, by_responder, cumulative, burst_sep)
 
     (out_files, out_groups) = filter_min_values(out_files, out_groups, min_values)
     out_name = get_out_name(test_id_arr, out_name)
@@ -3240,15 +3242,15 @@ def analyse_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filte
     if by_responder == '0' and cumulative == '0':
         out_name_add = '_iqtimes'
     elif by_responder == '0' and cumulative == '1':
-        out_name_add = '_cum_iqtimes' 
+        out_name_add = '_cum_iqtimes'
     elif by_responder == '1' and cumulative == '0':
         out_name_add = '_iqtimes_responders'
     else:
         out_name_add = '_cum_iqtimes_responders'
 
     plot_time_series(out_name, out_files, ylabel, ycolumn, 1000, 'pdf',
-                     out_name + out_name_add, pdf_dir=pdf_dir, aggr='', 
-                     sort_flowkey='0', omit_const=omit_const, ymin=float(ymin), ymax=float(ymax), 
+                     out_name + out_name_add, pdf_dir=pdf_dir, aggr='',
+                     sort_flowkey='0', omit_const=omit_const, ymin=float(ymin), ymax=float(ymax),
                      lnames=lnames, stime=stime, etime=etime, groups=out_groups,
                      plot_params=plot_params, plot_script=plot_script,
                      source_filter=source_filter)
@@ -3257,21 +3259,21 @@ def analyse_incast_iqtimes(test_id='', out_dir='', replot_only='0', source_filte
     puts('\n[MAIN] COMPLETED plotting incast inter-query times %s\n' % out_name)
 
 
-## Extract response times for each responder for incast experiments from tcpdump data 
+## Extract response times for each responder for incast experiments from tcpdump data
 #  @param test_id Semicolon-separated list of test ID prefixes of experiments to analyse
 #  @param out_dir Output directory for results
 #  @param replot_only '1' don't extract raw data per test_ID if already done,
-#                     '0' always extract raw data 
+#                     '0' always extract raw data
 #  @param source_filter Filter on specific flows to process
 #  @param ts_correct '0' use timestamps as they are (default)
 #                    '1' correct timestamps based on clock offsets estimated
 #                        from broadcast pings
 #  @param query_host Name of the host that sent the queries (s specified in config)
-#  @param slowest_only '0' plot response times for individual responders 
+#  @param slowest_only '0' plot response times for individual responders
 #                      '1' plot slowest response time across all responders
 #                      '2' plot time between first request and last response finished
 #
-# Intermediate files end in ".restimes", ".restimes.tscorr" 
+# Intermediate files end in ".restimes", ".restimes.tscorr"
 # The files contain the following columns:
 # 1. Timestamp the GET was sent
 # 2. Burst number
@@ -3359,18 +3361,18 @@ def _extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_fil
                 dump1 = dir_name + '/' + test_id + '_' + src + ifile_ext
 
                 # tcpdump filters and output file names
-                # 'tcp[tcpflags] & tcp-push != 0' rule to extract only packets with push flag set 
+                # 'tcp[tcpflags] & tcp-push != 0' rule to extract only packets with push flag set
                 # (eliminate SYN, FIN, or ACKs without data)
                 filter1 = 'host ' + dst_internal + ' && port ' + dst_port + \
                     ' && tcp[tcpflags] & tcp-push != 0'
 
                 out1_tmp = out_dirname + test_id + '_' + name + ofile_ext + '.tmp'
                 out1 = out_dirname + test_id + '_' + name + ofile_ext
-                
+
                 if long_name not in already_done:
                     if replot_only == '0' or not ( os.path.isfile(out1) ):
- 
-                        # Use "-A" option to tcpdump so we get the payload bytes 
+
+                        # Use "-A" option to tcpdump so we get the payload bytes
                         # XXX this falls apart if snap size is not the default because of the magic -B 8
                         local(
                             'zcat %s | tcpdump -A -tt -nr - "%s" | grep -B 10 "GET" | egrep "IP" | '
@@ -3378,7 +3380,7 @@ def _extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_fil
                             (dump1, filter1, out1_tmp))
                         # get the last line, assume this is last packet of last request
                         local('zcat %s | tcpdump -tt -nr - "%s" | tail -1 | '
-                              'awk \'{ print $1 " " $3 " " $5; }\' | sed \'s/://\' >> %s' % 
+                              'awk \'{ print $1 " " $3 " " $5; }\' | sed \'s/://\' >> %s' %
                             (dump1, filter1, out1_tmp))
 
                         # compute response times from each GET packet and corresponding final data packet
@@ -3396,10 +3398,10 @@ def _extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_fil
                                     # response, unless the source is the same as for the last packet
                                     # (then we possibly have no response)
                                     res_time = float(fields[0]) - req_time
-                                    out_f.write('%f %i %s %s %s\n' %  (req_time, int(cnt/2) + 1, fields[2], 
+                                    out_f.write('%f %i %s %s %s\n' %  (req_time, int(cnt/2) + 1, fields[2],
                                                                        fields[1], res_time))
 
-                                last_src = fields[1] 
+                                last_src = fields[1]
                                 cnt += 1
 
                         out_f.close()
@@ -3411,7 +3413,7 @@ def _extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_fil
                         if ts_correct == '1':
                             out1 = adjust_timestamps(test_id, out1, dst, ' ', out_dir)
 
-                        out_files[long_name] = out1 
+                        out_files[long_name] = out1
                         out_groups[out1] = group
 
         # check for consistency and abort if we see less response times for one responder
@@ -3419,7 +3421,7 @@ def _extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_fil
         for name in out_files:
             if out_groups[out_files[name]] == group:
                 cnt = int(local('wc -l %s | awk \'{ print $1 }\'' %
-                                out_files[name], capture=True)) 
+                                out_files[name], capture=True))
                 if max_cnt > 0 and cnt < max_cnt:
                     abort('Responder timed out in experiment %s' % test_id)
                 if cnt > max_cnt:
@@ -3435,7 +3437,7 @@ def _extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_fil
     return (test_id_arr, out_files, out_groups)
 
 
-## Extract response times for each responder for incast experiments 
+## Extract response times for each responder for incast experiments
 ## SEE _extract_restimes()
 @task
 def extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_filter='',
@@ -3449,7 +3451,7 @@ def extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_filt
     puts('\n[MAIN] COMPLETED extracting incast response times %s \n' % test_id)
 
 
-## Extract packet loss for flows using custom tool 
+## Extract packet loss for flows using custom tool
 ## XXX tool uses packet hash based on UDP/TCP payload, so only works with traffic
 ## that has unique payload bytes
 ## The extracted files have an extension of .loss. The format is CSV with the
@@ -3463,7 +3465,7 @@ def extract_incast_restimes(test_id='', out_dir='', replot_only='0', source_filt
 #  @param ts_correct '0' use timestamps as they are (default)
 #                    '1' correct timestamps based on clock offsets estimated
 #                        from broadcast pings
-#  @return Test ID list, map of flow names to interim data file names and 
+#  @return Test ID list, map of flow names to interim data file names and
 #          map of file names and group IDs
 def _extract_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
                      ts_correct='1'):
@@ -3551,7 +3553,7 @@ def _extract_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 
                     # filters for pktloss.py
                     filter1 = src_internal + ':' + src_port + ':' + dst_internal + ':' + dst_port
-                    filter2 = dst_internal + ':' + dst_port + ':' + src_internal + ':' + src_port 
+                    filter2 = dst_internal + ':' + dst_port + ':' + src_internal + ':' + src_port
 
                     # output file names
                     out_loss = out_dirname + test_id + '_' + name + ofile_ext
@@ -3559,7 +3561,7 @@ def _extract_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 
                     if replot_only == '0' or not ( os.path.isfile(out_loss) and \
                                                    os.path.isfile(rev_out_loss) ):
-                        # compute loss 
+                        # compute loss
                         local(
                             '%s/tools/pktloss.py -t %s -T %s -f %s > %s' %
                             (config.TPCONF_script_path, dump1, dump2, filter1, out_loss))
@@ -3576,7 +3578,7 @@ def _extract_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
                             # Clean up, we don't need to the pre-adjusted file
                             os.remove(out_loss)
                             out_loss = out_loss_tscorr
-                            
+
                         out_files[long_name] = out_loss
                         out_groups[out_loss] = group
 
@@ -3587,7 +3589,7 @@ def _extract_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
                             # Clean up, we don't need to the pre-adjusted file
                             os.remove(rev_out_loss)
                             rev_out_loss = rev_out_loss_tscorr
-                            
+
                         out_files[long_rev_name] = rev_out_loss
                         out_groups[rev_out_loss] = group
 
@@ -3658,4 +3660,97 @@ def analyse_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 
     # done
     puts('\n[MAIN] COMPLETED plotting packet loss rate %s \n' % out_name)
+
+
+
+
+@task
+def publish():
+    "Generate html file to publish experiment data/results/figures"
+    out_dir="publish"
+    find_dir="./exp_20170708-053028/"
+    overwrite=True
+    paper=''
+
+
+
+    local('mkdir -p "%s"' % (out_dir),capture=True)
+
+    puts('\n[MAIN] Find figures\n')
+
+    plot_files = _list(
+        local('find -L "%s" -name *_time_series.pdf' % (find_dir), capture=True)
+        )
+
+    plot_files = filter_duplicates(plot_files)
+
+    test_ids = set()
+    experiment_dirs = set()
+    # copy figures  to out_dir
+    for plot_file in plot_files:
+
+
+        local('cp "%s"  "%s"' % (plot_file, out_dir))
+
+        puts('\n[MAIN] Find or generate SRC for figures \n')
+
+        (path, plot_file_name) = os.path.split(plot_file)
+        experiment_dirs.add(path)
+        src_file = local('find -L -name "%s.src"' % (plot_file_name), capture=True)
+        print src_file
+
+        if (src_file == '' or overwrite):
+            #generate src file
+            print "generate file"
+            reg = re.compile('((\d{8}-\d{6}).*)_(.*)_time_series.pdf')
+            match = reg.search(plot_file_name)
+            test_id = match.group(1)
+
+
+
+            command = match.group(3)
+
+
+
+            if(command == "spprtt"):
+                print "spprtt"
+                cmd = "analyse_rtt"
+            elif(command == "cwnd"):
+                print "cwnd"
+                cmd = "analyse_cwnd"
+            elif(command == "throughput"):
+                cmd = "analyse_throughput"
+            else:
+                reg = re.compile('((\d{8}-\d{6}).*)_(.*_.*)_time_series.pdf')
+                match = reg.search(plot_file_name)
+                test_id = match.group(1)
+
+
+
+                command = match.group(3)
+                if(command == "smooth_tcprtt"):
+                    cmd = "analyset_tcp_rtt"
+                else:
+                    print "none of the above"
+            test_ids.add(test_id)
+            local('echo "fab %s:test_id=%s" > %s/%s.src' % (cmd, test_id, out_dir, plot_file_name))
+        else:
+            local('cp "%s"  "%s"' % (src_file, out_dir))
+
+    #collect generated text files with data to include with the src?
+    #  (timediff, rtt values, etc)
+
+
+    puts('\n[MAIN] Find experiment config \n')
+    print experiment_dirs
+    for experiment_dir in experiment_dirs:
+        local('find %s -name *tpconf_vars.log.gz -exec cp {} %s \;' % (experiment_dir, out_dir))
+
+    puts('\n[MAIN] Find paper and paper description \n')
+
+    puts('\n[MAIN] Creating archive \n')
+
+    puts('\n[MAIN] Generating HTML file \n')
+
+    
 

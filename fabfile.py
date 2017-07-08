@@ -138,6 +138,11 @@ except ImportError:
     pass
 
 try:
+    from analyse import publish
+except ImportError:
+    pass
+
+try:
     from analysecmpexp import analyse_cmpexp, analyse_2d_density
 except ImportError:
     pass
