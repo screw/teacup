@@ -35,6 +35,8 @@ import errno
 import datetime
 import re
 import imp
+from string import Template
+
 from fabric.api import task, warn, put, puts, get, local, run, execute, \
     settings, abort, hosts, env, runs_once, parallel, hide
 
@@ -3667,14 +3669,21 @@ def analyse_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 @task
 def publish():
     "Generate html file to publish experiment data/results/figures"
-    out_dir="publish"
+    out_dir="publish2"
     find_dir="./exp_20170708-053028/"
+    find_dir="./exp_20170706-090645/"
     overwrite=True
-    paper=''
+    paper='paper.pdf'
+    title = "Computer-aided Reproducibility"
+    description_file="description.txt"
+    density=450
+    source_link="https://github.com/screw/teacup/"
+    config_name=""
+    author="Marcel Marek - marcelma@ifi.uio.no"
+
+    local('mkdir -p "%s"' % (out_dir), capture=True)
 
 
-
-    local('mkdir -p "%s"' % (out_dir),capture=True)
 
     puts('\n[MAIN] Find figures\n')
 
@@ -3686,16 +3695,27 @@ def publish():
 
     test_ids = set()
     experiment_dirs = set()
+
+    figure_block=""
+    figure_block += "<div class=\"w3-row-padding w3-grayscale\">\n"
+
+    found_throughput=False
+    found_cwnd=False
+    found_spprtt=False
+    found_tcprtt=False
+
     # copy figures  to out_dir
     for plot_file in plot_files:
+        (path, plot_file_name) = os.path.split(plot_file)
+        experiment_dirs.add(path)
 
 
         local('cp "%s"  "%s"' % (plot_file, out_dir))
+        local('convert -flatten -density %d "%s"  "%s/%s.png"' % (density, plot_file, out_dir,plot_file_name))
 
         puts('\n[MAIN] Find or generate SRC for figures \n')
 
-        (path, plot_file_name) = os.path.split(plot_file)
-        experiment_dirs.add(path)
+
         src_file = local('find -L -name "%s.src"' % (plot_file_name), capture=True)
         print src_file
 
@@ -3715,11 +3735,17 @@ def publish():
             if(command == "spprtt"):
                 print "spprtt"
                 cmd = "analyse_rtt"
+                found_spprtt=True
+                figure_block_spprtt = figure_block_item(plot_file_name, cmd, test_id)
             elif(command == "cwnd"):
                 print "cwnd"
                 cmd = "analyse_cwnd"
+                found_cwnd=True
+                figure_block_cwnd = figure_block_item(plot_file_name, cmd, test_id)
             elif(command == "throughput"):
                 cmd = "analyse_throughput"
+                found_throughput=True
+                figure_block_through = figure_block_item(plot_file_name, cmd, test_id)
             else:
                 reg = re.compile('((\d{8}-\d{6}).*)_(.*_.*)_time_series.pdf')
                 match = reg.search(plot_file_name)
@@ -3730,27 +3756,83 @@ def publish():
                 command = match.group(3)
                 if(command == "smooth_tcprtt"):
                     cmd = "analyset_tcp_rtt"
+                    found_tcprtt=True
+                    figure_block_tcprtt = figure_block_item(plot_file_name, cmd, test_id)
                 else:
                     print "none of the above"
             test_ids.add(test_id)
             local('echo "fab %s:test_id=%s" > %s/%s.src' % (cmd, test_id, out_dir, plot_file_name))
+            figure_block += "<p class =\"w3-opacity\"><code>fab " + cmd + ":test_id="+ test_id+ "</code></p>\n"
         else:
             local('cp "%s"  "%s"' % (src_file, out_dir))
+            figure_block += " <p class =\"w3-opacity\" ><code>" + open(src_file).read() + "</code></p>\n"
 
+
+
+        figure_block += "<p>Add description to " + plot_file_name + " or DELETE this section!</p>\n"
+        figure_block += "</div>\n"
+        figure_block += "</div>\n"
+        figure_block += "</div>\n"
+    figure_block+= "</div>\n"
     #collect generated text files with data to include with the src?
     #  (timediff, rtt values, etc)
 
 
     puts('\n[MAIN] Find experiment config \n')
-    print experiment_dirs
+    # print experiment_dirs
     for experiment_dir in experiment_dirs:
         local('find %s -name *tpconf_vars.log.gz -exec cp {} %s \;' % (experiment_dir, out_dir))
-
+        config_name = local('find %s -name *tpconf_vars.log.gz' % (experiment_dir),  capture=True)
+        (tmp, config_file_name) = os.path.split(config_name)
     puts('\n[MAIN] Find paper and paper description \n')
 
     puts('\n[MAIN] Creating archive \n')
 
+    description=open(description_file).read()
+    print description
+
+
+    args={}
+    args["author"] = author
+    args["title"] = title
+    args["abstract"] = description
+    args["repro_content"] = figure_block
+    args["source_link"] = source_link
+    args["config_name"] = config_file_name
+
+
+
+
+
+
     puts('\n[MAIN] Generating HTML file \n')
 
-    
+    template_file = open('template_w3c.html')
+    # print template_file.read()
+    template_html = template_file.read()
+    # print template_html
+    html = Template(template_html)
+    # print template_file.read()
+
+
+    out_html=html.substitute(args)
+
+
+    out_html_file = open(out_dir + "/page.html", mode="w")
+
+    out_html_file.write(out_html)
+
+    return
+
+
+def figure_block_item(plot_file_name):
+
+    figure_block = "<div class=\"w3-col m4 w3-margin-bottom\">\n"
+    figure_block += "<div class=\"w3-light-grey\">\n"
+    figure_block += "<img width=\"450\" src=\"" + plot_file_name + ".png\" style=\"width:100%\" onclick=\"onClick(this)\">\n"
+    figure_block += "<div class=\"wc-container\">"
+
+    return figure_block
+
+
 
