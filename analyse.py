@@ -3667,7 +3667,8 @@ def analyse_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 
 
 @task
-def publish():
+def publish(find_dir="./exp_20170706-090645/", out_dir="", overwrite=True, paper="paper.pdf", title="", description_file="description.txt",
+            density=450, source_link="", config_name="", author="", conclusion=""):
     "Generate html file to publish experiment data/results/figures"
     out_dir="publish2"
     find_dir="./exp_20170708-053028/"
@@ -3680,6 +3681,7 @@ def publish():
     source_link="https://github.com/screw/teacup/"
     config_name=""
     author="Marcel Marek - marcelma@ifi.uio.no"
+    conclusion="Empty for now."
 
     local('mkdir -p "%s"' % (out_dir), capture=True)
 
@@ -3697,12 +3699,18 @@ def publish():
     experiment_dirs = set()
 
     figure_block=""
-    figure_block += "<div class=\"w3-row-padding w3-grayscale\">\n"
+    figure_block += "<div class=\"w3-row-padding\">\n"
 
     found_throughput=False
     found_cwnd=False
     found_spprtt=False
     found_tcprtt=False
+
+    figure_block_spprtt=""
+    figure_block_tcprtt=""
+    figure_block_through=""
+    figure_block_cwnd=""
+
 
     # copy figures  to out_dir
     for plot_file in plot_files:
@@ -3736,16 +3744,16 @@ def publish():
                 print "spprtt"
                 cmd = "analyse_rtt"
                 found_spprtt=True
-                figure_block_spprtt = figure_block_item(plot_file_name, cmd, test_id)
+                figure_block_spprtt += figure_block_item(plot_file_name, cmd, test_id)
             elif(command == "cwnd"):
                 print "cwnd"
                 cmd = "analyse_cwnd"
                 found_cwnd=True
-                figure_block_cwnd = figure_block_item(plot_file_name, cmd, test_id)
+                figure_block_cwnd += figure_block_item(plot_file_name, cmd, test_id)
             elif(command == "throughput"):
                 cmd = "analyse_throughput"
                 found_throughput=True
-                figure_block_through = figure_block_item(plot_file_name, cmd, test_id)
+                figure_block_through += figure_block_item(plot_file_name, cmd, test_id)
             else:
                 reg = re.compile('((\d{8}-\d{6}).*)_(.*_.*)_time_series.pdf')
                 match = reg.search(plot_file_name)
@@ -3757,23 +3765,36 @@ def publish():
                 if(command == "smooth_tcprtt"):
                     cmd = "analyset_tcp_rtt"
                     found_tcprtt=True
-                    figure_block_tcprtt = figure_block_item(plot_file_name, cmd, test_id)
+                    figure_block_tcprtt += figure_block_item(plot_file_name, cmd, test_id)
                 else:
                     print "none of the above"
             test_ids.add(test_id)
             local('echo "fab %s:test_id=%s" > %s/%s.src' % (cmd, test_id, out_dir, plot_file_name))
-            figure_block += "<p class =\"w3-opacity\"><code>fab " + cmd + ":test_id="+ test_id+ "</code></p>\n"
+            # figure_block += "<p class =\"w3-opacity\"><code>fab " + cmd + ":test_id="+ test_id+ "</code></p>\n"
         else:
             local('cp "%s"  "%s"' % (src_file, out_dir))
             figure_block += " <p class =\"w3-opacity\" ><code>" + open(src_file).read() + "</code></p>\n"
 
 
 
-        figure_block += "<p>Add description to " + plot_file_name + " or DELETE this section!</p>\n"
-        figure_block += "</div>\n"
-        figure_block += "</div>\n"
-        figure_block += "</div>\n"
+    submenu_block="<div style=\"margin-left:20px\">\n"
+
+
+    if (found_tcprtt):
+        figure_block += get_section_begin("TCP RTT", "tcprtt") + figure_block_tcprtt # + "</div>\n"
+        submenu_block+="<a href=\"#repro_tcp_rtt\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-hover-white\">TCP RTT</a>\n"
+    if (found_spprtt):
+        figure_block += get_section_begin("SPP RTT", "spprtt")+  figure_block_spprtt # + "</div>\n"
+        submenu_block+="<a href=\"#repro_spp_rtt\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-hover-white\">SPP RTT</a>\n "
+    if (found_throughput):
+        figure_block += get_section_begin("Throughput", "throughput") +  "<div>\n" + figure_block_through + "</div>\n"
+        submenu_block+="<a href=\"#repro_throughput\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-hover-white\">Throughput</a>\n"
+    if (found_cwnd):
+        figure_block += get_section_begin("CWND", "cwnd") + figure_block_cwnd# + "</div>\n"
+        submenu_block+="<a href=\"#repro_cwnd\" onclick=\"w3_close()\" class=\"w3-bar-item w3-button w3-hover-white\">CWND</a>\n"
+
     figure_block+= "</div>\n"
+    submenu_block+="</div>\n"
     #collect generated text files with data to include with the src?
     #  (timediff, rtt values, etc)
 
@@ -3799,6 +3820,8 @@ def publish():
     args["repro_content"] = figure_block
     args["source_link"] = source_link
     args["config_name"] = config_file_name
+    args["conclusion"] = conclusion
+    args["submenu"] = submenu_block
 
 
 
@@ -3825,12 +3848,25 @@ def publish():
     return
 
 
-def figure_block_item(plot_file_name):
+def get_section_begin(section, id):
+    throughput_section_begin = "<div class=\"w3-container\" style=\"margin-top:75px\">\
+    <h2 class=\"w3-xxlarge w3-text-red\" id=\"repro_"+id+"\"><b>"+ section +".</b></h2>\
+    <hr style=\"width:50px;border:5px solid red\" class=\"w3-round\">\
+    </div>\n"
+    return throughput_section_begin
 
-    figure_block = "<div class=\"w3-col m4 w3-margin-bottom\">\n"
+
+def figure_block_item(plot_file_name, cmd, test_id):
+
+    figure_block = "<div class=\"w3-col m4 w3-margin-bottom \">\n"
     figure_block += "<div class=\"w3-light-grey\">\n"
     figure_block += "<img width=\"450\" src=\"" + plot_file_name + ".png\" style=\"width:100%\" onclick=\"onClick(this)\">\n"
     figure_block += "<div class=\"wc-container\">"
+    figure_block += "<p class =\"w3-opacity\"><code>fab " + cmd + ":test_id=" + test_id + "</code></p>\n"
+    figure_block += "<p>Add description to " + plot_file_name + " or DELETE this section!</p>\n"
+    figure_block += "</div>\n"
+    figure_block += "</div>\n"
+    figure_block += "</div>\n"
 
     return figure_block
 
