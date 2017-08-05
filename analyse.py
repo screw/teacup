@@ -3665,9 +3665,23 @@ def analyse_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 
 
 
+## Generate webpage presenting the experiment results
+#  @find_dir Directory to look for PDFs
+#  @out_dir Directory where to place generated HTML file
+#  @overwrite This task tries to guess the command used to produced each figure
+#             and write it to .txt file. If that file already exists this flag
+#             tells the script whether to overwrite it or not.
+#  @paper File containing the article PDF
+#  @title Title of the paper or just the webpage
+#  @description_file File containing the abstract part from the paper or introduction for the webpage
+#  @density The script coverts PDFs to PNG for the webpage. This parameter specify the density.
+#  @source_link Link to the source code
+#  @config_name Explicitly specifies the configuration file. If blank the script tries to find one in the @find_dir
+#  @author Author(s)
+#  @conclusion Conclusion
 
 @task
-def publish(find_dir="./exp_20170706-090645/", out_dir="", overwrite=True, paper="paper.pdf", title="", description_file="description.txt",
+def publish(find_dir="./exp_20170706-090645/", out_dir="", overwrite=True, paper="paper.pdf", title="", desc_file="desc.txt",
             density=450, source_link="", config_name="", author="", conclusion=""):
     "Generate html file to publish experiment data/results/figures"
     out_dir="publish2"
