@@ -3681,21 +3681,23 @@ def analyse_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 #  @conclusion Conclusion
 
 @task
-def publish(find_dir="./exp_20170706-090645/", out_dir="", overwrite=True, paper="paper.pdf", title="", desc_file="desc.txt",
+def publish(find_dir="./exp_20170706-090645/", out_dir="publish/", overwrite=True, paper="paper.pdf", title="", desc_file="desc.txt",
             density=450, source_link="", config_name="", author="", conclusion=""):
     "Generate html file to publish experiment data/results/figures"
-    out_dir="publish2"
-    find_dir="./exp_20170708-053028/"
-    find_dir="./exp_20170706-090645/"
-    overwrite=True
-    paper='paper.pdf'
-    title = "Computer-aided Reproducibility"
-    description_file="description.txt"
-    density=450
-    source_link="https://github.com/screw/teacup/"
-    config_name=""
-    author="Marcel Marek - marcelma@ifi.uio.no"
-    conclusion="Empty for now."
+    # out_dir="publish2"
+    # find_dir="./exp_20170708-053028/"
+    # find_dir="./exp_20170706-090645/"
+    # overwrite=True
+    # paper='paper.pdf'
+    # title = "Computer-aided Reproducibility"
+    # description_file="description.txt"
+    # density=450
+    # source_link="https://github.com/screw/teacup/"
+    # config_name=""
+    # author="Marcel Marek - marcelma@ifi.uio.no"
+    # conclusion="Empty for now."
+
+
 
     local('mkdir -p "%s"' % (out_dir), capture=True)
 
@@ -3823,8 +3825,11 @@ def publish(find_dir="./exp_20170706-090645/", out_dir="", overwrite=True, paper
 
     puts('\n[MAIN] Creating archive \n')
 
-    description=open(description_file).read()
+    description=open(desc_file).read()
     print description
+
+    #copy paper
+    local('cp "%s"  "%s"' % (paper, out_dir))
 
 
     args={}
@@ -3836,6 +3841,7 @@ def publish(find_dir="./exp_20170706-090645/", out_dir="", overwrite=True, paper
     args["config_name"] = config_file_name
     args["conclusion"] = conclusion
     args["submenu"] = submenu_block
+    args["paper"] = paper
 
 
 
@@ -3876,7 +3882,7 @@ def figure_block_item(plot_file_name, cmd, test_id):
     figure_block += "<div class=\"w3-light-grey\">\n"
     figure_block += "<img width=\"450\" src=\"" + plot_file_name + ".png\" style=\"width:100%\" onclick=\"onClick(this)\">\n"
     figure_block += "<div class=\"wc-container\">"
-    figure_block += "<p class =\"w3-opacity\"><code>fab " + cmd + ":test_id=" + test_id + "</code></p>\n"
+    figure_block += "<p class =\"w3-opacity w3-code\"><code>fab " + cmd + ":test_id=" + test_id + "</code></p>\n"
     figure_block += "<p>Add description to " + plot_file_name + " or DELETE this section!</p>\n"
     figure_block += "</div>\n"
     figure_block += "</div>\n"
