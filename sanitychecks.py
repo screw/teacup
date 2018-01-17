@@ -426,6 +426,16 @@ def check_host():
         run('which lighttpd', pty=False)
         run('which nttcp', pty=False)
 
+    try:
+        config.TPCONF_rlite
+    except AttributeError:
+        config.TPCONF_rlite = 0
+
+    if config.TPCONF_rlite:
+        run('which rlite-uipcps', pty=False)
+        run('which rlite-ctl', pty=False)
+        run('which rlite-node-config', pty=False)
+
     put(config.TPCONF_script_path + '/runbg_wrapper.sh', '/usr/bin')
     run('chmod a+x /usr/bin/runbg_wrapper.sh', pty=False)
     run('which runbg_wrapper.sh', pty=False)
