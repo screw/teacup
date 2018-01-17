@@ -1256,6 +1256,28 @@ def init_host_custom(*args, **kwargs):
             run(cmd)
 
 
+## Rlite initialisation
+@task
+@parallel
+def init_rlite():
+    "Perform rlite initialisation"
+
+    # load the necessary kernel modules
+    run("modprobe rlite")
+    run("modprobe rlite-normal")
+    run("modprobe rlite-shim-eth")
+
+    # start the uipcps daemon
+    run("rlite-uipcps -d")
+
+    # upload the rlite initscript
+    initscr_path = config.TPCONF_rlite_initscript.get(env.host_string)
+    put(initscr_path, "/etc/rlite/initscript")
+
+    # initialize the DIFs
+    run("rlite-node-config")
+
+
 ## Do all host init
 #  @param ecn ECN off if '0', ECN on if '1'
 #  @param tcp_cc_algo TCP congestion control algo (see init_cc_algo())
@@ -1271,6 +1293,7 @@ def init_hosts(ecn='0', tcp_cc_algo='default', *args, **kwargs):
         *args,
         **kwargs)
     execute(init_router, hosts=config.TPCONF_router)
+    execute(init_rlite, hosts=config.TPCONF_hosts + config.TPCONF_router)
     execute(
         init_host_custom,
         hosts=config.TPCONF_router +
