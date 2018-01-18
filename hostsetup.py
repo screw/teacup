@@ -1271,6 +1271,7 @@ def init_rlite():
     run("rlite-uipcps -d")
 
     # upload the rlite initscript
+    run("mkdir -p /etc/rlite")
     initscr_path = config.TPCONF_rlite_initscript.get(env.host_string)
     put(initscr_path, "/etc/rlite/initscript")
 
