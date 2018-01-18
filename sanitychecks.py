@@ -590,8 +590,12 @@ def kill_old_processes():
         run('killall nttcp')
         run('killall pktgen.sh ; killall python')
 
-    if config.TPCONF_rlite:
-        run('killall rlite-uipcps')
+        if config.TPCONF_rlite:
+            run('rlite-ctl reset')
+            run('killall rlite-uipcps')
+            run('rmmod rlite_shim_eth')
+            run('rmmod rlite_normal')
+            run('rmmod rlite')
 
     # remove old log stuff in /tmp
     run('rm -f /tmp/*.log', pty=False)
