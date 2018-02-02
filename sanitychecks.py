@@ -349,6 +349,17 @@ def check_config():
     except AttributeError:
         config.TPCONF_debug_level = 0
 
+    try:
+        config.TPCONF_rlite
+    except AttributeError:
+        config.TPCONF_rlite = 0
+
+    if config.TPCONF_rlite:
+        try:
+            config.TPCONF_rlite_configen_path
+        except AttributeError:
+            abort('TPCONF_rlite_configen_path not defined')
+
     puts('Config file looks OK')
 
 
@@ -425,16 +436,6 @@ def check_host():
         run('which httperf', pty=False)
         run('which lighttpd', pty=False)
         run('which nttcp', pty=False)
-
-    try:
-        config.TPCONF_rlite
-    except AttributeError:
-        config.TPCONF_rlite = 0
-
-    try:
-        config.TPCONF_rlite_configen_path
-    except AttributeError:
-        abort('TPCONF_rlite_configen_path not defined')
 
     if config.TPCONF_rlite:
         run('which rlite-uipcps', pty=False)
