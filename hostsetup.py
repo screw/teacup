@@ -1262,6 +1262,14 @@ def init_host_custom(*args, **kwargs):
 def init_rlite():
     "Perform rlite initialisation"
 
+    # generate initscript
+    try:
+        subprocess.check_call([config.TPCONF_rlite_configen_path,
+                               "-c", config.TPCONF_rlite_configen_config,
+                               "-o", os.getcwd()])
+    except subprocess.CalledProcessError:
+        abort("rlite configen failed to generate initscripts")
+
     # load the necessary kernel modules
     run("modprobe rlite")
     run("modprobe rlite-normal")
@@ -1272,7 +1280,7 @@ def init_rlite():
 
     # upload the rlite initscript
     run("mkdir -p /etc/rina")
-    initscr_path = config.TPCONF_rlite_initscript.get(env.host_string)
+    initscr_path = os.getcwd() + '/' + env.host_string + '.initscript'
     put(initscr_path, "/etc/rina/initscript")
 
     # initialize the DIFs
