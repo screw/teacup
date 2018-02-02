@@ -1276,7 +1276,7 @@ def init_rlite():
     put(initscr_path, "/etc/rina/initscript")
 
     # initialize the DIFs
-    run("rlite-node-config")
+    run("rlite-node-config -o")
 
 
 ## Do all host init
