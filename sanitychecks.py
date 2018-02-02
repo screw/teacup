@@ -360,6 +360,11 @@ def check_config():
         except AttributeError:
             abort('TPCONF_rlite_configen_path not defined')
 
+        try:
+            config.TPCONF_rlite_configen_config
+        except AttributeError:
+            abort('TPCONF_rlite_configen_config not defined')
+
     puts('Config file looks OK')
 
 
