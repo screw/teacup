@@ -431,6 +431,11 @@ def check_host():
     except AttributeError:
         config.TPCONF_rlite = 0
 
+    try:
+        config.TPCONF_rlite_configen_path
+    except AttributeError:
+        abort('TPCONF_rlite_configen_path not defined')
+
     if config.TPCONF_rlite:
         run('which rlite-uipcps', pty=False)
         run('which rlite-ctl', pty=False)
