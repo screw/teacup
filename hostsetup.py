@@ -1286,6 +1286,21 @@ def init_rlite():
     # initialize the DIFs
     run("rlite-node-config -o")
 
+## Run a rina-echo-sync (ping) server on the router
+@task
+def prepare_ping_rlite():
+    run("rina-echo-async -l -w")
+
+## Run a ping on the hosts
+@task
+@parallel
+def run_ping_rlite():
+    run("rina-echo-async")
+
+## Clean up the rina-echo-async server
+@task
+def cleanup_ping_rlite():
+    run("killall rina-echo-async")
 
 ## Do all host init
 #  @param ecn ECN off if '0', ECN on if '1'
@@ -1303,6 +1318,9 @@ def init_hosts(ecn='0', tcp_cc_algo='default', *args, **kwargs):
         **kwargs)
     execute(init_router, hosts=config.TPCONF_router)
     execute(init_rlite, hosts=config.TPCONF_hosts + config.TPCONF_router)
+    execute(prepare_ping_rlite, hosts=config.TPCONF_router)
+    execute(run_ping_rlite, hosts=config.TPCONF_hosts)
+    execute(cleanup_ping_rlite, hosts=config.TPCONF_router)
     execute(
         init_host_custom,
         hosts=config.TPCONF_router +
