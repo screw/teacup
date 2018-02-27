@@ -299,6 +299,123 @@ def start_iperf(counter='1', file_prefix='', remote_dir='', local_dir='',
             server_internal, duration, congestion_algo, mss, buf_size,
             proto, rate, extra_params_client, check, wait, kill, hosts=[client])
 
+#
+# rinaperf
+#
+
+## Start rinaperf server
+#  @param counter Unique ID
+#  @param file_prefix File prefix for log file (iperf server output)
+#  @param remote_dir Directory to create log file in
+#  @param dif Name of DIF to register in
+#  @param duration Duration in seconds (only used if kill='1')
+#  @param extra_params Extra params to be set
+#  @param check '0' don't check for iperf executable, '1' check for iperf executable
+#  @param wait Time to wait before process is started
+#  @param kill If '0' server will terminate according to duration (default),
+#              if '1' kill server after duration to work around
+#              "feature" in iperf that prevents it from stopping after duration
+def start_rinaperf_server(counter='1', file_prefix='', remote_dir='', dif='',
+                       duration='', extra_params='', check='1',
+                       wait='', kill='0'):
+    if check == '1':
+        # make sure we have rinaperf
+        run('which rinaperf', pty=False)
+
+    # start rinaperf
+    logfile = remote_dir + file_prefix + '_' + \
+        env.host_string.replace(':', '_') + '_' + counter + '_rinaperf.log'
+    rinaperf_cmd = 'rinaperf -l'
+    if dif != '':
+        rinaperf_cmd += ' -d %s' % dif
+    if extra_params != '':
+        rinaperf_cmd += ' ' + extra_params
+    pid = runbg(rinaperf_cmd, wait, out_file=logfile)
+
+    bgproc.register_proc(env.host_string, 'rinaperf', counter, pid, logfile)
+
+    if kill == '1':
+        if duration == '':
+            abort("If kill is set to '1', duration must be specified")
+
+        # kill iperf server (send SIGTERM first, then SIGKILL after 1 second)
+        kill_cmd = 'kill_iperf.sh %s' % pid
+        # do this shortly after iperf client is expected to finish
+        wait = str(float(wait) + float(duration) + 2.0)
+        pid = runbg(kill_cmd, wait)
+
+        bgproc.register_proc(env.host_string, 'kill_rinaperf', counter, pid, '')
+
+
+## Start rinaperf client
+#  @param counter Unique ID
+#  @param file_prefix File prefix for log file (rinaperf client output)
+#  @param remote_dir Directory to create log file in
+#  @param dif Name of DIF to register in
+#  @param duration Duration in seconds
+#  @param sdu_size Size of SDUs that are sent during the test
+#  @param bandw Bandwidth in bits per second
+#  @param flow '0' disable flow control
+#              '1' enable flow control
+#  @param extra_params Extra params to be set
+#  @param check '0' don't check for iperf executable,
+#               '1' check for iperf executable
+#  @param wait Time to wait before process is started
+#  @param kill If '0' client will terminate according to duration (default),
+#              if '1' kill client after duration to work around
+#              "feature" in iperf that prevents it from stopping after duration
+def start_rinaperf_client(counter='1', file_prefix='', remote_dir='', dif='',
+                       duration='', sdu_size='', bandw='', flow='0',
+                       extra_params='', check='1', wait='', kill='0'):
+
+    if check == '1':
+        # make sure we have iperf
+        run('which rinaperf', pty=False)
+
+    # start rinaperf
+    logfile = remote_dir + file_prefix + '_' + \
+        env.host_string.replace(':', '_') + '_' + counter + '_rinaperf.log'
+    rinaperf_cmd = 'rinaperf -t perf'
+    if dif != '':
+        rinaperf_cmd += ' -d %s' % dif
+    if flow == '1':
+        rinaperf_cmd += ' -f'
+    if bandw != '':
+        rinaperf_cmd += ' -B %s' % bandw
+    if sdu_size != '':
+        rinaperf_cmd += ' -s %s' % sdu_size
+    if extra_params != '':
+        rinaperf_cmd += ' ' + extra_params
+    pid = runbg(rinaperf_cmd, wait, out_file=logfile)
+
+    bgproc.register_proc(env.host_string, 'rinaperf', counter, pid, logfile)
+
+    if kill == '1':
+        if duration == '':
+            abort("If kill is set to '1', duration must be specified")
+
+        # kill rinaperf client (send SIGTERM first, then SIGKILL after 1 second)
+        kill_cmd = 'kill_iperf.sh %s' % pid
+        # do this shortly after rinaperf client is expected to finish
+        wait = str(float(wait) + float(duration) + 1.0)
+        pid = runbg(kill_cmd, wait)
+
+        bgproc.register_proc(env.host_string, 'kill_rinaperf', counter, pid, '')
+
+
+## Start rinaperf sender and receiver
+## For parameters see start_rinaperf_client() and start_rinaperf_server()
+def start_rinaperf(counter='1', file_prefix='', remote_dir='', local_dir='',
+                dif='', client='', server='', duration='',
+                sdu_size='', rate='', flow='0', extra_params_client='',
+                extra_params_server='', check='1', wait='', kill='0'):
+    "Start rinaperf traffic sender and receiver"
+
+    execute(start_rinaperf_server, counter, file_prefix, remote_dir, dif,
+            duration, extra_params_server, check, wait, kill, hosts=[server])
+    execute(start_rinaperf_client, counter, file_prefix, remote_dir, dif,
+            duration, sdu_size, rate, flow, extra_params_client, check, wait,
+            kill, hosts=[client])
 
 #
 # ping

@@ -84,7 +84,7 @@ from loggers import start_tcpdump, stop_tcpdump, start_tcp_logger, \
     stop_tcp_logger, start_loggers, log_sysdata, log_queue_stats, \
     log_config_params, log_host_tcp, log_varying_params
 from routersetup import init_pipe, show_pipes
-from trafficgens import start_iperf, start_ping, \
+from trafficgens import start_iperf, start_rinaperf, start_ping, \
     start_http_server, start_httperf, \
     start_httperf_dash, create_http_dash_content, \
     create_http_incast_content, start_httperf_incast

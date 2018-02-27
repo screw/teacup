@@ -40,7 +40,7 @@ from hosttype import get_type_cached
 from hostint import get_netint_cached, get_netint_windump_cached
 from hostmac import get_netmac_cached
 
-from trafficgens import start_iperf, start_ping, \
+from trafficgens import start_iperf, start_rinaperf, start_ping, \
     start_http_server, start_httperf, \
     start_httperf_dash, create_http_dash_content, \
     create_http_incast_content, start_httperf_incast, \
