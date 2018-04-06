@@ -130,7 +130,7 @@ def get_testid_file_list(file_list_fname='', test_id='', file_ext='', pipe_cmd='
         if search_dir == '.':
             _files = _list(
                 local(
-                    'find -L %s -name "%s*uname.log*" -print | sed -e "s/^\.\///"%s' %
+                    'find -L %s -name "%s_*uname.log*" -print | sed -e "s/^\.\///"%s' %
                     (search_dir, test_id, pipe_cmd),
                     capture=True))
             if len(_files) > 0:
@@ -149,7 +149,7 @@ def get_testid_file_list(file_list_fname='', test_id='', file_ext='', pipe_cmd='
         for test_id in test_id_arr:
             _files = _list(
                 local(
-                    'find -L %s -name "%s*%s" -print | sed -e "s/^\.\///"%s' %
+                    'find -L %s -name "%s_*%s" -print | sed -e "s/^\.\///"%s' %
                     (search_dir, test_id, file_ext, pipe_cmd),
                     capture=True))
 
