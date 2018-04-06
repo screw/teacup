@@ -1317,10 +1317,11 @@ def init_hosts(ecn='0', tcp_cc_algo='default', *args, **kwargs):
         *args,
         **kwargs)
     execute(init_router, hosts=config.TPCONF_router)
-    execute(init_rlite, hosts=config.TPCONF_hosts + config.TPCONF_router)
-    execute(prepare_ping_rlite, hosts=config.TPCONF_router)
-    execute(run_ping_rlite, hosts=config.TPCONF_hosts)
-    execute(cleanup_ping_rlite, hosts=config.TPCONF_router)
+    if (config.TPCONF_rlite=='1'): 
+      execute(init_rlite, hosts=config.TPCONF_hosts + config.TPCONF_router)
+      execute(prepare_ping_rlite, hosts=config.TPCONF_router)
+      execute(run_ping_rlite, hosts=config.TPCONF_hosts)
+      execute(cleanup_ping_rlite, hosts=config.TPCONF_router)
     execute(
         init_host_custom,
         hosts=config.TPCONF_router +
