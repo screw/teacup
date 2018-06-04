@@ -1,14 +1,14 @@
 #!/bin/sh
 
 print_help() {
-  printf 'USAGE: %s DIF [FLOW_ID]\n' "$0"
+  printf 'USAGE: %s OUTFILE\n' "$0"
 }
 
 rlite_ctl() {
    if [ "$1" = "flows-show" ]; then
    cat <<EOF
 Flows table:
-  ipcp 2, addr:port 1:2<-->3:2, rx(pkt:1, 32B, drop:0), tx(pkt:1, 48B, drop:0), rtx(pkt:0, 0B)
+  ipcp 0, addr:port 1:2<-->3:2, rx(pkt:1, 32B, drop:0), tx(pkt:1, 48B, drop:0), rtx(pkt:0, 0B)
   ipcp 2, addr:port 1:3<-->3:3, rx(pkt:29, 870B, drop:0), tx(pkt:30, 918B, drop:0), rtx(pkt:0, 0B)
 EOF
   elif [ "$1" = "flow-dump" ]; then
@@ -31,41 +31,43 @@ last_seq_num_acked     = 1
 next_snd_ctl_seq       = 0
 seqq_len               = 0
 EOF
+  elif [ "$1" = "ipcps-show" ]; then
+    cat <<EOF
+IPC Processes table:
+	id=0, name='300.1.IPCP', dif_type='shim-eth', dif_name='300.DIF', address=*, txhdroom=0, rxhdroom=0, troom=0, mss=1500
+	id=1, name='n1.1.IPCP', dif_type='normal', dif_name='n1.DIF', address=3, txhdroom=28, rxhdroom=0, troom=0, mss=1472
+	id=2, name='n3.1.IPCP', dif_type='normal', dif_name='n3.DIF', address=3, txhdroom=56, rxhdroom=0, troom=0, mss=1444
+EOF
   fi
 }
 
 gather() {
 
+DIFS="$(rlite-ctl ipcps-show | sed -n -e 's/.*dif_name='\''\([[:graph:]]\+\)'\''.*/\1/p')"
 
-if [ -z "$FLOW_ID" ]; then
-  FLOW_ID="$(rlite-ctl flows-show | sed -n -e '$ s/.*addr:port [[:digit:]]\+:\([[:digit:]]\+\).*/\1/p')"
-fi
-
-if [ -z "$FLOW_ID" ]; then
-   echo "Failed to get a flow id" >&2
-   exit 1
-fi
-
-TIME=0
-OUTFILE="$DIF-$FLOW_ID.cvs"
 while true; do
-   printf "%s," "$TIME" >> "$OUTFILE"
-   rlite-ctl flow-dump "$FLOW_ID" | sed -e 's/.*= \([[:digit:]]\+\).*/\1/' | awk -F'\n' '{if(NR == 1) {printf $0} else {printf ","$0}}' >> "$OUTFILE"
-   printf '\n' >> "$OUTFILE"
-   sleep 1
-   TIME=$((TIME + 1))
+  for DIF in $DIFS; do
+    FLOW_IDS="$(rlite-ctl flows-show "$DIF" | sed -n -e 's/.*addr:port [[:digit:]]\+:\([[:digit:]]\+\).*/\1/p')"
+
+    if [ -z "$FLOW_IDS" ]; then
+      continue
+    fi
+
+    for FLOW_ID in $FLOW_IDS; do
+      TIME="$(date +%s%N)"
+      printf "%s,%s,%s," "$TIME" "$DIF" "$FLOW_ID" >> "$OUTFILE"
+      rlite-ctl flow-dump "$FLOW_ID" | sed -e 's/.*= \([[:digit:]]\+\).*/\1/' | awk -F'\n' '{if(NR == 1) {printf $0} else {printf ","$0}}' >> "$OUTFILE"
+      printf '\n' >> "$OUTFILE"
+    done
+  done
+  sleep 0.01
 done
 
 }
 
+OUTFILE="$1"
 
-DIF="$1"
-
-if [ -n "$2" ]; then
-  FLOW_ID="$2"
-fi
-
-if [ -z "$DIF" ]; then
+if [ -z "$OUTFILE" ]; then
    print_help
    return 1
 fi
