@@ -546,6 +546,67 @@ def stop_tcpdump(file_prefix='', remote_dir='', local_dir='.'):
     bgproc.remove_proc(env.host_string, 'tcpdump', '0')
 
 
+## Start rlite-gather (assume only one gather per host)
+#  @param file_prefix Prefix for file name
+#  @param remote_dir Directrory on remote where file is created
+#  @param local_dir Directory for .start file
+#                      if '1' internal (testbed) interface (default)
+@parallel
+def start_rlite_gather(
+        file_prefix='', remote_dir='', local_dir='.', dif=''):
+    "Start rlite-gather instance on host"
+
+    if remote_dir != '' and remote_dir[-1] != '/':
+        remote_dir += '/'
+
+        if env.host_string in config.TPCONF_router:
+                file_name = remote_dir + file_prefix + '_' + \
+                    env.host_string.replace(':', '_') + \
+                    + '_router.csv'
+        else:
+                file_name = remote_dir + file_prefix + '_' + \
+                    env.host_string.replace(':', '_') + '.csv'
+
+        gather_cmd = 'rlite-gather-stats.sh %s' % file_name
+
+        pid = runbg(gather_cmd)
+
+        name = 'rlite-gather'
+        #bgproc.register_proc(env.host_string, name, '0', pid, file_name)
+        bgproc.register_proc_later(
+            env.host_string,
+            local_dir,
+            name,
+            '0',
+            pid,
+            file_name)
+
+
+## Stop rlite-gather and get dump files
+#  @param file_prefix Prefix for file name
+#  @param remote_dir Directrory on remote where file is created
+#  @param local_dir Directory on control host where file is copied to
+@parallel
+def stop_rlte_gather(file_prefix='', remote_dir='', local_dir='.'):
+    "Stop rlite-gather instance on host"
+
+    pid = bgproc.get_proc_pid(env.host_string, 'rlite-gather', '0')
+    with settings(warn_only=True):
+        if pid != "":
+            run('kill %s' % pid, pty=False)
+        else:
+            run('killall rlite-gather')
+
+    if file_prefix != "" or remote_dir != "":
+        file_name = remote_dir + file_prefix + "_" + \
+            env.host_string.replace(":", "_") + ".csv"
+    else:
+        file_name = bgproc.get_proc_log(env.host_string, 'rlite-gather', '0')
+
+    getfile(file_name, local_dir)
+    bgproc.remove_proc(env.host_string, 'rlite-gather', '0')
+
+
 ## Start CPU load logger
 #  @param file_prefix Prefix for file name
 #  @param remote_dir Directrory on remote where file is created
