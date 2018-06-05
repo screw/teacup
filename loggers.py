@@ -553,7 +553,7 @@ def stop_tcpdump(file_prefix='', remote_dir='', local_dir='.'):
 #                      if '1' internal (testbed) interface (default)
 @parallel
 def start_rlite_gather(
-        file_prefix='', remote_dir='', local_dir='.', dif=''):
+        file_prefix='', remote_dir='', local_dir='.'):
     "Start rlite-gather instance on host"
 
     if remote_dir != '' and remote_dir[-1] != '/':
@@ -1002,6 +1002,15 @@ def start_loggers(file_prefix='', remote_dir='', local_dir='.'):
         snap_len=snap_len,
         hosts=config.TPCONF_router +
         config.TPCONF_hosts)
+
+    if config.TPCONF_rlite == 1:
+        execute(
+            start_rlite_gather,
+            file_prefix,
+            remote_dir,
+            local_dir,
+            hosts=config.TPCONF_router +
+            config.TPCONF_hosts)
 
     # start TCP loggers
     execute(
