@@ -120,11 +120,12 @@
 \papercolumns 2
 \papersides 1
 \paperpagestyle fancy
-\tracking_changes false
-\output_changes true
+\tracking_changes true
+\output_changes false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\author 193492759 "gja" 
 \end_header
 
 \begin_body
@@ -137,7 +138,7 @@ status open
 
 
 \backslash
-title{TEACUP v1.0 -- A System for Automated TCP Testbed Experiments}
+title{TEACUP v1.1 -- A System for Automated TCP Testbed Experiments}
 \end_layout
 
 \end_inset
@@ -155,35 +156,10 @@ status open
 \backslash
 author{
 \backslash
-IEEEauthorblockN{Sebastian Zander, Grenville Armitage}
+IEEEauthorblockN{Editors: Sebastian Zander, Grenville Armitage}
 \end_layout
 
 \begin_layout Plain Layout
-
-
-\backslash
-IEEEauthorblockA{Centre for Advanced Internet Architectures
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-Swinburne University of Technology
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-Melbourne, Australia
-\backslash
-
-\backslash
 
 \end_layout
 
@@ -191,7 +167,9 @@ Melbourne, Australia
 
 
 \backslash
-url{szander@swin.edu.au}, 
+IEEEauthorblockA{
+\backslash
+url{s.zander@murdoch.edu.au}, 
 \backslash
 url{garmitage@swin.edu.au}}}
 \end_layout
@@ -277,7 +255,7 @@ cite{dash-standard}.
  streaming flows (within a mix of other typical traffic) is not well understood.
  Experiments in a controlled testbed allow shedding more light on this issue.
  This report describes TEACUP (TCP Experiment Automation Controlled Using
- Python) version 1.0 -- a software tool for running automated TCP experiments
+ Python) version 1.1 -- a software tool for running automated TCP experiments
  in a testbed.
  Based on a configuration file TEACUP can perform a series of experiments
  with different traffic mixes, different bottleneck configurations (such
@@ -311,14 +289,14 @@ baselineskip}
 \backslash
 noindent
 \backslash
-begin{keywords} TCP, experiments, automated control
+begin{IEEEkeywords} TCP, experiments, automated control
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{keywords} 
+end{IEEEkeywords} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -405,20 +383,13 @@ footrulewidth}{0pt}% Footer rule
 \backslash
 fancyfoot[C]{
 \backslash
-small{
+small{Based on a version of  
 \backslash
-copyright~2015 -- 2016 CAIA, Swinburne University of Technology
+url{http://caia.swin.edu.au/reports/150529B/CAIA-TR-150529B.pdf}, orginally
+ released June 2016 under Creative Commons BY-SA 4.0 License, 
 \backslash
-
-\backslash
-Originally published as 
-\backslash
-url{http://caia.swin.edu.au/reports/150529A/CAIA-TR-150529A.pdf}
-\backslash
-
-\backslash
-This version released June 2016 under Creative Commons BY-SA 4.0 License
- -- see terms on page~
+copyright~2015 -- 2016 CAIA, Swinburne University of Technology.
+ See terms on page~
 \backslash
 pageref{sec:Copying}}}
 \end_layout
@@ -464,7 +435,7 @@ headrulewidth}{0pt}
 \backslash
 lfoot{
 \backslash
-small{TEACUP v1.0 -- A System for Automated TCP Testbed Experiments}}
+small{TEACUP v1.1 -- A System for Automated TCP Testbed Experiments}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -480,7 +451,7 @@ cfoot{}
 \backslash
 rfoot{
 \backslash
-small{June 9, 2016~~page 
+small{Feb 9, 2018~~page 
 \backslash
 thepage ~of 
 \backslash
@@ -509,10 +480,6 @@ status open
 \begin_inset Newpage newpage
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
 
 \end_layout
 
@@ -595,17 +562,36 @@ key "dash-standard"
 \end_layout
 
 \begin_layout Standard
-This report describes TEACUP (TCP Experiment Automation Controlled Using
- Python) version 1.0 -- a software tool for running automated TCP experiments
- in a testbed.
- It updates the previous report describing TEACUP version 0.9 
+This report
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Available online at 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://sourceforge.net/projects/teacup/files/TEACUP-System-v1.1.pdf
+\end_layout
+
+\end_inset
+
+ and updating a previous report that covered TEACUP version 1.0 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015tcpperf-0.9"
+key "CAIA-TR-150529A"
 
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+ describes TEACUP (TCP Experiment Automation Controlled Using Python) version
+ 1.1 – a software tool for running automated TCP experiments in a testbed.
  The TEACUP project originated at Swinburne University of Technology's Centre
  for Advanced Internet Architectures (
 \begin_inset Flex URL
@@ -659,7 +645,7 @@ IEEEpubidadjcol
 \end_layout
 
 \begin_layout Standard
-Based on a configuration file TEACUP can perform a series of experiments
+Based on a python configuration file, TEACUP can perform a series of experiments
  with different traffic mixes, different bottlenecks (such as bandwidths,
  queue mechanisms), different emulated network delays and/or loss rates,
  and different host settings (e.g.
@@ -700,7 +686,7 @@ TEACUP also provides a number of tasks for the analysis of data collected
  accompanying technical report 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0_analysis"
+key "zander2018_teacup_v1.1_analysis"
 
 \end_inset
 
@@ -717,7 +703,7 @@ reference "sec:Design"
 
 \end_inset
 
- describes the overall design of TEACUP -- the testbed network model, process
+ describes the overall design of TEACUP – the testbed network model, process
  flow and use of Fabric.
  Section 
 \begin_inset CommandInset ref
@@ -786,7 +772,7 @@ reference "sec:Conclusions"
 \end_layout
 
 \begin_layout Section
-TEACUP Requirements and Design
+TEACUP Motivation and Design
 \end_layout
 
 \begin_layout Standard
@@ -800,19 +786,18 @@ name "sec:Design"
 \end_layout
 
 \begin_layout Standard
-This section describes the design of TEACUP.
- We first list the requirements.
+This section describes the goals that motivated TEACUP's design.
+ We first list the intended requirements.
  Then we describe the overall functional block design and the process flow.
  Finally, we describe the naming scheme for log files.
 \end_layout
 
 \begin_layout Subsection
-Requirements
+Motivations and requirements
 \end_layout
 
 \begin_layout Standard
-The following paragraphs describe the requirements that motivated our design
- of TEACUP.
+Here we describe the requirements that motivated our design of TEACUP.
 \end_layout
 
 \begin_layout Subsubsection
@@ -950,10 +935,10 @@ TCP algorithms
 \end_layout
 
 \begin_layout Standard
-The following TCP congestion control algorithms must be supported: NewReno
- and CUBIC (representing classic loss-based algorithms), CompoundTCP (Microsoft'
-s hybrid), CDG (CAIA's hybrid), and HD (Hamilton Institutes' delay-based
- TCP).
+Multiple TCP congestion control algorithms must be supported, including:
+ NewReno and CUBIC (representing classic loss-based algorithms), CompoundTCP
+ (Microsoft's hybrid), CDG (CAIA's hybrid), and HD (Hamilton Institutes'
+ delay-based TCP).
  Optionally other TCPs may be supported.
  All the noted TCP algorithms are sender-side variants, so the destination
  can be any standard TCP implementation.
@@ -979,11 +964,9 @@ Bottleneck AQM
 
 \begin_layout Standard
 The following Active Queuing Management (AQM) mechanisms are required: TailDrop/
-FIFO, CoDel, PIE, RED.
- Optionally other AQM mechanisms may be supported.
- Since FreeBSD does not support some of the required AQMs the router must
- run Linux (but to allow comparison TEACUP also has some basic support for
- a FreeBSD router).
+FIFO, CoDel, PIE, FQ-CoDel, RED.
+ Optionally other AQM mechanisms may be supported, with the router being
+ able to run either Linux or FreeBSD (10.3 onwards).
  The buffer size must be configurable.
 \end_layout
 
@@ -1001,7 +984,7 @@ Host OS
 \end_layout
 
 \begin_layout Standard
-We are OS-agnostic.
+TEACUP is largely OS-agnostic.
  However, to cover the various TCP algorithms 
 \emph on
 and
@@ -1146,7 +1129,44 @@ TEACUP main functional blocks
 \end_layout
 
 \begin_layout Subsection
-Experiment process flow
+Experiment naming and process flow
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Experiment-naming-and"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An individual experiment consists of running one or more traffic generators
+ for configurable periods of time across a path emulating specific network
+ conditions.
+ TEACUP identifies individual experiments by their 
+\series bold
+test ID
+\series default
+, a text string used to construct experiment-specific log files (such as
+ testbed metadata, captured system state and captured traffic).
+ TEACUP also allows grouping of closely related experiments under a common
+ 
+\series bold
+test ID prefix
+\series default
+, where individual experiments (testIDs) are generated for each iteration
+ over a range of values for a subset of parameters controlling testbed condition
+s (see section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Log-file-naming"
+
+\end_inset
+
+).
+ The test ID prefix for an experiment or group of experiments is also used
+ to name distinct sub-directories for storing groups of log files and related
+ metadata.
 \end_layout
 
 \begin_layout Standard
@@ -1228,7 +1248,11 @@ Start experiment based on config and parameter configuration
 
 \begin_deeper
 \begin_layout Enumerate
-Log experiment test ID in file 
+Log experiment
+\series bold
+ test ID
+\series default
+ in file 
 \family typewriter
 \size small
 experiments_started.txt
@@ -1336,8 +1360,8 @@ experiments_completed.txt
 
 \end_deeper
 \begin_layout Enumerate
-If we have another parameter combination to run go to step III, otherwise
- finish
+If the config specifies another parameter combination to run under the same
+ test ID prefix, go to step III, otherwise finish
 \end_layout
 
 \begin_layout Standard
@@ -1363,7 +1387,7 @@ name "sub:FABRIC----Overview"
 
 \end_inset
 
-Fabric -- overview and installation
+Fabric – overview and installation
 \end_layout
 
 \begin_layout Standard
@@ -1448,7 +1472,7 @@ reference "sec:Utility"
 \end_layout
 
 \begin_layout Standard
-TEACUP was developed with Fabric versions 1.8--1.10, but it should also run
+TEACUP was developed with Fabric versions 1.8–1.10, but it should also run
  with newer versions of Fabric.
  The easiest way to install the latest version of Fabric is using the tool
  
@@ -1755,8 +1779,11 @@ Traffic sources and sinks
 \end_layout
 
 \begin_layout Standard
-We now describe the available traffic generator functions.
- How these can be used is described in more detail in Section 
+We now describe TEACUP's available traffic generator functions that control
+ underlying applications such as iperf, httperf, ping and so forth.
+ These underlying applications must be separately installed on the end hosts
+ before TEACUP can control them.
+ Use of these generators is described in more detail in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Config-traffic-generators"
@@ -1791,7 +1818,8 @@ ping
 \end_layout
 
 \begin_layout Standard
-This starts a ping from one host to another (ICMP Echo).
+This starts a ping from one host to another (generating pairs of ICMP Echo
+ Request and Echo Reply packets).
  The rate of pings is configurable for FreeBSD and Linux but limited to
  one ping per second for Windows.
  
@@ -1813,10 +1841,40 @@ key "lighttpd"
  This can be used as traffic source for httperf-based sinks.
  There are also scripts to setup fake content for DASH-like streaming and
  incast scenario traffic.
+ In addition,
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ lighttpd can be used as a web server that serves genuine DASH content to
+ a client started by 
+\emph on
+dash_streaming_dashjs
+\emph default
+.
  However, for specific experiments one may need to setup web server content
  manually or create new scripts to do this.
- We choose lighttpd as web server because it is leaner than some other popular
- web servers and hence it is easier to configure and provides higher performance.
+\end_layout
+
+\begin_layout Subsubsection
+nginx (new in TEACUP 1.1)
+\end_layout
+
+\begin_layout Standard
+An nginx 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nginx"
+
+\end_inset
+
+ web server is started.
+ This traffic source can be used as an alternative to lighttpd for serving
+ genuine DASH content to a client started by 
+\emph on
+dash_streaming_dashjs
+\emph default
+.
+ It is currently only available under FreeBSD-based and Linux-based hosts.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1851,19 +1909,134 @@ key "httperf"
 \end_layout
 
 \begin_layout Subsubsection
-httperf_dash
+dash_streaming_dashjs (new in TEACUP 1.1)
 \end_layout
 
 \begin_layout Standard
-This starts a TCP video streaming httperf client 
+This starts a HTML-5 based dash.js
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dashjs"
+
+\end_inset
+
+ client inside a Chrome or Firefox web-browser on one host, which then retrieves
+ video content
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ served by a regular web server (e.g lighttpd) on other host.
+ The client's host system must have Xorg, and either Chrome or Firefox installed.
+\end_layout
+
+\begin_layout Standard
+In DASH systems
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "stockhammer_dash_principles"
+
+\end_inset
+
+, video content is encoded into multiple versions at different discrete
+ bitrates (
+\shape italic
+representations
+\shape default
+).
+ Each encoded video is then fragmented into small video segments (
+\shape italic
+chunks
+\shape default
+), each containing a few seconds worth of video.
+ Chunks with different bitrates are all aligned in video timeline so that
+ at chunk boundaries the client can smoothly switch bitrates, if necessary.
+ 
+\end_layout
+
+\begin_layout Standard
+When a streaming session starts, DASH client will request the Media Presentation
+ Description (MPD) file which describes content information (available represent
+ations, metadata, download URLs), then start requesting video chunks as
+ fast as possible to fill the playout buffer.
+ Once the playout buffer is pre-filled, DASH client enters a steady-state
+ phase where it retrieves video chunks periodically (every 
+\shape italic
+t
+\shape default
+ seconds, where 
+\shape italic
+t
+\shape default
+ is the chunk size in seconds), resulting in an ON-OFF traffic pattern as
+ described in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TCP-video-streaming"
+
+\end_inset
+
+.
+ A particular adaptive bitrate algorithm (ABR) 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "comst_dash_abr"
+
+\end_inset
+
+ will be used by the client to determine the representation to be selected
+ for the next video chunk.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+NOTE:
+\series default
+ 
+\emph on
+dash_streaming_dashjs
+\emph default
+ uses an actual DASH client (with real ABR heuristics) with genuine video
+ content.
+ Setting up an appropriately configured host and using 
+\emph on
+dash_streaming_dashjs
+\emph default
+ is strongly preferred over the DASH-like traffic emulation of 
+\shape italic
+httperf_dash
+\shape default
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+httperf_dash (deprecated in TEACUP 1.1 but still available)
+\end_layout
+
+\begin_layout Standard
+This starts a httperf client 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "modified-httperf"
 
 \end_inset
 
- that emulates the behaviour of DASH or other similar TCP streaming algorithms
- 
+ that simplistically emulates the behaviour of DASH or other similar HTTP-based
+ chunked-transfer streaming algorithms 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Finamore2011,Rao2011"
@@ -1871,45 +2044,16 @@ key "Finamore2011,Rao2011"
 \end_inset
 
 .
- In the initial buffering phase the client will download the first part
- of the content as fast as possible.
- Then the client will fetch another block of content every 
+ In the initial buffering phase the client will download
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ content as fast as possible.
+ Then the client will fetch successive blocks of content every 
 \begin_inset Formula $t$
 \end_inset
 
  seconds.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
-\end_inset
-
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:TCP-video-streaming"
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
- shows an illustration of this behaviour.
  The video rate and the cycle length are configurable (and the size of the
  data blocks depends on these).
 \end_layout
@@ -1942,7 +2086,9 @@ name "fig:TCP-video-streaming"
 
 \end_inset
 
-TCP video streaming (DASH) behaviour
+Simplified illustration of TCP traffic generated by 
+\emph on
+dash_streaming_dashjs
 \end_layout
 
 \end_inset
@@ -1953,6 +2099,20 @@ TCP video streaming (DASH) behaviour
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+NOTE:
+\series default
+ This generator is deprecated in TEACUP version 1.1.
+ If you have installed the required Xorg and Chrome or Firefox packages
+ on your intended client end host, we recommend using 
+\emph on
+dash_streaming_dashjs
+\emph default
+ to launch and control a standards-compliant DASH client.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1997,14 +2157,53 @@ key "nttcp-web"
  
 \end_layout
 
+\begin_layout Subsubsection
+pktgen
+\end_layout
+
+\begin_layout Standard
+TEACUP knows how to use pktgen 0.3.1 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bitss-web"
+
+\end_inset
+
+
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ to crudely emulate the UDP traffic of first person shooter (FPS) games
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ such as Quake III Arena.
+ Note that pktgen 0.3.1 can only generate a single UDP unidirectional traffic
+ flow, so TEACUP launches a pair of pktgen instances between the server
+ and every nominated client (one sending client-to-server traffic and the
+ other sending server-to-client traffic).
+ 
+\end_layout
+
 \begin_layout Subsection
 Loggers
 \end_layout
 
 \begin_layout Standard
-Currently, there are two types of loggers that log information on all hosts.
- All traffic is logged with tcpdump and TCP state information is logged
- with different tools.
+Currently, there are a range of loggers that log information on all hosts.
+ All 
+\emph on
+host-to-host
+\emph default
+ and 
+\emph on
+cross router 
+\emph default
+traffic is logged with tcpdump while 
+\emph on
+TCP state information
+\emph default
+ on each host is logged with different OS-specific tools.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2013,7 +2212,8 @@ Traffic logger
 
 \begin_layout Standard
 tcpdump is used to capture the traffic on all testbed NICs on all hosts.
- All traffic is captured, but the snap size is limited to 68 bytes by default.
+ All traffic is captured.
+ The snap size defaults to 80 bytes but can be increased in the config file.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2038,7 +2238,19 @@ key "web10g"
 
 \end_inset
 
-, which implements the TCP EStats MIB 
+ (polling) or ttprobe
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "CAIA-TR-150911A"
+
+\end_inset
+
+ (event driven).
+ Web10g implements the TCP EStats MIB 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "rfc4898"
@@ -2047,6 +2259,7 @@ key "rfc4898"
 
  inside the Linux kernel, with our own logging tool based on the Web10G
  library.
+ TEACUP directly interprets ttprobe output.
  For Windows 7 we implemented our own logging tool, which can access the
  TCP EStats MIB inside the Windows 7 kernel.
  SIFTR has not been ported to Mac OS X, so for Mac OS X we implemented our
@@ -2060,7 +2273,7 @@ key "dtrace"
 
 .
  Note that the DTrace tool collects most but not all statistics collected
- by SIFTR (the tool's documentation describes the limitations).
+ by SIFTR (the tool's documentation describes these limitations).
 \end_layout
 
 \begin_layout Standard
@@ -2085,246 +2298,351 @@ key "web10g-stats"
 \end_layout
 
 \begin_layout Subsection
-Host information logged
-\end_layout
-
-\begin_layout Standard
+Log file naming – syntax and structure
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Host-info"
+name "sub:Log-file-naming"
 
 \end_inset
 
 
 \end_layout
 
+\begin_layout Subsubsection
+test IDs and test ID prefixes
+\end_layout
+
 \begin_layout Standard
-TEACUP does not only log the output of traffic generators and loggers, but
- also collects per-host information.
- This section describes the information collected for each host participating
- in an experiment.
- The following information is gathered 
-\emph on
-before
-\emph default
- an experiment is started (where <test_id_prefix> is a test ID prefix and
- <test_id> is a test ID):
-\end_layout
-
-\begin_layout Itemize
-<test_id>_ifconfig.log.gz: This file contains the output of 
-\family typewriter
-\size small
-ifconfig
-\family default
-\size default
- (FreeBSD, Linux or MacOSX) or 
-\family typewriter
-\size small
-ipconfig
-\family default
-\size default
- (Windows).
- 
-\end_layout
-
-\begin_layout Itemize
-<test_id>_uname.log.gz: This file contains the output of 
-\family typewriter
-\size small
-uname -a
-\family default
-\size default
-.
- 
-\end_layout
-
-\begin_layout Itemize
-<test_id>_netstat.log.gz: This file contains information about routing obtained
- with 
-\family typewriter
-\size small
-netstat -r
-\family default
-\size default
-.
- 
-\end_layout
-
-\begin_layout Itemize
-<test_id>_ntp.log.gz: This file contains information about the NTP status
- based on 
-\family typewriter
-\size small
-ntpq -p
-\family default
-\size default
- (FreeBSD, Linux, MacOSX or Windows with NTP daemon installed) or 
-\family typewriter
-\size small
-w32tm
-\family default
-\size default
- (Windows).
- 
-\end_layout
-
-\begin_layout Itemize
-<test_id>_procs.log.gz: This file contains the list of all running processes
- (output of 
-\family typewriter
-\size small
-ps
-\family default
-\size default
-).
- 
-\end_layout
-
-\begin_layout Itemize
-<test_id>_sysctl.log.gz: This file contains the output of 
-\family typewriter
-\size small
-sysctl -a
-\family default
-\size default
- (FreeBSD, Linux or MacOSX) and various information for Windows.
- 
-\end_layout
-
-\begin_layout Itemize
-<test_id>_config_vars.log.gz: This file contains information about all the
- V_ parameters in config.py (see Section 
+As noted in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sec:Config"
+reference "sub:Experiment-naming-and"
+
+\end_inset
+
+, TEACUP identifies individual experiments by a 
+\series bold
+test ID
+\series default
+, a unique string used to construct names for log files specific to individual
+ experiments (such as testbed metadata, captured system state and captured
+ traffic).
+ A test ID is constructed from a 
+\series bold
+test ID prefix
+\series default
+ and selected parameter name-value pairs describing a given experiment as
+ follows:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+<testID> = <testIDprefix>_[<parName>_<parVal>_]*
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+test ID prefix,
+\family typewriter
+\series default
+\size small
+ <testIDprefix>
+\family default
+\size default
+, groups together related experiments generated by iterating over range
+ of values for a subset of testbed parameters.
+ This prefix is either specified in the config file 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(TPCONF_test_id
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Will be renamed TPCONF_test_id_prefix in a future release.
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+
+ or on the command line (as described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Running"
 
 \end_inset
 
 ).
- It logs the actual parameter values for each experiment.
- It also provides an indication of whether a variable was actually used
- or not (caveat: this does not work properly with variables used for TCP
- parameter configuration, they are always shown as used).
- 
-\end_layout
-
-\begin_layout Itemize
-<test_id>_host_tcp.log.gz: This file contains information about the TCP congestion
- control algorithm used on each host, and any TCP parameters specified.
-\end_layout
-
-\begin_layout Itemize
-<test_id>_tcpmod.log.gz: This file contains the TCP congestion control kernel
- module parameter settings (Linux only).
-\end_layout
-
-\begin_layout Itemize
-<test_id>_ethtool.log.gz: This file contains the network interface configuration
- information provided by 
+ Certain metadata common to all experiments in a group are stored under
+ filenames constructed from 
 \family typewriter
-ethtool
+\size footnotesize
+<testIDprefix>
 \family default
- (Linux only).
+\size default
+ alone, rather than the full 
+\family typewriter
+\size footnotesize
+<testID>
+\family default
+\size default
+.
+ Our recommended (and default) 
+\family typewriter
+\size footnotesize
+<testIDprefix>
+\family default
+\size default
+ is a string of the form `exp_YYYYMMDD-HHMMSS' (based on the date and time
+ when the experiment or group of experiments was launched).
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Changed from the pre TEACUP v1.0 default of `YYYYMMDD-HHMMSS_experiment'
+ to simplify test ID parsing.
 \end_layout
 
-\begin_layout Itemize
-<test_id_prefix>_nameip_map.log.gz: This file logs host names and IP addresses
- (control interface IP addresses) of all hosts and routers participating
- in the series of experiments.
+\end_inset
+
+ 
+\family typewriter
+\size small
+[<parName>_<parVal>_]*
+\family default
+\size default
+ represents zero to 
+\begin_inset Formula $n$
+\end_inset
+
+ parameter name-value pairs separated by underscores.
+ Parameter names (
+\family typewriter
+\size small
+<parName>
+\family default
+\size default
+) must not contain underscores (by definition) and TEACUP forces all underscores
+ in parameter values (
+\family typewriter
+\size small
+<parVal>
+\family default
+\size default
+) to hyphens when an experiment is run.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This allows later parsing of the name-value pairs using the underscores
+ as separators.
+ Note the default `exp_YYYYMMDD-HHMMSS' testID prefix may also be parsed
+ as a parameter `exp' whose 
+\emph on
+value
+\emph default
+ is the date of an experiment (or group of experiments).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Grouping experiments under a test ID prefix
 \end_layout
 
 \begin_layout Standard
-The following information is gathered 
-\emph on
-after
-\emph default
- an experiment:
-\end_layout
-
-\begin_layout Itemize
-<test_id>_queue_stats.log.gz: Information about the router queue setup (including
- all queue discipline parameters) as well as router queue and filtering
- statistics based on the output of 
-\family typewriter
-\size small
-tc
-\family default
-\size default
- (Linux) or
+If an experiment is started with
 \family typewriter
 \size footnotesize
  
 \size small
-ipfw
+run_experiment_single
 \family default
 \size default
- (FreeBSD).
- Of course this information is collected 
-\emph on
-only
-\emph default
- for the router.
+ there are no parameter name-value pairs encoded in the testID, and 
+\family typewriter
+\size footnotesize
+<testID>
+\family default
+\size default
+ is just
+\family typewriter
+\size footnotesize
+ <testIDprefix>
+\family default
+\size default
+.
+ All testbed parameter values set in the experiment's config are archived
+ for post-processing in a separate file named 
+\family typewriter
+\size footnotesize
+<testIDprefix>_tpconf_vars.log.gz
+\family default
+\size default
+.
+\end_layout
+
+\begin_layout Standard
+However, the more common TEACUP use-case is to launch a group of related
+ experiments with 
+\family typewriter
+\size small
+run_experiment_multiple
+\family default
+\size default
+, which iterates across a range of values for a subset of testbed configuration
+ parameters.
+ In this case each test ID has a list of parameter name-value pairs reflecting
+ the list of parameter names specified in configuration variable 
+\family typewriter
+\size small
+TPCONF_vary_parameters
+\family default
+\size default
+ (see section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Config-defining-vars"
+
+\end_inset
+
+).
+ We end up with as many unique test IDs under a common test ID prefix as
+ there are unique combinations of parameter values for parameters listed
+ in 
+\family typewriter
+\size small
+TPCONF_vary_parameters
+\family default
+\size default
+.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+In other words, the 
+\family typewriter
+\size footnotesize
+<testID>
+\family default
+\size default
+ only contains name-value pairs for parameters that are being varied as
+ part of a group of experiments under a given 
+\family typewriter
+\size footnotesize
+<testIDprefix>
+\family default
+\size default
+.
+ The entire set of varied and non-varied parameters are also stored in a
+ separate file named 
+\family typewriter
+\size footnotesize
+<testIDprefix>_tpconf_vars.log.gz
+\family default
+\size default
+.
+\end_layout
+
+\end_inset
+
  
 \end_layout
 
-\begin_layout Subsection
-Config information logged
-\end_layout
-
 \begin_layout Standard
-TEACUP also logs information about the configuration of each series of experimen
-ts and variables set for each experiment.
- The following information is gathered 
-\emph on
-before
-\emph default
- an experiment is started (where <test_id_prefix> is a test ID prefix and
- <test_id> is a test ID):
-\end_layout
+Note: You can also run a single experiment using 
+\family typewriter
+\size small
+run_experiment_multiple
+\family default
+\size default
+.
+ Do this by specifying only one possible value for any parameters listed
+ in 
+\family typewriter
+\size small
+TPCONF_vary_parameters
+\family default
+\size default
+.
+ TEACUP then runs a single experiment (as it would with 
+\family typewriter
+\size small
+run_experiment_single
+\family default
+\size default
+) but with a test ID containing a more informative list of parameter name-value
+ pairs.
+\begin_inset Foot
+status open
 
-\begin_layout Itemize
-<test_id>_config_vars.log.gz: This file logs the values of all V_ variables
- for each experiment (see Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:variables_logged"
+\begin_layout Plain Layout
+In practical terms 
+\family typewriter
+\size footnotesize
+run_experiment_single
+\family default
+\size default
+ is a subset of 
+\family typewriter
+\size footnotesize
+run_experiment_multiple
+\family default
+\size default
+ that ignores the contents of 
+\family typewriter
+\size footnotesize
+TPCONF_vary_parameters
+\family default
+\size default
+.
+\end_layout
 
 \end_inset
 
-).
+
 \end_layout
 
-\begin_layout Itemize
-<test_id_prefix>_config.tar.gz: This file contains copies of the config file(s)
- -- there can be multiple files if Python's execfile() is used to separate
- the configuration into multiple files.
-\end_layout
-
-\begin_layout Itemize
-<test_id_prefix>_tpconf_vars.log.gz: This file lists all TPCONF_ parameters
- specified in the config file(s) in a format that can be imported into Python.
-\end_layout
-
-\begin_layout Itemize
-<test_id_pfx>_varying_params.log.gz: This file contains a list of all V_ variables
- varied during the experiment(s) and their short names used in file names
- (see Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:variables_logged"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Subsection
-Log file naming
+\begin_layout Subsubsection
+File name formats
 \end_layout
 
 \begin_layout Standard
-The log file names of TEACUP follow a naming scheme that has the following
+Finally, most TEACUP log file and metadata file names share the following
  format:
 \end_layout
 
@@ -2349,104 +2667,12 @@ status open
 
 \family typewriter
 \size footnotesize
-<test_ID_pfx>_[<par_name>_<par_val>_]*_<host>_ [<traffgen_ID>_]_<file_name>.<exte
-nsion>.gz
+filename = <testID>_<host>_ [<traffgenID>_]<fileName>.<extension>[.gz]
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-The 
-\series bold
-test ID prefix
-\series default
- 
-\family typewriter
-\size small
-<test_ID_pfx>
-\family default
-\size default
- is the start of the file name and either specified in the config file (TPCONF_t
-est_id) or on the command line (as described in Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Running"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-The
-\family typewriter
-\size footnotesize
- 
-\size small
-[<par_name>_<par_val>_]*
-\family default
-\size default
- is the zero to 
-\begin_inset Formula $n$
-\end_inset
-
- parameter names and parameter values (separated by an underscore).
- Parameter names (
-\family typewriter
-\size small
-<par_name>
-\family default
-\size default
-) should not contain underscores by definition and all underscores in parameter
- values (
-\family typewriter
-\size small
-<par_val>
-\family default
-\size default
-) are changed to hyphens (this allows later parsing of the names and values
- using the underscores as separators).
- If an experiment was started with
-\family typewriter
-\size footnotesize
- 
-\size small
-run_experiment_single
-\family default
-\size default
- there are zero parameter names and values.
- If an experiment was started with
-\family typewriter
-\size footnotesize
- 
-\size small
-run_experiment_multiple
-\size footnotesize
- 
-\family default
-\size default
-there are as many parameters names and values as specified in TPCONF_vary_parame
-ters.
- We also refer to the part 
-\family typewriter
-\size small
-<test_ID_pfx>_[<par_name>_<par_val>_]*
-\family default
-\size default
- (the part before the 
-\family typewriter
-\size small
-<host>
-\family default
-\size default
-) as 
-\series bold
-test ID
-\series default
-.
 \end_layout
 
 \begin_layout Standard
@@ -2466,14 +2692,14 @@ If the log file is from a traffic generator specified in TPCONF_traffic_gens,
  the traffic generator number follows the host identifier (
 \family typewriter
 \size small
-[<traffgen_ID>]
+[<traffgenID>]
 \family default
 \size default
 ).
  Otherwise, 
 \family typewriter
 \size small
-<traffgen_ID>
+<traffgenID>
 \family default
 \size default
  does not exist.
@@ -2483,18 +2709,25 @@ If the log file is from a traffic generator specified in TPCONF_traffic_gens,
 The 
 \family typewriter
 \size small
-<file_name>
+<fileName>
 \size footnotesize
  
 \family default
 \size default
-depends on the process which logged the data, for example it set to `uname'
- for uname information collected, it is set to `httperf_dash' for an httperf
- client emulating DASH, or it set to `web10g' for a Web10G log file.
+depends on which process logged the data.
+ For example it set to `uname' for uname information collected, it is set
+ to `httperf_dash' for an httperf client emulating DASH, set to `web10g'
+ for a Web10G log file, and so forth.
  tcpdump files are special in that they have an empty file name for tcpdumps
  collected on hosts (assuming they only have one testbed NIC), or the file
- name is <int_name>_router for tcpdumps collected on the router, where <int_name
-> is the name of the NIC (e.g.
+ name is 
+\family typewriter
+\size small
+<int_name>_router
+\family default
+\size default
+ for tcpdumps collected on the router, where <int_name> is the name of the
+ NIC (e.g.
  eth1).
 \end_layout
 
@@ -2506,15 +2739,14 @@ The
 \family default
 \size default
  is either `dmp' indicating a tcpdump file or `log' for all other log files.
- All log files are usually compressed with gzip, hence their file names
- end with `.gz'.
+ Gzip'ed log files have file names ending with `.gz'.
 \end_layout
 
 \begin_layout Standard
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Example-file-names-1"
+reference "fig:Example-file-names-1-1"
 
 \end_inset
 
@@ -2545,7 +2777,7 @@ status open
 
 \begin_layout Plain Layout
 
-20131206-170846_windows_dash_1000_tcp_compound_testhost2.dmp.gz
+exp_20131206-170846_dash_1000_tcp_compound_testhost2.dmp.gz
 \end_layout
 
 \begin_layout Plain Layout
@@ -2556,7 +2788,7 @@ status open
 
 \begin_layout Plain Layout
 
-20131206-170846_windows_dash_1000_tcp_compound_testhost2_3_httperf_dash.log.gz
+exp_20131206-170846_dash_1000_tcp_compound_testhost2_3_httperf_dash.log.gz
 \end_layout
 
 \end_inset
@@ -2570,7 +2802,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Example-file-names-1"
+name "fig:Example-file-names-1-1"
 
 \end_inset
 
@@ -2587,13 +2819,28 @@ Example file names
 
 \end_layout
 
+\begin_layout Subsubsection
+Storing results per test ID prefix
+\end_layout
+
 \begin_layout Standard
-All log files for one experiment (e.g.
- fab run_experiment_single) or a series of experiments (e.g.
- fab run_experiments_multiple) are stored under a sub directory named 
+When using the provided launch scripts, all log files for one experiment
+ (
 \family typewriter
 \size small
-<test_ID_pfx>
+fab run_experiment_single
+\family default
+\size default
+) or a group of experiments (
+\family typewriter
+\size small
+fab run_experiment_multiple
+\family default
+\size default
+) are stored under a sub directory named 
+\family typewriter
+\size small
+<testIDprefix>
 \family default
 \size default
  created inside the directory where fabfile.py is located.
@@ -2608,6 +2855,235 @@ Prior to version 0.4.7 TEACUP stored all log files in the directory where
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Host and router information logging
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Host-info"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In addition to logging the output of traffic generators and loggers, TEACUP
+ also collects per-host and per-router information.
+ This section describes the information collected for each host or router
+ participating in an experiment.
+ The following information is gathered 
+\emph on
+before
+\emph default
+ an experiment is started (where <testIDprefix> is a test ID prefix and
+ <testID> is a test ID):
+\end_layout
+
+\begin_layout Itemize
+<testID>_ifconfig.log.gz: This file contains the output of 
+\family typewriter
+\size small
+ifconfig
+\family default
+\size default
+ (FreeBSD, Linux or MacOSX) or 
+\family typewriter
+\size small
+ipconfig
+\family default
+\size default
+ (Windows).
+ 
+\end_layout
+
+\begin_layout Itemize
+<testID>_uname.log.gz: This file contains the output of 
+\family typewriter
+\size small
+uname -a
+\family default
+\size default
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+<testID>_netstat.log.gz: This file contains information about routing obtained
+ with 
+\family typewriter
+\size small
+netstat -r
+\family default
+\size default
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+<testID>_ntp.log.gz: This file contains information about the NTP status based
+ on 
+\family typewriter
+\size small
+ntpq -p
+\family default
+\size default
+ (FreeBSD, Linux, MacOSX or Windows with NTP daemon installed) or 
+\family typewriter
+\size small
+w32tm
+\family default
+\size default
+ (Windows).
+ 
+\end_layout
+
+\begin_layout Itemize
+<testID>_procs.log.gz: This file contains the list of all running processes
+ (output of 
+\family typewriter
+\size small
+ps
+\family default
+\size default
+).
+ 
+\end_layout
+
+\begin_layout Itemize
+<testID>_sysctl.log.gz: This file contains the output of 
+\family typewriter
+\size small
+sysctl -a
+\family default
+\size default
+ (FreeBSD, Linux or MacOSX) and various information for Windows.
+ 
+\end_layout
+
+\begin_layout Itemize
+<testID>_config_vars.log.gz: This file contains information about all the
+ V_ parameters in config.py (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Config"
+
+\end_inset
+
+).
+ It logs the actual parameter values for each experiment.
+ It also provides an indication of whether a variable was actually used
+ or not (caveat: this does not work properly with variables used for TCP
+ parameter configuration, they are always shown as used).
+ 
+\end_layout
+
+\begin_layout Itemize
+<testID>_host_tcp.log.gz: This file contains information about the TCP congestion
+ control algorithm used on each host, and any TCP parameters specified.
+\end_layout
+
+\begin_layout Itemize
+<testID>_tcpmod.log.gz: This file contains the TCP congestion control kernel
+ module parameter settings (Linux only).
+\end_layout
+
+\begin_layout Itemize
+<testID>_ethtool.log.gz: This file contains the network interface configuration
+ information provided by 
+\family typewriter
+ethtool
+\family default
+ (Linux only).
+\end_layout
+
+\begin_layout Itemize
+<testIDprefix>_nameip_map.log.gz: This file logs host names and IP addresses
+ (control interface IP addresses) of all hosts and routers participating
+ in the experiment or group of experiments.
+\end_layout
+
+\begin_layout Standard
+The following information is gathered from the router 
+\emph on
+after
+\emph default
+ an experiment:
+\end_layout
+
+\begin_layout Itemize
+<testID>_queue_stats.log.gz: Information about the router queue setup (including
+ all queue discipline parameters) as well as router queue and filtering
+ statistics based on the output of 
+\family typewriter
+\size small
+tc
+\family default
+\size default
+ (Linux) or
+\family typewriter
+\size footnotesize
+ 
+\size small
+ipfw
+\family default
+\size default
+ (FreeBSD).
+\end_layout
+
+\begin_layout Subsection
+Config information logging
+\end_layout
+
+\begin_layout Standard
+TEACUP also logs information about the configuration of each experiment
+ or group of experiments and variables set for each experiment.
+ The following information is gathered 
+\emph on
+before
+\emph default
+ an experiment is started (where <testIDprefix> is a test ID prefix and
+ <testID> is a test ID):
+\end_layout
+
+\begin_layout Itemize
+<testID>_config_vars.log.gz: This file logs the values of all V_ variables
+ for each experiment (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:variables_logged"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+<testIDprefix>_config.tar.gz: This file contains copies of the config file(s)
+ – there can be multiple files if Python's execfile() is used to separate
+ the configuration into multiple files.
+\end_layout
+
+\begin_layout Itemize
+<testIDprefix>_tpconf_vars.log.gz: This file lists all TPCONF_ parameters
+ specified in the config file(s) in a format that can be imported into Python.
+\end_layout
+
+\begin_layout Itemize
+<testIDprefix>_varying_params.log.gz: This file contains a list of all V_
+ variables varied during the experiment(s) and their short names used in
+ file names (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:variables_logged"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Section
@@ -2625,6 +3101,23 @@ This section provides a general description of how the hosts and router
  are configured for each experiment and test within an experiment.
  The router implements a bottleneck with configurable one-way delays, rate
  limits and AQM (active queue management).
+ A Linux-based bottleneck router uses tc and netem (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Linux-router-setup"
+
+\end_inset
+
+), while a FreeBSD-based bottleneck router uses ipfw and Dummynet (section
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:FreeBSD-router-setup"
+
+\end_inset
+
+).
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -2633,11 +3126,25 @@ Host setup
 
 \begin_layout Standard
 The setup of hosts other than the router is relatively straight-forward.
- First, each host is booted into the selected OS.
- Then, hardware offloading, such as TCP segmentation offloading (TSO), is
- disabled on testbed interfaces (all OS), the TCP host cache is disabled
- (Linux) or configured with a very short timeout and purged (FreeBSD), and
- TCP receive and send buffers are set to 2
+ First:
+\end_layout
+
+\begin_layout Itemize
+Each host is booted into the selected OS
+\end_layout
+
+\begin_layout Itemize
+Hardware offloading, such as TCP segmentation offloading (TSO), is disabled
+ on testbed interfaces (all OS)
+\end_layout
+
+\begin_layout Itemize
+TCP host cache is disabled (Linux) or configured with a very short timeout
+ and purged (FreeBSD)
+\end_layout
+
+\begin_layout Itemize
+TCP receive and send buffers are set to 2
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -2645,25 +3152,37 @@ MB or more (FreeBSD, Linux).
 \end_layout
 
 \begin_layout Standard
-Next ECN is enabled or disabled depending on the configuration.
- Then the TCP congestion control algorithm is configured for FreeBSD and
- Linux (including loading any necessary kernel modules).
- Then the parameters for the current TCP congestion control algorithm are
- configured if specified by the user (FreeBSD, Linux).
- Finally, custom user-specified commands are executed on hosts as specified
+Next:
+\end_layout
+
+\begin_layout Itemize
+ECN is enabled or disabled depending on the configuration
+\end_layout
+
+\begin_layout Itemize
+TCP congestion control algorithm is configured for FreeBSD and Linux (including
+ loading any necessary kernel modules)
+\end_layout
+
+\begin_layout Itemize
+Parameters for the current TCP congestion control algorithm are configured
+ if specified by the user (FreeBSD, Linux).
+\end_layout
+
+\begin_layout Standard
+Finally, user-specified custom commands are executed on hosts as specified
  in the configuration (these can overrule the general setup).
 \end_layout
 
 \begin_layout Subsection
-Linux router setup
-\end_layout
+Linux-based bottleneck router setup
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Linux-router-setup"
 
-\begin_layout Standard
-The router setup differs between FreeBSD (where ipfw and Dummynet is used)
- and Linux (where tc and netem is used).
- Our main focus is Linux, because Linux supports more AQM mechanisms than
- FreeBSD and some of the required AQM mechanisms are only implemented on
- Linux.
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2680,8 +3199,7 @@ Approach
 \end_layout
 
 \begin_layout Standard
-We use the following approach.
- Shaping, AQM and delay/loss emulation is done on the egress NIC (as usual).
+Shaping, AQM and delay/loss emulation is done on the egress NIC (as usual).
  To filter packets and direct them into the `pipes' we use netfilter 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3233,7 +3751,7 @@ reference "fig:queue-disc-pseudo"
 \end_inset
 
 Mbps.
- Here he leaf queuing discipline is a bfifo (byte FIFO) with a buffer size
+ Here the leaf queuing discipline is a bfifo (byte FIFO) with a buffer size
  of 18.75
 \begin_inset space \thinspace{}
 \end_inset
@@ -3674,30 +4192,157 @@ key "bufferbloat-bcp"
 \end_layout
 
 \begin_layout Subsection
-FreeBSD router setup
+FreeBSD-based bottleneck router setup
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:FreeBSD-router-setup"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-While a Linux router is our main focus, we also implemented a basic router
- queue setup for FreeBSD.
+TEACUP can utilise AQM capabilities built into ipfw/dummynet for bottleneck
+ routers based on FreeBSD 10.3 or later (as documented in CAIA-TR-160708A
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "FreeBSD_dummynet"
+
+\end_inset
+
+).
+ 
 \end_layout
 
 \begin_layout Standard
-On FreeBSD each pipe is realised as one Dummynet pipe, which does the rate
- shaping, loss/delay emulation and queuing (FIFO or RED only).
+Each pipe is realised as one dummynet pipe, which does the rate shaping,
+ queuing, and loss/delay emulation.
  ipfw rules are used to redirect packets to the pipes based on the specified
  source and destination IP parameters.
- If a pipe is unidirectional then there is a single "pipe <num> ip from
- <source> to <dest> out" rule.
- If a pipe is bidirectional there is an additional "pipe <num> ip from <dest>
- to <source> out" rule.
- The pipe number <num> is automatically determined by TEACUP.
- A more sophisticated setup for FreeBSD remains future work.
+ If a pipe is unidirectional then there is a single "
+\family typewriter
+\size small
+pipe <num> ip from <source> to <dest> out
+\family default
+\size default
+" rule.
+ If a pipe is bidirectional there is an additional "
+\family typewriter
+\size small
+pipe <num> ip from <dest> to <source> out
+\family default
+\size default
+" rule.
+ The pipe number 
+\family typewriter
+\size small
+<num>
+\family default
+\size default
+ is automatically determined by TEACUP.
+\end_layout
+
+\begin_layout Subsubsection
+Setting up ipfw/dummynet for AQM experiments
+\end_layout
+
+\begin_layout Standard
+The three main object types (link, queue and scheduler) are required for
+ dummynet to setup a functional pipe.
+ These object provide the following: 
+\end_layout
+
+\begin_layout Itemize
+Link object - provides traffic shaping, network delay and loss emulation
+ functions.
+ 
+\end_layout
+
+\begin_layout Itemize
+Queue object - configurable-size buffer that is used to store packets temporaril
+y to absorb network bursts, and managed by a queue management scheme (Droptail,
+ RED, CoDel or PIE).
+\end_layout
+
+\begin_layout Itemize
+Scheduler object - responsible for fetching packets from queues and send
+ them through the connected link.
+ 
+\end_layout
+
+\begin_layout Standard
+TEACUP directs dummynet to create all three objects and connect them together
+ to form a new pipe, which can then be added to ipfw rules.
+ For a multi-queue scheduler, such as QFQ and RR, they can serve multiple
+ queues depending on the scheduling algorithm.
+ Each queue can be configured with different size and AQM.
+\end_layout
+
+\begin_layout Standard
+For more complex AQM schemes such as FQ-CoDel, the scheduler implements
+ as a single-queue scheduler with multiple internal sub-queue managed by
+ a non FQ AQM (CoDel for FQ-CoDel).
+ To configure a pipe for FQ-CoDel or FQ-PIE, a queue, scheduler and link
+ should be created separately and be connected together, then the created
+ queue should be added to ipfw rules.
+\end_layout
+
+\begin_layout Subsubsection
+Ensuring same delays for all flows in Dummynet pipe
+\end_layout
+
+\begin_layout Standard
+TEACUP generates and runs ipfw commands based on router queues configurations
+ in config.py.
+ For each tuple in a queues configuration, TEACUP creates a dummynet pipe
+ with a specific amount of rate limiting, delay and loss emulation.
+ If 
+\family typewriter
+\size small
+queue_disc
+\family default
+\size default
+ argument is a pure queue management name (‘fifo’, ‘codel’ or ‘pie’), TEACUP
+ sets the queue size limit (if any) to the pipe, and adds it to ipfw rule.
+ 
+\end_layout
+
+\begin_layout Standard
+If 
+\family typewriter
+\size small
+queue_disc
+\family default
+\size default
+ argument is set to an fq variant (‘fq_codel’ or ‘fq_pie’), TEACUP creates
+ a queue and respective scheduler, and sets the queue size limit to the
+ scheduler.
+ This queue size limit is for whole sub-queues that were created by the
+ fq scheduler.
+ The created queue is then added to ipfw rules.
+ For a detailed example and more in depth explanation of how FreeBSD router
+ is setup for TEACUP, see CAIA-TR-160708A
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "FreeBSD_dummynet"
+
+\end_inset
+
+.
  
 \end_layout
 
 \begin_layout Section
-Config File
+Config File – format and functionality 
 \end_layout
 
 \begin_layout Standard
@@ -3711,17 +4356,29 @@ name "sec:Config"
 \end_layout
 
 \begin_layout Standard
-This section describes TEACUP's top-level config.py file that controls the
- experiments.
+This section describes TEACUP's top-level 
+\series bold
+config.py
+\series default
+ file that defines the parameters and conditions of an experiment or group
+ of experiments.
+ Available traffic generators are summarised in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Config-traffic-generators"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
-Config file location
+Location of config.py
 \end_layout
 
 \begin_layout Standard
 By default TEACUP will load the config.py file that is in the directory where
- fabfile.py is located -- the directory from which experiments are started.
+ fabfile.py is located – the directory from which experiments are started.
  Since TEACUP version 0.9, alternative config files can be specified using
  fab's 
 \family typewriter
@@ -3794,11 +4451,12 @@ V_variables
 \end_layout
 
 \begin_layout Standard
-To iterate over parameter settings for each experiment TEACUP uses 
+TEACUP uses 
 \emph on
 V_variables
 \emph default
-.
+ to support iteratation over a range of parameter values for groups of experimen
+ts.
  These are identifiers of the form V_<name>, where <name> must consist of
  only letters, numbers, hyphens (-) or underscores (_).
  V_variables can be used in router queue settings (see Section 
@@ -3903,9 +4561,37 @@ The password used for the SSH login is specified with env.password.
  The password can be empty if public-key authorisation is set up properly,
  e.g.
  the public SSH key of the control PC running TEACUP has been added to all
- hosts <user>/.ssh/authorized_keys files (and the corresponding private key
- on the control host is ~/.ssh/id_rsa or a file <key_file> specified with
- fab -i <key_file> or the env.key_filename configuration parameter 
+ hosts 
+\family typewriter
+\size small
+<user>/.ssh/authorized_keys
+\family default
+\size default
+ files (and the corresponding private key on the control host is 
+\family typewriter
+\size small
+~/.ssh/id_rsa
+\family default
+\size default
+ or a file 
+\family typewriter
+\size small
+<key_file>
+\family default
+\size default
+ specified with 
+\family typewriter
+\size small
+fab -i <key_file>
+\family default
+\size default
+ or the 
+\family typewriter
+\size small
+env.key_filename
+\family default
+\size default
+ configuration parameter 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "fabric-1.8"
@@ -3945,9 +4631,13 @@ env.password = 'testroot'
 \end_layout
 
 \begin_layout Standard
-The shell used to execute commands is specified with env.shell.
- By default Fabric uses Bash, but Bash is not standard on FreeBSD.
- So TEACUP's default setting is:
+Use env.shell to specify the shell used to execute commands.
+
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ Fabric's default, Bash, is not standard on FreeBSD so TEACUP's default
+ setting is:
 \end_layout
 
 \begin_layout Standard
@@ -4054,13 +4744,14 @@ Testbed configuration
 \end_layout
 
 \begin_layout Standard
-All TEACUP settings start with the 
+All TEACUP config file settings start with the 
 \size small
 \emph on
 TPCONF_
 \size default
 \emph default
- prefix and are Python variables (and must adhere to the Python syntax).
+ prefix.
+ They are Python variables and must adhere to the Python syntax.
 \end_layout
 
 \begin_layout Standard
@@ -4098,9 +4789,14 @@ TPCONF_script_path = '/home/test/src/teacup'
 \end_layout
 
 \begin_layout Standard
-Two lists specify the testbed hosts.
- TPCONF_router specifies the list of routers.
- Note that prior to TEACUP version 0.9 the 
+Two lists specify the roles of each testbed host machine.
+ TPCONF_router specifies the list of machines to be configured as software
+ routers (typically only one in a dumbbell configuration).
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Prior to TEACUP version 0.9 the 
 \begin_inset ERT
 status open
 
@@ -4124,12 +4820,11 @@ status open
 
 \end_inset
 
- list was limited to only 
-\emph on
-one
-\emph default
- router.
- Since version 0.9 a list of routers can be specified.
+ list was limited to only one router, but this limitation has been relaxed.
+\end_layout
+
+\end_inset
+
  
 \begin_inset ERT
 status open
@@ -4154,9 +4849,11 @@ status open
 
 \end_inset
 
- specifies the list of hosts.
- Router and hosts can be specified as IP addresses or host names (typically
- for convenience just the name without the domain part).
+ specifies the list of machines to be configured as traffic sources and/or
+ sinks (end hosts).
+ Router(s) and end hosts can be specified as IP addresses or human-readable
+ host names (typically for convenience just the name without the domain
+ part).
 \end_layout
 
 \begin_layout Standard
@@ -4277,9 +4974,14 @@ name "sub:Experiment-general-settings"
 \end_layout
 
 \begin_layout Standard
-TPCONF_test_id specifies the default test ID prefix.
+TPCONF_test_id specifies the default test ID 
+\series bold
+prefix
+\series default
+.
  Note that if the test ID prefix is specified on the command line, the command
  line overrules this setting.
+ For example, TEACUP's default test ID prefix can be set by:
 \end_layout
 
 \begin_layout Standard
@@ -4295,7 +4997,12 @@ now = datetime.datetime.today()
 
 \begin_layout Plain Layout
 
-TPCONF_test_id = now.strftime("%Y%m%d-%H%M%S")
+TPCONF_test_id = 
+\end_layout
+
+\begin_layout Plain Layout
+
+   'exp_'now.strftime("%Y%m%d-%H%M%S")
 \end_layout
 
 \end_inset
@@ -4304,13 +5011,23 @@ TPCONF_test_id = now.strftime("%Y%m%d-%H%M%S")
 \end_layout
 
 \begin_layout Standard
-TPCONF_remote_dir specifies the directory on the remote host where the log
- files (e.g.
- tcpdump, SIFTR) are stored during an experiment.
- Files are deleted automatically at the end of an experiment, but if an
- experiment is interrupted files can remain.
- Currently, there is no automatic cleanup of the directory to remove left-over
- files.
+TPCONF_remote_dir specifies the directory on the remote host(s) where the
+ log files (e.g.
+ tcpdump, SIFTR) are temporarily stored during an experiment.
+ These files are copied back to the control host and deleted from the remote
+ host(s) automatically at the end of an experiment.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Files can remain if an experiment is interrupted.
+ There is currently no automatic cleanup of left-over files in the remote
+ directory.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4361,7 +5078,7 @@ status open
 
 \begin_layout Plain Layout
 
-TPCONF_max_time_diff = 1
+TPCONF_max_time_diff = 2
 \end_layout
 
 \end_inset
@@ -4370,11 +5087,16 @@ TPCONF_max_time_diff = 1
 \end_layout
 
 \begin_layout Standard
-TPCONF_debug_level specifies the debug level for experiments.
+TPCONF_debug_level specifies the debug level for experiments and later analysis.
  At the default level of 0, no debug information is generated.
- If the variable is set to a higher value debug information is generated,
- for example at a debug level of 1 .Rout files are generated when plotting
- graphs.
+ If set to a higher value debug information is generated.
+ (For example at a debug level of 1, 
+\family typewriter
+\size small
+.Rout
+\family default
+\size default
+ files are generated when plotting graphs during later analysis.)
 \end_layout
 
 \begin_layout Standard
@@ -4394,8 +5116,8 @@ TPCONF_debug_level = 0
 \end_layout
 
 \begin_layout Standard
-The parameter TPCONF_web10g_poll_interval allows to specify the poll interval
- in milliseconds for web10g loggers on Linux or Windows.
+The parameter TPCONF_web10g_poll_interval allows specification of the poll
+ interval in milliseconds for web10g loggers on Linux or Windows.
  The minimum value is 1
 \begin_inset space \thinspace{}
 \end_inset
@@ -4435,7 +5157,7 @@ TPCONF_web10g_poll_interval = 10
 \end_layout
 
 \begin_layout Subsection
-tcpdump/pcap configuration
+tcpdump/pcap snaplen configuration
 \end_layout
 
 \begin_layout Standard
@@ -4478,23 +5200,24 @@ name "sub:topology_config"
 
 \begin_layout Standard
 Since version 0.8 TEACUP can automate the assignment of each host into one
- of the two subnets.
- The topology configuration is 
-\emph on
-EXPERIMENTAL
-\emph default
+ of the two subnets, given a testbed where the hosts and router are connected
+ via a single VLAN-capable switch.
+ Automatic topology configuration is 
+\bar under
+experimental
+\bar default
  and based on a number of assumptions around the network setup.
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-The most critical restriction is that switch reconfiguration has only been
- tested with Dell 5324 and Dell N3000 series switches.
+The most critical current restriction is that switch reconfiguration has
+ only been tested with Dell 5324 and Dell N3000 series switches.
 \end_layout
 
 \end_inset
 
- For an experiment or a series of experiment the topology (re)configuration
+ For an experiment (or a group of experiments) the topology (re)configuration
  is (optionally) carried out after the machines haven been rebooted and
  before any sanity checks are done.
 \end_layout
@@ -4523,9 +5246,9 @@ TPCONF_config_topology = '1'
 \end_layout
 
 \begin_layout Standard
-When topology configuration is enabled TEACUP actively 
+When topology configuration is enabled TEACUP 
 \emph on
-(re)configures
+actively (re)configures
 \emph default
  each host's test subnet IP address to that specified in 
 \begin_inset ERT
@@ -4665,7 +5388,8 @@ Note that the network interfaces on the hosts are currently hard-coded inside
  TEACUP.
  For example, for FreeBSD hosts the topology setup method assumes that em1
  is the testbed interface.
- The interface names can only be changed by modifying the Python code.
+ Currently these interface names can only be changed by modifying the Python
+ code.
 \end_layout
 
 \begin_layout Subsubsection
@@ -4687,9 +5411,10 @@ Mpbs, 100baseT), `1000' (1000
 \begin_inset space \thinspace{}
 \end_inset
 
-Mbps, 1000baseT), and `auto' (default, which should result in 1000baseT).
- The variable TPCONF_linkspeed allows to configure the link speed for all
- hosts.
+Mbps, 1000baseT), and `auto' (default, which should result in 1000baseT
+ if all links use Gigabit Ethernet NICs).
+ The variable TPCONF_linkspeed allows the configuration of the link speed
+ for all hosts.
  For example, if all hosts should use a link speed of 100 Mbps (100baseT)
  we can specify
 \begin_inset listings
@@ -4747,8 +5472,7 @@ TPCONF_host_linkspeed = {
 
 \begin_layout Standard
 TPCONF_host_linkspeed entries always overrule TPCONF_linkspeed.
- If neither variable is specified the default link speed setting is `auto',
- which should result in 1000baseT assuming Gigabit Ethernet NICs.
+ If neither variable is specified the default link speed setting is `auto'.
 \end_layout
 
 \begin_layout Standard
@@ -4763,9 +5487,9 @@ Rebooting, OS selection and power cycling
 \end_layout
 
 \begin_layout Standard
-With suitable external support, TEACUP enables automated rebooting of testbed
- hosts into different operating systems and forced power cycling of hosts
- that have become unresponsive.
+With suitable external hardware support, TEACUP supports automated rebooting
+ of testbed hosts into different operating systems and forced power cycling
+ of hosts that have become unresponsive.
 \end_layout
 
 \begin_layout Subsubsection
@@ -5136,7 +5860,7 @@ ower_ctrlport, TPCONF_power_admin_name and TPCONF_power_admin_pw must also
 
 \begin_layout Standard
 TPCONF_power_ctrl_type must be used to specify the type of power controller
- -- `9258HP' (for an 
+ – `9258HP' (for an 
 \begin_inset Quotes eld
 \end_inset
 
@@ -5306,8 +6030,7 @@ All the participating machines should have synchronised clocks (for example
  hosts.
  However, clocks on consumer-grade PC hardware drift even while using NTP.
  TEACUP provides an additional mechanism to evaluate the quality of the
- time synchronisation and (optionally) correct for clock offsets in the
- post-analysis.
+ time synchronisation and correct for clock offsets in the post-analysis.
 \end_layout
 
 \begin_layout Standard
@@ -5380,7 +6103,7 @@ width "97col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -5412,7 +6135,7 @@ TPCONF_bc_ping_address = '224.0.1.199'
 In technical report 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0_analysis"
+key "zander2018_teacup_v1.1_analysis"
 
 \end_inset
 
@@ -5435,22 +6158,20 @@ name "sub:Config-custom-host-setup"
 \end_layout
 
 \begin_layout Standard
-TPCONF_host_init_custom_cmds allows to execute custom per-host init commands.
- This allows to change the host configuration, for example with sysctls.
+TPCONF_host_init_custom_cmds allows the execution of custom per-host init
+ commands.
+ This allows changing of the host configuration, for example with sysctls.
  TPCONF_host_init_custom_cmds is a dictionary, where the key specifies the
  host name and the value is a list of commands.
  The commands are executed in exactly the order specified, after all default
  build-in host initialisation has been carried out.
- This means TPCONF_host_init_custom_cmds makes it possible to overrule default
+ This means TPCONF_host_init_custom_cmds makes it possible to override default
  initialisation.
  The commands are specified as strings and are executed on the host exactly
  as specified (with the exception that V_variables, if present, are substituted
  with values).
- V_variables can be used in commands, but the current 
-\emph on
-limitation
-\emph default
- is there can only be 
+ V_variables can be used in commands, with the current limitation of only
+ 
 \emph on
 one
 \emph default
@@ -5458,25 +6179,26 @@ one
 \end_layout
 
 \begin_layout Standard
-The custom commands are executed before the router configuration.
- So when using for example a FreeBSD router we can use TPCONF_host_init_custom_c
-mds to increase the maximum allowable Dummynet queue length (using sysctl)
- before Dummynet is actually configured.
+The custom commands are executed before router-specific configuration.
+ So when using, for example, a FreeBSD host as the router we can use TPCONF_host
+_init_custom_cmds to increase the maximum allowable Dummynet queue length
+ (using sysctl) on the router (as a host) before Dummynet is actually configured
+ (when configuring this particular host as the router).
  
 \end_layout
 
 \begin_layout Standard
-Note that the commands are executed in the foreground, which means that
- for each command TEACUP will wait until it has been executed on the remote
- host before executing the next command for the 
+Note that the custom commands are executed in the foreground, which means
+ that for each command TEACUP will wait until it has been executed on the
+ remote host before executing the next command for the 
 \emph on
 same
 \emph default
  host.
  It is currently not possible to execute background commands.
- However, commands on different hosts are executed in parallel, i.e.
- waiting for a command to finish on host testhost1 does not block executing
- the next command on host testhost2.
+ However, commands on different hosts are executed in parallel (so waiting
+ for a command to finish on host testhost1 does not block executing the
+ next command on host testhost2 or other hosts).
  In summary, commands on different host are executed in parallel, but commands
  on the same host are executed sequentially.
  
@@ -5636,7 +6358,8 @@ queue_size_mult
 \series default
 : The actual queue size is the queue size multiplied with this factor.
  This should only be used if queue_size if set to `bdp'.
- This allows to vary the queue size in multiples of the nominal BDP.
+ This allows the variation of the queue size in multiples of the nominal
+ BDP.
 \end_layout
 
 \begin_layout Itemize
@@ -5647,12 +6370,13 @@ queue_disc
 : Specifies the queuing discipline.
  This can be the name of any of the queuing disciplines supported by Linux,
  such as `fq_codel', `codel', `red', `choke', `pfifo', `pie' etc.
- On FreeBSD the only queuing disciplines available are `fifo' and `red'.
- For example, queue_disc=`fq_codel' sets the queuing discipline to the fair-queu
-ing+codel model.
- For compatibility, with FreeBSD one can specify `fifo' on Linux, which
- is mapped to `pfifo' (`pfifo' is the default for HTB classes, which we
- use for rate limiting).
+ On FreeBSD 10.3 and later the queuing disciplines available are `fifo',
+ `fq_codel', `codel', `fq_pie', `pie' and `red'.
+ For example, queue_disc=`fq_codel' sets the queuing discipline to the FQ-CoDel
+ (FlowQueuing+CoDel) model.
+ For compatibility with FreeBSD, one can specify `fifo' on Linux which is
+ mapped to `pfifo' (`pfifo' is the default for HTB classes, which we use
+ for rate limiting).
  The queue_disc parameter must be specified explicitly.
  
 \end_layout
@@ -5662,7 +6386,7 @@ ing+codel model.
 \series bold
 queue_disc_params
 \series default
-: This parameter allows to pass parameters to queuing disciplines.
+: This parameter allows passing of parameters to queuing disciplines.
  For example, if we wanted to turn ECN on for fq_codel we would specify
  queue_disc_params=`ecn' (c.f.
  fq_codel man page).
@@ -5673,10 +6397,10 @@ queue_disc_params
 \series bold
 bidir
 \series default
-: This allows to specify whether a queue is unidirectional (set to `0')
- or bidirectional (set to `1').
+: This allows specification of whether a queue is unidirectional (set to
+ `0') or bidirectional (set to `1').
  A unidirectional queue will only get the traffic from source to destination,
- whereas a bidirectional queue will get the traffic from source to dest
+ whereas a bidirectional queue will get the traffic from source to destination
  
 \emph on
 and
@@ -5694,7 +6418,7 @@ attach_to_queue
 only.
 
 \emph default
- It allows to direct matching packets into an existing queue referenced
+ It allows direct matching of packets into an existing queue referenced
  by the specified queue ID, but to emulate flow-specific delay/loss (different
  from the delay and loss of other traffic).
  If attach_to_queue is specified the matching traffic will go through the
@@ -5709,7 +6433,8 @@ only.
 \series bold
 rtt
 \series default
-: This parameter allows to explicitly specify the emulated RTT in milliseconds.
+: This parameter allows the explicit specification of the emulated RTT in
+ milliseconds.
  This parameter only needs to be specified if queue_size is set to `bdp'
  and the RTT is not twice the delay of the current TEACUP queue (e.g.
  if we set up asymmetric delay with attach_to_queue).
@@ -5987,6 +6712,13 @@ TPCONF_router_queues['testrouter2'] =
 
 \begin_layout Subsection
 Traffic generator setup
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Traffic-generator-setup"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -6039,12 +6771,31 @@ Client and server parameters can be external (control network) addresses
  An external address or host name is replaced by the first internal address
  specified for a host in TPCONF_host_internal_ip.
  Client and server parameters can also be internal (testbed network) addresses,
- which allows to specify any internal address.
+ which allows specification of any internal address.
 \end_layout
 
 \begin_layout Standard
-Each parameter is defined as <parameter_name>=<parameter_value>.
- Parameter names must be the parameter names of traffic generator functions
+Each parameter is defined as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+   <parameter_name>=<parameter_value>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Parameter names must be the parameter names of traffic generator functions
  (and as such be valid Python variable names).
  Parameter values can be either constants (string or numeric) or TEACUP
  V_variables that are replaced by the actual values depending on the current
@@ -6054,7 +6805,7 @@ faults.
  Numeric V_variables can be modified using mathematical operations, such
  as addition or multiplication, with constants.
  For example, if a variable `V_delay' exists one can specify `2
-\begin_inset Formula $\cdot$
+\begin_inset Formula $*$
 \end_inset
 
 V_delay' as parameter value.
@@ -6160,1340 +6911,6 @@ Traffic generator example
 \begin_layout Standard
 The example config files in the source code distribution contain more examples
  of setting up traffic generators.
-\end_layout
-
-\begin_layout Subsection
-Available traffic generators
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Config-traffic-generators"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This section describes the traffic generators (listed by their start function
- names) that can be used in TPCONF_traffic_gens.
-\end_layout
-
-\begin_layout Subsubsection
-start_iperf
-\end_layout
-
-\begin_layout Standard
-This starts an iperf client and server.
- Note that the client sends data to the server.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-port
-\series default
-: port number to use for client and server (passed to iperf -p option) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client
-\series default
-: IP or name of client (passed to iperf -c option)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server
-\series default
-: IP or name of server (passed to iperf -B option)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-duration
-\series default
-: time in seconds the client transmits (passed to iperf -t option)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-congestion_algo
-\series default
-: TCP congestion algorithm to use (works only on Linux) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-kill
-\series default
-: By default this is `0' and the iperf client will terminate after duration
- seconds.
- If this is set to `1', the iperf client will be killed approximately 1
- second after duration.
- This is a work-around for a 
-\begin_inset Quotes eld
-\end_inset
-
-feature
-\begin_inset Quotes erd
-\end_inset
-
- in iperf that prevents it from stopping after the specified duration.
- (If set to `1', the iperf server is also killed approximately 2 seconds
- after duration.)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-mss
-\series default
-: TCP maximum segment size (passed to iperf -M option)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-buf_size
-\series default
-: Send and receive buffer size in bytes (passed to iperf -j and -k, which
- only exist for iperf with the CAIA patch 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "zander2014caia_tcp_testbed_v2"
-
-\end_inset
-
-) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-proto
-\series default
-: Protocol to use, `tcp' (default) or `udp' (sets iperf -u option for `udp')
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-rate
-\series default
-: The bandwidth used for TCP (passed to iperf -a option) or UDP (passed
- to iperf -b option).
- Can end in `K' or `M' to indicate kilo bytes or mega bytes.
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params_client
-\series default
-: Command line parameters passed to iperf client 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params_server
-\series default
-: Command line parameters passed to iperf server
-\end_layout
-
-\begin_layout Subsubsection
-start_ping
-\end_layout
-
-\begin_layout Standard
-This starts a ping and has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client
-\series default
-: IP or name of machine to run ping on 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-dest
-\series default
-: IP or name of machine to ping 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-rate
-\series default
-: number of pings per second (Windows ping only supports 1 ping/second)
- (default = 1) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params
-\series default
-: Command line parameters passed to ping
-\end_layout
-
-\begin_layout Subsubsection
-start_http_server
-\end_layout
-
-\begin_layout Standard
-This starts an HTTP server (lighttpd) and has the following parameters:
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-port
-\series default
-: port to listen on (currently one server can listen on only one port) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-config_dir
-\series default
-: directory where the config file (lighttpd.conf) should be copied to 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-config_in
-\series default
-: local template for config file 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-docroot
-\series default
-: document root on server (FreeBSD default: /usr/local/www/data, MacOSX
- default: /opt/local/www/htdocs, Linux/CYGWIN default: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
-\end_inset
-
-/srv/www/htdocs
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-)
-\end_layout
-
-\begin_layout Subsubsection
-create_http_dash_content
-\end_layout
-
-\begin_layout Standard
-This creates fake content for the DASH-like client.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server
-\series default
-: IP or name of HTTP server 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-docroot
-\series default
-: document root of HTTP server (FreeBSD default: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
-\end_inset
-
-/usr/local/www/data
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-, MacOSX default: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
-\end_inset
-
-/opt/local/www/htdocs
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-, Linux/CYGWIN default: /srv/www/htdocs) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-duration
-\series default
-: number of seconds of fake content 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-rates
-\series default
-: comma-separated list of DASH rates in kB 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-cycles
-\series default
-: comma-separated list of cycle lengths in seconds
-\end_layout
-
-\begin_layout Subsubsection
-create_http_incast_content
-\end_layout
-
-\begin_layout Standard
-This creates fake content for incast experiments.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server
-\series default
-: IP or name of HTTP server 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-docroot
-\series default
-: document root of HTTP server (FreeBSD default: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
-\end_inset
-
-/usr/local/www/data
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-, MacOSX default: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
-\end_inset
-
-/opt/local/www/htdocs
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-, Linux/CYGWIN default: /srv/www/htdocs) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-sizes
-\series default
-: comma-separated list of content file sizes 
-\end_layout
-
-\begin_layout Subsubsection
-start_httperf
-\end_layout
-
-\begin_layout Standard
-This starts an httperf HTTP client.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client
-\series default
-: IP or name of client 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server
-\series default
-: IP or name of HTTP server (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--server)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-port
-\series default
-: port server is listening on (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--port)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-conns
-\series default
-: total number of connections (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--num-conns)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-rate
-\series default
-: rate at which connections are created (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--rate)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-timeout
-\series default
-: timeout for each connection; httperf will give up if a HTTP request does
- not complete within the timeout (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--timeout) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-calls
-\series default
-: number of requests in each connection (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--num-calls, default = 1) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-burst
-\series default
-: length of burst (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--burst-length)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-wsesslog
-\series default
-: session description file (passed to third parameter of httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--wsesslog)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-wsesslog_timeout
-\series default
-: default timeout for each wsesslog connection (passed to second parameter
- of httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--wsesslog) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-period
-\series default
-: time between creation of connections; equivalent to 1/rate if period is
- a number, but period can also specify inter-arrival time distributions
- (see httperf man page) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-sessions
-\series default
-: number of sessions (passed to first parameter of httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--wsesslog, default = 1) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-call_stats
-\series default
-: number of entries in call statistics array (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--call-stats, default = 1000) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params
-\series default
-: Command line parameters passed to httperf
-\end_layout
-
-\begin_layout Subsubsection
-start_httperf_dash
-\end_layout
-
-\begin_layout Standard
-This starts a DASH-like httperf client.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client
-\series default
-: IP or name of client 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server
-\series default
-: IP or name of HTTP server (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--server)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-port
-\series default
-: port server is listening on (passed to httperf -
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{}
-\end_layout
-
-\end_inset
-
--port)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-duration
-\series default
-: duration of DASH flow in seconds 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-rate
-\series default
-: data rate of DASH-like flow in kbps 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-cycle
-\series default
-: interval between requests in seconds 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-prefetch
-\series default
-: prefetch time in seconds of content to prefetch (can be fractional number)
- (default = 0.0) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-prefetch_timeout
-\series default
-: like timeout for start_httperf but only for the prefetch (by default this
- is set to cycle) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-with_timeout
-\series default
-: if set to `0' there is no timeout for requests (a request may take longer
- to complete than cycle); if set to `1' httperf will close the connection
- and terminate the session if the download of a chunk takes longer than
- cycle
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params
-\series default
-: Command line parameters passed to httperf
-\end_layout
-
-\begin_layout Standard
-The behaviour is as follows: 
-\end_layout
-
-\begin_layout Enumerate
-The client opens a persistent TCP connection to the server.
-\end_layout
-
-\begin_layout Enumerate
-If prefetch is > 0.0 the client will fetch the specified number of seconds
- of content and right after that send a request for the next block (step
- 3).
- 
-\end_layout
-
-\begin_layout Enumerate
-The client will request a block of content, wait for some time (cycle minus
- download time) and then request the next block.
- The size of one block is cycle
-\begin_inset Formula $\cdot$
-\end_inset
-
-rate
-\begin_inset Formula $\cdot$
-\end_inset
-
-1000
-\begin_inset Formula $/$
-\end_inset
-
-8 bytes.
- 
-\end_layout
-
-\begin_layout Standard
-If prefetch_timeout is set, the prefetch must be completed within the timeout,
- or otherwise httperf will close the connection and terminate the session.
- Similarly, if with_timeout=`1', httperf will close the connection and terminate
- the session if the download of a chunk takes longer than cycle seconds.
-\end_layout
-
-\begin_layout Standard
-Note that the number of chunks requested by the httperf client is set to
- floor((duration - prefetch_timeout) / cycle).
- This number guarantees that httperf can complete and generate the statistics
- output within the specified duration, even if the downloading takes the
- maximum amount of time (downloading always just finishes within the timeouts).
- However, this also means that if the prefetch is much faster than prefetch_time
-out and/or the download of the last chunk is much faster than cycle seconds,
- httperf will finish well before duration seconds.
-\end_layout
-
-\begin_layout Subsubsection
-start_httperf_incast
-\end_layout
-
-\begin_layout Standard
-This starts an httperf client for the incast scenario.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client
-\series default
-: IP or name of client 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-servers
-\series default
-: comma-separated list where each entry specifies one server in the form
- of `[IP|name]:port'.
- IP or name is a server's IP address or name and port is the port the server
- is listening on (a separate session for each server is created via httperf's
- session log).
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-duration
-\series default
-: duration of incast session in seconds 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-period
-\series default
-: period between requests in seconds (floating point number)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-burst_size
-\series default
-: number of queries sent at each period start (this is to increase the number
- of queries in a testbed that only has a few physical responder machines)
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-response_size
-\series default
-: size of response from each responder in kB 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params
-\series default
-: Command line parameters passed to httperf
-\end_layout
-
-\begin_layout Standard
-Note that if httperf can not complete a request within period time, if will
- close the connection and terminate the session with the responder (sessions
- with other responders are unaffected).
-\end_layout
-
-\begin_layout Subsubsection
-start_nttcp
-\end_layout
-
-\begin_layout Standard
-This starts an nttcp client and an nttcp server for some simple unidirectional
- UDP VoIP flow emulation.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client
-\series default
-: IP or name of client 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server
-\series default
-: IP or name of HTTP server 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-port
-\series default
-: control port server is listening on (passed to nttcp -p)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-duration
-\series default
-: duration of the flow (based on this and the interval TEACUP computes the
- number of buffers to send, passed to nttcp -n)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-interval
-\series default
-: interval between UDP packets in milliseconds (passed to nttcp -g)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-psize
-\series default
-: UDP payload size (excluding UDP/IP header) (passed to nttcp -l)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-buf_size
-\series default
-: send buffer size (passed to nttcp -w)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params_client
-\series default
-: Command line parameters passed to nttcp client 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params_server
-\series default
-: Command line parameters passed to nttcp server
-\end_layout
-
-\begin_layout Standard
-Note that nttcp also opens a TCP control connection between client and server.
- However, on this connection only a few packets are exchanged before and
- after the data flow.
- 
-\end_layout
-
-\begin_layout Subsubsection
-start_httperf_incast_n
-\end_layout
-
-\begin_layout Standard
-This starts an httperf client (querier) and 
-\begin_inset Formula $n$
-\end_inset
-
- HTTP servers (responders) for an incast scenario.
- It also generates the fake content for all 
-\begin_inset Formula $n$
-\end_inset
-
- servers.
- Basically this generator is a shortcut to setting up 
-\begin_inset Formula $n$
-\end_inset
-
- servers with 
-\begin_inset Formula $n$
-\end_inset
-
- start_http_server and create_http_incast_content.
- It has the following parameters: 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client
-\series default
-: IP or name of client 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-servers
-\series default
-: comma-separated list of servers, where each entry is either the IP or
- the host name of an HTTP server (a separate session for each server is
- created via httperf's session log)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server_port_start
-\series default
-: the port the first server is listening on.
- All further servers will be started on consecutive port numbers in the
- order they are specified in servers
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-duration
-\series default
-: duration of incast session in seconds 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-period
-\series default
-: period between requests in seconds (floating point number)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-burst_size
-\series default
-: number of queries sent at each period start (this is to increase the number
- of queries in a testbed that only has a few physical responder machines)
- 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-response_size
-\series default
-: size of response from each responder in kB 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-config_dir
-\series default
-: directory where the config file (lighttpd.conf) should be copied to 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-config_in
-\series default
-: local template for config file 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-docroot
-\series default
-: document root on server (FreeBSD default: /usr/local/www/data, MacOSX
- default: /opt/local/www/htdocs, Linux/CYGWIN default: 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-mbox{
-\end_layout
-
-\end_inset
-
-/srv/www/htdocs
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-sizes
-\series default
-: comma-separated list of content file sizes on the servers
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-num_responders
-\series default
-: The querier will only send queries to the first num_responders servers.
- This can be used to vary the number of responders in a series of experiments
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params
-\series default
-: Command line parameters passed to httperf
-\end_layout
-
-\begin_layout Standard
-Note that for this method the unique ID is the first ID used.
- The total number of IDs used is one plus the number of server/responders.
- Each server will be assigned a consecutive ID number starting with the
- first ID.
- The client will have an ID one higher than the highest server ID.
- If further traffic generators are specified after this generator, the user
- has to make sure there is no ID number clash.
-\end_layout
-
-\begin_layout Subsubsection
-start_fps_game
-\end_layout
-
-\begin_layout Standard
-This starts an emulated FPS game traffic session.
- From a logical viewpoint this starts several game clients and one game
- server.
- However, since the pktgen tool from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "bitss-web"
-
-\end_inset
-
- we use to generate the game traffic can only generate a single unidirectional
- traffic flow, this task starts pktgen twice as many times as there are
- clients (half of these processes generate the client-to-server traffic
- and half of these processes generate the server-to-client traffic).
- The task has the following parameters:
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-clients
-\series default
-: comma-separated list of clients where each client is specified as name/IP
- followed by a colon and the port number (e.g.
- client1:10000,client2:10001)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-server
-\series default
-: server name/IP followed by a colon and the server port number (e.g.
- server1:27960)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-game_type
-\series default
-: the type of game (can be `q3', `hl2cs', `hl2dm', `hlcs', `hldm', `et2pro',
- `q4')
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-c2s_interval
-\series default
-: time interval between packets send by client (in seconds)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-c2s_psize
-\series default
-: base packet size of packets send by clients (number of bytes of UDP payload);
- note that pktgen randomly varies the size of packets within a few bytes
- above the base size)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-s2c_interval
-\series default
-: time interval between packets send by server (in seconds)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-duration
-\series default
-: duration of the game session (in seconds)
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-client_start_delay
-\series default
-: delay between the last server-to-client pktgen process started and the
- first client-to-server pktgen process started (in seconds) 
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params_client
-\series default
-: extra parameters passed to client pktgen processes
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-extra_params_server
-\series default
-: extra parameters passed to server pktgen processes 
-\end_layout
-
-\begin_layout Standard
-Note that a pktgen server process will wait for packets from its corresponding
- client process before starting to send packets.
- In contrast, a client process will send packets to a corresponding server
- process immediately.
- If a client process is started, but the corresponding server process is
- not listening for packets yet, the server machine will return ICMP port
- unreachable messages to the client machine, which in turn will terminate
- the client process.
- The parameter client_start_delay must be set large enough so that all server
- processes are started and listen for packets before any client processes
- are started.
- The delay must be chosen based on the number of game clients (as each game
- client results in one pktgen process started on the server).
- By default client_start_delay is set to three seconds, which is sufficient
- for up 8 game clients.
-\end_layout
-
-\begin_layout Standard
-Note that pktgen does only support games with 4--32 clients.
- The smallest allowed number of clients is 4 and the largest allowed number
- of clients is 32.
-\end_layout
-
-\begin_layout Standard
-Also note that for this method the unique ID is the first ID used.
- In total the number of IDs used is twice the number of clients.
- Each server-to-client pktgen will be assigned a consecutive ID number starting
- with the first ID.
- Each client-to-server pktgen will be assigned a consecutive ID number starting
- with an ID one higher than the highest server-to-client pktgen ID.
- If further traffic generators are specified after this generator, the user
- has to make sure there is no ID number clash.
 \end_layout
 
 \begin_layout Subsection
@@ -7610,8 +7027,8 @@ Enabling ECN on hosts
 \begin_layout Standard
 TPCONF_ECN specifies whether ECN is used on the hosts that are the traffic
  sources/sinks.
- If set to `1' ECN is enabled for all hosts.
- If set to `0' ECN is disabled for all hosts.
+ If set to `1', ECN is enabled for all hosts.
+ If set to `0', ECN is disabled for all hosts.
  Currently per-host configuration is only possible with custom commands.
 \end_layout
 
@@ -7951,7 +7368,7 @@ TPCONF_aqms specifies the list of AQM/queuing techniques.
  Linux supports `fifo' (mapped to `pfifo'), `pfifo', `bfifo', `fq_codel',
  `codel', `pie', `red' etc.
  (refer to the tc man page for the full list).
- FreeBSD support only `fifo' and `red'.
+ FreeBSD support `fifo', `fq_codel', `codel', `fq_pie', `pie' and `red'.
  Default on Linux and FreeBSD are FIFOs (with size in packets).
  The following shows an example:
 \end_layout
@@ -8202,6 +7619,47 @@ TPCONF_inc_periods = [ 10 ]
 
 \end_layout
 
+\begin_layout Standard
+TPCONF_chunksize_mpd is used with 
+\shape italic
+start_dash_streaming_dashjs
+\shape default
+ traffic generator to specify a list of one or more DASH video chunk size
+ and MPD filename pairs.
+ The following shows an example:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+TPCONF_chunksize_mpd = [
+\end_layout
+
+\begin_layout Plain Layout
+
+  ('2','BigBuckBunny_2s.mpd'),
+\end_layout
+
+\begin_layout Plain Layout
+
+  ('10','BigBuckBunny_10s.mpd')
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Defining parameters to vary
 \end_layout
@@ -8218,42 +7676,131 @@ name "sub:Config-defining-vars"
 
 \begin_layout Standard
 TEACUP provides a flexible mechanism for defining what parameters are varied
- during experiments, what values (or ranges of values) those parameters
- may take, and how those parameters are then used to drive host, traffic
- generator and bottleneck configuration.
- TPCONF_parameter_list is a Python dictionary at the core of this mechanism.
+ during groups of experiments under a given 
+\family typewriter
+\size footnotesize
+<testIDprefix>
+\family default
+\size default
+, what values (or ranges of values) those parameters may take, and how those
+ parameters are then used to drive host, traffic generator and bottleneck
+ configuration.
+ 
+\family typewriter
+\size small
+TPCONF_parameter_list
+\family default
+\size default
+ is a Python dictionary at the core of this mechanism.
 \end_layout
 
 \begin_layout Standard
-The keys are names that can be used in TPCONF_vary_parameters.
- The values are 4-tuples.
- The first parameter of each tuple is a list of V_variables that can be
- used, for example in the queue configuration or traffic generator configuration.
- The second parameter of each tuple is a list of `short names' used in the
- file names of created log files.
- The third parameter of each tuple is the list of parameter values, these
- are usually references to the lists defined in the previous section.
- The last parameter is a dictionary of extra V_variables to set (this can
+The 
+\emph on
+keys
+\emph default
+ in 
+\family typewriter
+\size small
+TPCONF_parameter_list
+\family default
+\size default
+ are names that can be used in 
+\family typewriter
+\size small
+TPCONF_vary_parameters
+\family default
+\size default
+.
+ The 
+\emph on
+values
+\emph default
+ in 
+\family typewriter
+\size small
+TPCONF_parameter_list
+\family default
+\size default
+ are 4-tuples:
+\end_layout
+
+\begin_layout Itemize
+1st parameter of each tuple is a list of V_variables that can be used, for
+ example, in the queue configuration or traffic generator configuration
+\end_layout
+
+\begin_layout Itemize
+2nd parameter of each tuple is a list of `short names' used in the 
+\family typewriter
+\size footnotesize
+<testID>
+\family default
+\size default
+ (and hence the file names) of created log files
+\end_layout
+
+\begin_layout Itemize
+3rd parameter of each tuple is the list of parameter values, these are usually
+ references to the lists defined in the previous section
+\end_layout
+
+\begin_layout Itemize
+The last parameter is a dictionary of extra V_variables to set (this can
  be empty), where the keys are variable names and the values are the variable
  values.
- The length of the first three tuple parameters (V_variable identifiers,
+\end_layout
+
+\begin_layout Standard
+The length of the first three tuple parameters (V_variable identifiers,
  short names and V_variable values) must be equal.
 \end_layout
 
 \begin_layout Standard
-When a series of experiments is started with `fab run_experiment_multiple'
- the following happens: For each parameter combination of the parameters
- defined in TPCONF_vary_parameters one experiment is run where the parameter
- settings are logged in the file name using the short names, and the V_
- variables are set to the parameter combination given by the value lists.
+When a group of experiments is started with `
+\family typewriter
+\size small
+fab run_experiment_multiple
+\family default
+\size default
+' the following happens: For each parameter combination of the parameters
+ defined in TPCONF_vary_parameters, one experiment is run where the parameter
+ name-value pairs (using each parameter's short name) are used to construct
+ the 
+\family typewriter
+\size footnotesize
+<testID>
+\family default
+\size default
+ (and hence various log file names)
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The parameters appear in the 
+\family typewriter
+\size footnotesize
+<testID>
+\family default
+\size default
+ in the same (user-defined) order they are listed in TPCONF_vary_parameters.
+\end_layout
+
+\end_inset
+
+, and the V_ variables are set to the parameter combination given by the
+ value lists.
  
 \end_layout
 
 \begin_layout Standard
 TPCONF_parameter_list can handle grouped V_variables, where in each experiment
  a specific combination of the grouped V_variables is used.
- An example of this is the parameter bandwidths which uses TPCONF_bandwidths
- as values.
+ An example of this is the 
+\emph on
+bandwidths
+\emph default
+ parameter which uses TPCONF_bandwidths for its values.
 \end_layout
 
 \begin_layout Standard
@@ -8398,8 +7945,8 @@ Specifying the parameters to be varied
 V_delay can then be used in the router queue settings.
  V_tcp_cc_algo is passed to the host setup function.
  When we run `fab run_experiment_multiple' this will run the following experimen
-ts, here represented by the start of the log file names (we assume the test
- ID prefix is the default from Section 
+ts, represented by the following test IDs (we assume the test ID prefix
+ is the default from Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Experiment-general-settings"
@@ -8417,22 +7964,22 @@ status open
 
 \begin_layout Plain Layout
 
-20131206-170846_del_0_tcp_newreno 
+exp_20131206-170846_del_0_tcp_newreno 
 \end_layout
 
 \begin_layout Plain Layout
 
-20131206-170846_del_0_tcp_cubic 
+exp_20131206-170846_del_0_tcp_cubic 
 \end_layout
 
 \begin_layout Plain Layout
 
-20131206-170846_del_50_tcp_newreno 
+exp_20131206-170846_del_50_tcp_newreno 
 \end_layout
 
 \begin_layout Plain Layout
 
-20131206-170846_del_50_tcp_cubic
+exp_20131206-170846_del_50_tcp_cubic
 \end_layout
 
 \end_inset
@@ -8498,6 +8045,1705 @@ Technically, step 1 is not necessary as the list of values can be put directly
  in TPCONF_parameters_list and the default value can be put directly in
  TPCONF_variable_defaults.
  However, defining a separate list improves the readability.
+\end_layout
+
+\begin_layout Section
+Available traffic generators
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Config-traffic-generators"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This section describes the traffic generators (listed by their 
+\family typewriter
+\size small
+start_*
+\family default
+\size default
+ function names) that can be configured in TPCONF_traffic_gens (section
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Traffic-generator-setup"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection
+start_iperf
+\end_layout
+
+\begin_layout Standard
+This starts an iperf client and server.
+ Note that the client sends data to the server.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+port
+\series default
+: port number to use for client and server (passed to iperf -p option) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of client (passed to iperf -c option)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of server (passed to iperf -B option)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: time in seconds the client transmits (passed to iperf -t option)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+congestion_algo
+\series default
+: TCP congestion algorithm to use (works only on Linux) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+kill
+\series default
+: By default this is `0' and the iperf client will terminate after duration
+ seconds.
+ If this is set to `1', the iperf client will be killed approximately 1
+ second after duration.
+ This is a work-around for a 
+\begin_inset Quotes eld
+\end_inset
+
+feature
+\begin_inset Quotes erd
+\end_inset
+
+ in iperf that prevents it from stopping after the specified duration.
+ (If set to `1', the iperf server is also killed approximately 2 seconds
+ after duration.)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+mss
+\series default
+: TCP maximum segment size (passed to iperf -M option)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+buf_size
+\series default
+: Send and receive buffer size in bytes (passed to iperf -j and -k, which
+ only exist for iperf with the CAIA patch 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zander2014caia_tcp_testbed_v2"
+
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+proto
+\series default
+: Protocol to use, `tcp' (default) or `udp' (sets iperf -u option for `udp')
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+rate
+\series default
+: The bandwidth used for TCP (passed to iperf -a option) or UDP (passed
+ to iperf -b option).
+ Can end in `K' or `M' to indicate kilo bytes or mega bytes.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params_client
+\series default
+: Command line parameters passed to iperf client 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params_server
+\series default
+: Command line parameters passed to iperf server
+\end_layout
+
+\begin_layout Subsection
+start_ping
+\end_layout
+
+\begin_layout Standard
+This starts a ping and has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of machine to run ping on 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+dest
+\series default
+: IP or name of machine to ping 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: Emit pings for this many seconds
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+rate
+\series default
+: number of pings per second (Windows ping only supports 1 ping/second)
+ (default = 1) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params
+\series default
+: Command line parameters passed to ping
+\end_layout
+
+\begin_layout Subsection
+start_http_server
+\end_layout
+
+\begin_layout Standard
+This starts a lighttpd-based HTTP server and has the following parameters:
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of HTTP server
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+port
+\series default
+: port to listen on (currently one server can listen on only one port) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+config_dir
+\series default
+: directory where the config file (lighttpd.conf) should be copied to 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+config_in
+\series default
+: local template for config file 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+docroot
+\series default
+: document root on server (FreeBSD default: /usr/local/www/data, MacOSX
+ default: /opt/local/www/htdocs, Linux/CYGWIN default: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+/srv/www/htdocs
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Subsection
+start_nginx_server
+\end_layout
+
+\begin_layout Standard
+[
+\series bold
+\shape italic
+New in TEACUP 1.1
+\series default
+\shape default
+]
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ This starts an nginx-based HTTP server and has the following parameters:
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of HTTP server
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+port
+\series default
+: port to listen on (currently one server can listen on only one port) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+config_dir
+\series default
+: directory where the config file (nginx.conf) should be copied to 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+config_in
+\series default
+: local template for config file 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+docroot
+\series default
+: document root on server (FreeBSD default: /usr/local/www/nginx, Linux
+ default: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+/var/www/html
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Subsection
+create_http_dash_content
+\end_layout
+
+\begin_layout Standard
+[
+\series bold
+\emph on
+Deprecated in TEACUP 1.1, but still available
+\series default
+\emph default
+] This creates fake content for the DASH-like httperf_dash client.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of HTTP server 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+docroot
+\series default
+: document root of HTTP server (FreeBSD default: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+/usr/local/www/data
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, MacOSX default: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+/opt/local/www/htdocs
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, Linux/CYGWIN default: /srv/www/htdocs) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: number of seconds of fake content 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+rates
+\series default
+: comma-separated list of DASH rates in kB 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+cycles
+\series default
+: comma-separated list of cycle lengths in seconds
+\end_layout
+
+\begin_layout Standard
+NOTE: This generator is deprecated in TEACUP 1.1, along with 
+\emph on
+start_httperf_dash
+\emph default
+.
+ Users are recommended to launch lighttpd server with genuine DASH content
+ instead, and use 
+\emph on
+start_dash_streaming_dashjs
+\emph default
+ to launch a genuine DASH client.
+\end_layout
+
+\begin_layout Subsection
+create_http_incast_content
+\end_layout
+
+\begin_layout Standard
+This creates fake content for incast experiments.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of HTTP server 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+docroot
+\series default
+: document root of HTTP server (FreeBSD default: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+/usr/local/www/data
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, MacOSX default: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+/opt/local/www/htdocs
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, Linux/CYGWIN default: /srv/www/htdocs) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: number of seconds of fake content
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+sizes
+\series default
+: comma-separated list of content file sizes 
+\end_layout
+
+\begin_layout Subsection
+start_httperf
+\end_layout
+
+\begin_layout Standard
+This starts an httperf HTTP client.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of client 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of HTTP server (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-server)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+port
+\series default
+: port server is listening on (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-port)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+conns
+\series default
+: total number of connections (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-num-conns)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+rate
+\series default
+: rate at which connections are created (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-rate)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+timeout
+\series default
+: timeout for each connection; httperf will give up if a HTTP request does
+ not complete within the timeout (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-timeout) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+calls
+\series default
+: number of requests in each connection (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-num-calls, default = 1) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+burst
+\series default
+: length of burst (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-burst-length)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+wsesslog
+\series default
+: session description file (passed to third parameter of httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-wsesslog)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+wsesslog_timeout
+\series default
+: default timeout for each wsesslog connection (passed to second parameter
+ of httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-wsesslog) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+period
+\series default
+: time between creation of connections; equivalent to 1/rate if period is
+ a number, but period can also specify inter-arrival time distributions
+ (see httperf man page) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+sessions
+\series default
+: number of sessions (passed to first parameter of httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-wsesslog, default = 1) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+call_stats
+\series default
+: number of entries in call statistics array (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-call-stats, default = 1000) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params
+\series default
+: Command line parameters passed to httperf
+\end_layout
+
+\begin_layout Subsection
+start_httperf_dash
+\end_layout
+
+\begin_layout Standard
+[
+\series bold
+\emph on
+Deprecated in TEACUP 1.1, but still available
+\series default
+\emph default
+] This starts a simplistic, DASH-like httperf client.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of client 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of HTTP server (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-server)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+port
+\series default
+: port server is listening on (passed to httperf -
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+-port)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: duration of DASH flow in seconds 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+rate
+\series default
+: data rate of DASH-like flow in kbps 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+cycle
+\series default
+: interval between requests in seconds 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+prefetch
+\series default
+: prefetch time in seconds of content to prefetch (can be fractional number)
+ (default = 0.0) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+prefetch_timeout
+\series default
+: like timeout for start_httperf but only for the prefetch (by default this
+ is set to cycle) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+with_timeout
+\series default
+: if set to `0' there is no timeout for requests (a request may take longer
+ to complete than cycle); if set to `1' httperf will close the connection
+ and terminate the session if the download of a chunk takes longer than
+ cycle
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params
+\series default
+: Command line parameters passed to httperf
+\end_layout
+
+\begin_layout Standard
+The behaviour is as follows: 
+\end_layout
+
+\begin_layout Enumerate
+The client opens a persistent TCP connection to the server.
+\end_layout
+
+\begin_layout Enumerate
+If prefetch is > 0.0 the client will fetch the specified number of seconds
+ of content and right after that send a request for the next block (step
+ 3).
+ 
+\end_layout
+
+\begin_layout Enumerate
+The client will request a block of content, wait for some time (cycle minus
+ download time) and then request the next block.
+ The size of one block is 
+\begin_inset Formula $cycle\cdot rate\cdot1000/8bytes$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+If prefetch_timeout is set, the prefetch must be completed within the timeout,
+ or otherwise httperf will close the connection and terminate the session.
+ Similarly, if with_timeout=`1', httperf will close the connection and terminate
+ the session if the download of a chunk takes longer than cycle seconds.
+\end_layout
+
+\begin_layout Standard
+Note that the number of chunks requested by the httperf client is set to
+ floor((duration - prefetch_timeout) / cycle).
+ This number guarantees that httperf can complete and generate the statistics
+ output within the specified duration, even if the downloading takes the
+ maximum amount of time (downloading always just finishes within the timeouts).
+ However, this also means that if the prefetch is much faster than prefetch_time
+out and/or the download of the last chunk is much faster than cycle seconds,
+ httperf will finish well before duration seconds.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+NOTE:
+\series default
+ This generator is deprecated in TEACUP 1.1.
+ Users are recommended to launch lighttpd or nginx server with genuine DASH
+ content instead, and use 
+\emph on
+start_dash_streaming_dashjs
+\emph default
+ to launch a genuine DASH client.
+\end_layout
+
+\begin_layout Subsection
+start_dash_streaming_dashjs
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:start_dashjs"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+[
+\series bold
+\shape italic
+New in TEACUP 1.1
+\series default
+\shape default
+]
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ This starts a genuine DASH streaming client (dash.js) inside a web browser
+ on an end host.
+ It has the following parameters:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of DASH client
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of DASH server
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+serv_port
+\series default
+: port server is listening on
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: duration of DASH flow in seconds (since version 2.3.0, dash.js supports playback
+ looping, so the specified duration can be longer than the video time)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+browser
+\series default
+: choose between a Chrome or Firefox browser
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+chunk_size
+\series default
+: specify the video chunk size (availability depends on the dataset)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+mpd
+\series default
+: specify the filename of Media Presentation Description (MPD) (availability
+ depends on the dataset)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+player_path: 
+\series default
+specify the path to dash.js player source (which can be located on other
+ hosts)
+\end_layout
+
+\begin_layout Standard
+Note that some additional setup are required for 
+\emph on
+start_dash_streaming_dashjs
+\emph default
+ to run successfully::
+\end_layout
+
+\begin_layout Enumerate
+Additional packages such as Xorg and Chrome (or Firefox) need to be installed
+ on client host(s).
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+These client host(s) must also have a functional video card (not an emulated
+ X server) for proper browser-based DASH client behaviour.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+A DASH-compliant dataset needed to be present and served by the web server
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ host(s).
+\end_layout
+
+\begin_layout Enumerate
+The dash.js player's source files need to be available (served) from
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ either the control host or one of the experiment hosts.
+ The location of dash.js source files is supplied via 
+\family typewriter
+\size small
+player_path
+\family default
+\size default
+.
+\end_layout
+
+\begin_layout Standard
+See
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "CAIA-TR-161216A"
+
+\end_inset
+
+ for more details and configuration examples.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The three main processes it describes are:
+\end_layout
+
+\begin_layout Plain Layout
+Period: The specific duration of the video content.
+\end_layout
+
+\begin_layout Plain Layout
+Representation: From the Period specified, there are different representations
+ of the video content (different bit rates).
+\end_layout
+
+\begin_layout Plain Layout
+Chunks: For the different Representations, there are different video chunks,
+ all of which lineup to ensure that they can be dynamically changed between
+ without stalling.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+start_httperf_incast
+\end_layout
+
+\begin_layout Standard
+This starts an httperf client for the incast scenario.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of client 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+servers
+\series default
+: comma-separated list where each entry specifies one server in the form
+ of `[IP|name]:port'.
+ IP or name is a server's IP address or name and port is the port the server
+ is listening on (a separate session for each server is created via httperf's
+ session log).
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: duration of incast session in seconds 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+period
+\series default
+: period between requests in seconds (floating point number)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+burst_size
+\series default
+: number of queries sent at each period start (this is to increase the number
+ of queries in a testbed that only has a few physical responder machines)
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+response_size
+\series default
+: size of response from each responder in kB 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params
+\series default
+: Command line parameters passed to httperf
+\end_layout
+
+\begin_layout Standard
+Note: If httperf can not complete a request within period time, if will
+ close the connection and terminate the session with the responder (sessions
+ with other responders are unaffected).
+ This may or may not be desirable behaviour.
+\end_layout
+
+\begin_layout Subsection
+start_nttcp
+\end_layout
+
+\begin_layout Standard
+This starts an nttcp client and an nttcp server for some simple unidirectional
+ UDP VoIP flow emulation.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of client 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: IP or name of HTTP server 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+port
+\series default
+: control port server is listening on (passed to nttcp -p)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: duration of the flow (based on this and the interval TEACUP computes the
+ number of buffers to send, passed to nttcp -n)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+interval
+\series default
+: interval between UDP packets in milliseconds (passed to nttcp -g)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+psize
+\series default
+: UDP payload size (excluding UDP/IP header) (passed to nttcp -l)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+buf_size
+\series default
+: send buffer size (passed to nttcp -w)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params_client
+\series default
+: Command line parameters passed to nttcp client 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params_server
+\series default
+: Command line parameters passed to nttcp server
+\end_layout
+
+\begin_layout Standard
+Note that nttcp also opens a TCP control connection between client and server.
+ However, on this connection only a few packets are exchanged before and
+ after the data flow.
+ 
+\end_layout
+
+\begin_layout Subsection
+start_httperf_incast_n
+\end_layout
+
+\begin_layout Standard
+This starts an httperf client (querier) and 
+\begin_inset Formula $n$
+\end_inset
+
+ HTTP servers (responders) for an incast scenario.
+ It also generates the fake content for all 
+\begin_inset Formula $n$
+\end_inset
+
+ servers.
+ Basically this generator is a shortcut to setting up 
+\begin_inset Formula $n$
+\end_inset
+
+ servers with 
+\begin_inset Formula $n$
+\end_inset
+
+ start_http_server and create_http_incast_content.
+ It has the following parameters: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client
+\series default
+: IP or name of client 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+servers
+\series default
+: comma-separated list of servers, where each entry is either the IP or
+ the host name of an HTTP server (a separate session for each server is
+ created via httperf's session log)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server_port_start
+\series default
+: the port the first server is listening on.
+ All further servers will be started on consecutive port numbers in the
+ order they are specified in servers
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: duration of incast session in seconds 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+period
+\series default
+: period between requests in seconds (floating point number)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+burst_size
+\series default
+: number of queries sent at each period start (this is to increase the number
+ of queries in a testbed that only has a few physical responder machines)
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+response_size
+\series default
+: size of response from each responder in kB 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+config_dir
+\series default
+: directory where the config file (lighttpd.conf) should be copied to 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+config_in
+\series default
+: local template for config file 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+docroot
+\series default
+: document root on server (FreeBSD default: /usr/local/www/data, MacOSX
+ default: /opt/local/www/htdocs, Linux/CYGWIN default: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{
+\end_layout
+
+\end_inset
+
+/srv/www/htdocs
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+sizes
+\series default
+: comma-separated list of content file sizes on the servers
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+num_responders
+\series default
+: The querier will only send queries to the first num_responders servers.
+ This can be used to vary the number of responders in a series of experiments
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params
+\series default
+: Command line parameters passed to httperf
+\end_layout
+
+\begin_layout Standard
+Note that for this method the unique ID is the first ID used.
+ The total number of IDs used is one plus the number of server/responders.
+ Each server will be assigned a consecutive ID number starting with the
+ first ID.
+ The client will have an ID one higher than the highest server ID.
+ If further traffic generators are specified after this generator, the user
+ has to make sure there is no ID number clash.
+\end_layout
+
+\begin_layout Subsection
+start_fps_game
+\end_layout
+
+\begin_layout Standard
+This starts an emulated FPS game traffic session.
+ From a logical viewpoint this starts several game clients and one game
+ server.
+
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ This task has the following parameters:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+clients
+\series default
+: comma-separated list of clients where each client is specified as name/IP
+ followed by a colon and the port number (e.g.
+ client1:10000,client2:10001)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+server
+\series default
+: server name/IP followed by a colon and the server port number (e.g.
+ server1:27960)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+game_type
+\series default
+: the type of game (can be `q3', `hl2cs', `hl2dm', `hlcs', `hldm', `et2pro',
+ `q4')
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+c2s_interval
+\series default
+: time interval between packets send by client (in seconds)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+c2s_psize
+\series default
+: base packet size of packets send by clients (number of bytes of UDP payload);
+ note that pktgen randomly varies the size of packets within a few bytes
+ above the base size)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+s2c_interval
+\series default
+: time interval between packets send by server (in seconds)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+duration
+\series default
+: duration of the game session (in seconds)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+client_start_delay
+\series default
+: delay between the last server-to-client pktgen process started and the
+ first client-to-server pktgen process started (in seconds) 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params_client
+\series default
+: extra parameters passed to client pktgen processes
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+extra_params_server
+\series default
+: extra parameters passed to server pktgen processes 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+noclients_games
+\series default
+: allows just the declaration of multiple clients without requiring that
+ many clients to be setup, to emulate server behaviour for the specified
+ number of clients.
+ 
+\end_layout
+
+\begin_layout Standard
+Note that a pktgen server process will wait for packets from its corresponding
+ client process before starting to send packets.
+ In contrast, a client process will send packets to a corresponding server
+ process immediately.
+ If a client process is started, but the corresponding server process is
+ not listening for packets yet, the server machine will return ICMP port
+ unreachable messages to the client machine, which in turn will terminate
+ the client process.
+ The parameter client_start_delay must be set large enough so that all server
+ processes are started and listen for packets before any client processes
+ are started.
+ The delay must be chosen based on the number of game clients (as each game
+ client results in one pktgen process started on the server).
+ By default client_start_delay is set to three seconds, which is sufficient
+ for up 8 game clients.
+\end_layout
+
+\begin_layout Standard
+Note that pktgen only supports emulating games with 4–32 clients.
+ Fewer actual clients may be specified if 
+\family typewriter
+\size small
+noclients_game
+\family default
+\size default
+ is specified to be between 4 and 32, in which case fewer instances of pktgen
+ will be launched and the server-to-client traffic will emulate that of
+ a game with 
+\family typewriter
+\size small
+noclients_game
+\family default
+\size default
+ clients..
+ If 
+\family typewriter
+\size small
+noclients_game
+\family default
+\size default
+ is not specified, then the number of separate clients must be at least
+ 4, and no larger than 32.
+ 
+\end_layout
+
+\begin_layout Standard
+Also note that for this method the unique ID is the first ID used.
+ In total the number of IDs used is twice the number of clients.
+ Each server-to-client pktgen will be assigned a consecutive ID number starting
+ with the first ID.
+ Each client-to-server pktgen will be assigned a consecutive ID number starting
+ with an ID one higher than the highest server-to-client pktgen ID.
+ If further traffic generators are specified after this generator, the user
+ has to make sure there is no ID number clash.
 \end_layout
 
 \begin_layout Section
@@ -8674,7 +9920,7 @@ now = datetime.datetime.today()
 
 \begin_layout Plain Layout
 
-TPCONF_test_id = now.strftime("%Y%m%d-%H%M%S") + '_experiment' 
+TPCONF_test_id = 'exp_' + now.strftime("%Y%m%d-%H%M%S") 
 \end_layout
 
 \begin_layout Plain Layout
@@ -8739,7 +9985,7 @@ TPCONF_power_admin_pw = ''
 
 \begin_layout Plain Layout
 
-TPCONF_max_time_diff = 1
+TPCONF_max_time_diff = 2
 \end_layout
 
 \begin_layout Plain Layout
@@ -8951,12 +10197,8 @@ TPCONF_variable_defaults = {
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-TPCONF_variable_defaults TPCONF_vary_parameters = [ 'tcpalgos', 'delays',
- 'loss', 'bandwidths', 'aqms', 'bsizes', 'runs', ] 
+TPCONF_vary_parameters = [ 'tcpalgos', 'delays', 'loss', 'bandwidths', 'aqms',
+ 'bsizes', 'runs', ] 
 \end_layout
 
 \begin_layout Plain Layout
@@ -9000,7 +10242,7 @@ run_experiment_multiple
 \end_layout
 
 \begin_layout Standard
-To run a single experiment with the default test ID prefix TPCONF_test_id,
+To run a single experiment with the default test ID prefix (TPCONF_test_id),
  type:
 \end_layout
 
@@ -9060,8 +10302,8 @@ status open
 \end_layout
 
 \begin_layout Standard
-To run a series of experiment based on the TPCONF_vary_parameters settings
- with the default test ID prefix TPCONF_test_id, type:
+To run a group of experiment based on the TPCONF_vary_parameters settings
+ with the default test ID prefix (TPCONF_test_id), type:
 \end_layout
 
 \begin_layout Standard
@@ -9164,7 +10406,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab run_experiment_multiple:test_id=`date +"%Y%m%d-%H%M%S"`
+> fab run_experiment_multiple:test_id=exp_`date +"%Y%m%d-%H%M%S"`
 \end_layout
 
 \end_inset
@@ -9185,15 +10427,16 @@ status open
 
 \begin_layout Standard
 The last command will run a series of experiments where the test ID prefix
- is YYYYMMDD-HHMMSS, using the actual date when the fab command is run.
+ is exp_YYYYMMDD-HHMMSS (using the actual date and time when the fab command
+ is run).
  For convenience TEACUP provides a shell script (
 \family typewriter
 \size small
 run.sh
 \family default
 \size default
-) that logs the Fabric output in a <test_ID_prefix>.log file inside the <test_ID_
-prefix> sub directory, and is started with:
+) that logs the Fabric output in a <testIDprefix>.log file inside the <testIDpref
+ix> sub directory, and is started with:
 \end_layout
 
 \begin_layout Standard
@@ -9293,7 +10536,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab run_experiment_multiple:test_id= <test_ID_pfx> > <test_ID_pfx>.log
+> fab run_experiment_multiple:test_id= <testIDprefix> > <testIDprefix>.log
  2>&1
 \end_layout
 
@@ -9317,7 +10560,7 @@ status open
 The test ID prefix is set to 
 \family typewriter
 \size small
-`date +"%Y%m%d-%H%M%S"`_experiment
+exp_`date +"%Y%m%d-%H%M%S"`
 \family default
 \size default
 .
@@ -9327,7 +10570,13 @@ The test ID prefix is set to
 tail -f
 \family default
 \size default
- on the log file and get timely output.
+ on the 
+\family typewriter
+\size footnotesize
+<testIDprefix>.log
+\family default
+\size default
+ file and get timely output.
  The fabfile to be used can be specified, i.e.
  to use the fabfile 
 \family typewriter
@@ -9429,8 +10678,8 @@ successfully completed
 \end_layout
 
 \begin_layout Standard
-Note that TEACUP never resets either of these files -- new test IDs are
- simply appended to the files (which are created if they don't already exist).
+Note that TEACUP never resets either of these files – new test IDs are simply
+ appended to the files (which are created if they don't already exist).
 \begin_inset Foot
 status open
 
@@ -9469,7 +10718,7 @@ For example, the following command resumes a series of experiments with
  test ID prefix 
 \family typewriter
 \size small
-20131218-113431_windows
+exp_20131218-113431
 \family default
 \size default
  (and appends the log output to the existing log file):
@@ -9512,8 +10761,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab run_experiment_multiple: test_id=20131218-113431_windows,resume=1
- >> 20131218-113431_windows.log 2>&1
+> fab run_experiment_multiple: test_id=exp_20131218-113431,resume=1 >> exp_20131
+218-113431.log 2>&1
 \end_layout
 
 \end_inset
@@ -9639,10 +10888,10 @@ name "sub:variables_logged"
 
 \begin_layout Standard
 TEACUP logs configuration information for conducted experiments in two files.
- In the following <test_id> is a test ID and <test_id_pfx> is the corresponding
+ In the following <testID> is a test ID and <testIDprefix> is the corresponding
  test ID prefix.
  For each experiment, TEACUP logs all V_ variables and their values (in
- alphabetical order of variable names) in a file <test_id>_config_vars.log.gz.
+ alphabetical order of variable names) in a file <testID>_config_vars.log.gz.
  The following is an example (with header and legend lines omitted for brevity):
 \begin_inset listings
 lstparams "basicstyle={\footnotesize\ttfamily}"
@@ -9678,7 +10927,7 @@ Each line starts with an `U' or an `N' indicating whether a variable is
 
 \begin_layout Standard
 TEACUP also logs all varying parameters for a series of experiments in a
- file named <test_id_pfx>_varying_params.log.gz.
+ file named <testIDprefix>_varying_params.log.gz.
  The following shows a file as example (excluding the header line):
 \begin_inset listings
 lstparams "basicstyle={\footnotesize\ttfamily}"
@@ -9840,11 +11089,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab -H 
-\size small
-testhost
-\size footnotesize
-1,testhost2,testhost3 exec_cmd:cmd="uname -s"
+> fab -H testhost1,testhost2,testhost3 exec_cmd:cmd="uname -s"
 \end_layout
 
 \end_inset
@@ -10130,11 +11375,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab -H 
-\size small
-testhost
-\size footnotesize
-1,testhost2,testhost3 authorize_key
+> fab -H testhost1,testhost2,testhost3 authorize_key
 \end_layout
 
 \end_inset
@@ -10163,7 +11404,7 @@ ssh-keygen -t rsa.
 
 \family default
 \size default
- Also note that the task does not check if the public key is already in
+ Also note that this task does not check if the public key is already in
  the remote user's authorized_keys file, so executing this task multiple
  times may lead to duplicate entries in the remote user's authorized_keys
  file.
@@ -10192,7 +11433,7 @@ move
  hosts from one test subnet to the other by configuring the VLAN membership
  of the switch ports in conjunction with IP addresses and static routes
  on each host.
- The task uses the config.py file to get the testbed IP addresses of the
+ This task uses the config.py file to get the testbed IP addresses of the
  hosts to be configured (from TPCONF_host_internal_ip).
  It also uses the values of TPCONF_topology_switch, TPCONF_topology_switch_port_
 prefix, and TPCONF_topology_switch_port_offset specified in config.py to
@@ -10375,8 +11616,8 @@ os_list
  can be shorter than the number of specified hosts, in which case it will
  be padded to the length of the number of hosts by duplicating the last
  entry.
- This allows to reboot a large number of hosts into the same OS while specifying
- an
+ This allows the rebooting of a large number of hosts into the same OS while
+ specifying an
 \family typewriter
 \size small
  os_list
@@ -10693,8 +11934,8 @@ Check software installations on testbed hosts
 \begin_layout Standard
 The check_host command can be used to check if the required software is
  installed on the hosts.
- The task only checks for the presence of necessary tools, but it does not
- check if the tools actually work.
+ This task only checks for the presence of necessary tools, but it does
+ not check if the tools actually work.
  For example, the following command checks all testbed hosts:
 \end_layout
 
@@ -10734,11 +11975,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab -H 
-\size small
-testhost
-\size footnotesize
-1,testhost2,testhost3 check_host 
+> fab -H testhost1,testhost2,testhost3 check_host 
 \end_layout
 
 \end_inset
@@ -10812,11 +12049,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab -H 
-\size small
-testhost
-\size footnotesize
-1,testhost2,testhost3 check_connectivity
+> fab -H testhost1,testhost2,testhost3 check_connectivity
 \end_layout
 
 \end_inset
@@ -11069,12 +12302,15 @@ Scenario 5: We have three staggered bulk-transfer flows going through the
 \end_layout
 
 \begin_layout Itemize
-Scenario 6: We have three hosts plus the router.
- One host in subnet A acts as web server.
- The two other hosts in subnet B act as clients that both use DASH-like
- video streaming over HTTP.
- We emulate different network delays and AQM mechanisms.
+Scenario 6: We have two hosts plus the router.
+ One host
+\change_deleted 193492759 1518046343
  
+\change_unchanged
+ acts as web server.
+ The other host acts as a client to retrieve video content from the web
+ server.
+ We emulate different network delays and AQM mechanisms.
 \end_layout
 
 \begin_layout Itemize
@@ -11126,7 +12362,7 @@ Variable Parameters
 \end_layout
 
 \begin_layout Standard
-We emulate three different delays and two different bandwidth settings --
+We emulate three different delays and two different bandwidth settings –
  six different experiments in total.
  We do also define a variable parameter for AQM, but define only one AQM
  (default pfifo).
@@ -11153,11 +12389,11 @@ key "teacup-examples-web"
 \begin_layout Standard
 Note that TEACUP configuration files can be split across multiple files
  (using Python's execfile()).
- This allows to split a large config file into multiple files for better
- readability.
- It also allows to include part of configuration files into multiple different
- config files, which makes it possible to reuse parts of the config that
- is not changed across multiple experiments.
+ This allows the splitting of a large config file into multiple files for
+ better readability.
+ It also allows the inclusion of parts of configuration files into multiple
+ different config files, which makes it possible to reuse parts of the config
+ that is not changed across multiple experiments.
  An example of a this is this config file, which is functionally identical
  to the above config file.
  Only here the main config file includes separate files to specify the testbed
@@ -11268,7 +12504,7 @@ status open
 
 \begin_layout Plain Layout
 
-TPCONF_script_path = '/home/teacup/teacup-0.8' 
+TPCONF_script_path = '/home/test/src/teacup' 
 \end_layout
 
 \begin_layout Plain Layout
@@ -11370,14 +12606,18 @@ reference "lis:Scenario1-Test-ID-prefix"
 \end_inset
 
 ).
- TEACUP_max_time_diff specifies the maximum clock offset in seconds allowed.
+ TEACUP_max_time_diff specifies (in seconds) the maximum clock offset allowed
+ between all participating hosts.
  This is a very coarse threshold as the offset estimation performed by TEACUP
  is not very accurate.
  Currently, TEACUP simply attempts to find out if the synchronisation is
- very bad and if yes it will abort; it does try to enforce high accuracy
+ very bad and if yes it will abort; it does not try to enforce high accuracy
  for the time synchronisation.
- TPCONF_test_id defines the name prefix for the output files for an experiment
- or a series of experiments.
+ Despite the historical name, TPCONF_test_id defines the test ID 
+\bar under
+prefix
+\bar default
+ for an experiment or a group of experiments.
  TPCONF_remote_dir specifies where on the hosts the log files are stored
  until they are moved to the control host running TEACUP after each experiment.
 \end_layout
@@ -11400,7 +12640,7 @@ status open
 
 \begin_layout Plain Layout
 
-TPCONF_max_time_diff = 1
+TPCONF_max_time_diff = 2
 \end_layout
 
 \begin_layout Plain Layout
@@ -11420,7 +12660,7 @@ now = datetime.datetime.today()
 
 \begin_layout Plain Layout
 
-TPCONF_test_id = now.strftime("%Y%m%d-%H%M%S") + 'experiment'
+TPCONF_test_id = 'exp_' + now.strftime("%Y%m%d-%H%M%S")
 \end_layout
 
 \begin_layout Plain Layout
@@ -11560,9 +12800,12 @@ reference "lis:Scenario1-Traffic"
  TEACUP implements a number of traffic generators.
  In this example we use iperf to generate TCP bulk transfer flows.
  TPCONF_traffic_gens defines the traffic generator, but here we use a temporary
- variable as well, which allows to have multiple traffic generator definitions
- and switch between them by changing the variable assigned to TPCONF_traffic_gen
-s.
+ variable as well, which allows
+\change_deleted 193492759 1518046343
+ 
+\change_unchanged
+ multiple traffic generator definitions and being able to switch between
+ them by changing the variable assigned to TPCONF_traffic_gens.
 \end_layout
 
 \begin_layout Standard
@@ -11583,7 +12826,7 @@ first
 \emph default
  internal address (according to TPCONF_host_internal_ip).
  Alternatively, client and server can be specified as internal addresses,
- which allows to use any internal interfaces configured.
+ which allows the use of any internal interfaces configured.
  
 \end_layout
 
@@ -11703,7 +12946,8 @@ n of parameters.
 
 \begin_layout Standard
 In this simple case all hosts use the same TCP congestion control algorithm,
- but TEACUP allows to specify per-host algorithms with TPCONF_host_TCP_algos.
+ but TEACUP allows the specification of per-host algorithms with TPCONF_host_TCP
+_algos.
  Parameter settings for TCP congestion control algorithms can be specified
  with TPCONF_host_TCP_algo_params (assuming parameters can be controlled
  with sysctl), but here we do not make use of that and simply use the default
@@ -11856,8 +13100,8 @@ rs (see below).
  Second, a list of short names uses for the file names.
  For each parameter varied a string `_<short_name>_<value>' is appended
  to the log file names (appended to chosen prefix).
- Note, short names should only be letters from a--z or A--Z, do not use
- underscores or hyphens.
+ Note, short names should only be letters from a–z or A–Z, do not use underscore
+s or hyphens.
  Third, the list of parameters values.
  If there is more than one variable this must be a list of tuples, each
  tuple having the same number of items as the number of variables.
@@ -12116,7 +13360,7 @@ TEACUP provides a range of tasks for analysing the results of a given experiment
 , described in an accompanying technical report 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0_analysis"
+key "zander2018_teacup_v1.1_analysis"
 
 \end_inset
 
@@ -12125,8 +13369,7 @@ key "zander2015caia_teacup_v1.0_analysis"
 \end_layout
 
 \begin_layout Standard
-TEACUP will create a file names <test_id_prefix>.log file in the experiment
- data sub directory.
+TEACUP will create a <testIDprefix>.log file in the experiment data sub directory.
  It will also create a file experiments_started.txt and experiments_completed.txt
  in the parent directory.
  The file experiments_started.txt contains the names of all experiments started
@@ -12182,7 +13425,7 @@ status open
 
 \family typewriter
 \size small
-> fab analyse_all:out_dir="./results"
+> fab analyse_all:out_dir="../results"
 \end_layout
 
 \end_inset
@@ -12356,7 +13599,7 @@ Variable Parameters
 
 \begin_layout Standard
 Like in scenario 1 we emulate three different delays and two different bandwidth
- settings -- six different experiments in total.
+ settings – six different experiments in total.
  We do also define a variable parameter for AQM, but define only one AQM
  (default pfifo).
  This causes the used AQM to be logged as part of the experiment ID.
@@ -12406,7 +13649,7 @@ reference "lis:Scenario2-Reboot"
  that GRUB will read (after loaded via PXE) which specify from which hard
  disk partition to boot from.
  TPCONF_host_os specifies the operating for each host and router.
- For Linux TEACUP allows to specify the kernel that is booted.
+ For Linux TEACUP allows the specification of the kernel that is booted.
  TPCONF_linux_kern_router specifies the kernel booted on the router and
  TPCONF_linux_kern_hosts specifies the kernel booted on the other hosts.
  If TPCONF_force_reboot is not set to `0', TEACUP will only reboot a host
@@ -12655,7 +13898,7 @@ Variable Parameters
 
 \begin_layout Standard
 Like in scenario 1 we emulate three different delays and two different bandwidth
- settings -- six different experiments in total.
+ settings – six different experiments in total.
  We do also define a variable parameter for AQM, but define only one AQM
  (default pfifo).
  This causes the used AQM to be logged as part of the experiment ID.
@@ -12681,7 +13924,7 @@ key "teacup-examples-web"
 \begin_layout Standard
 Most of the configuration is identical to the configuration used in scenario
  2.
- The only different is that now TEACUP will automatically power cycle machines
+ The only difference is that now TEACUP will automatically power cycle machines
  that to not come up within the reboot timeout.
  TEACUP will only power cycle machines once.
  If after a power cycle and reboot the machines are still unresponsive TEACUP
@@ -13780,7 +15023,7 @@ See scenario 1.
 \end_layout
 
 \begin_layout Subsection
-Scenario 6: Two HTTP-based video streaming clients
+Scenario 6: One HTTP-based (DASH) video streaming client
 \end_layout
 
 \begin_layout Subsubsection
@@ -13788,8 +15031,8 @@ Topology
 \end_layout
 
 \begin_layout Standard
-We now have hosts newtcp20, newtcp21 connected to the 172.16.10.0/24 network
- and host newtcp27 connected to the 172.16.11.0/24 network.
+We now have host newtcp20 connected to the 172.16.10.0/24 network and host
+ newtcp33 connected to the 172.16.11.0/24 network.
  The machine newtcprt3 connects the two experiment subnets.
  All three machines also have a second network interface that is used to
  control the experiment via TEACUP.
@@ -13809,12 +15052,14 @@ Test Traffic
 \end_layout
 
 \begin_layout Standard
-In this scenario we simulate DASH-like HTTP video streaming.
- Host newtcp27 runs a web server.
- Host newtcp20 and newtcp21 are clients and use httperf to emulate DASH-like
- streaming -- there is one DASH-like flow between each client and the server.
- In this scenario we have fixed the video rates and on/off cycle times,
- but the rate and cycle time differs for both streams.
+In this scenario we generate DASH video streaming traffic.
+ Host newtcp33 runs a web server.
+ Host newtcp20 is a client that uses dash.js player inside Firefox browser
+ to retrieve video content – there is one DASH flow between the client and
+ the server.
+ In this scenario we use 10-sec chunks with a MPD that supplies 20 different
+ video encoding rates (representation rates).
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -13822,8 +15067,8 @@ Variable Parameters
 \end_layout
 
 \begin_layout Standard
-Like in scenario 1 we emulate three different delays (same delays for all
- flows) and two different bandwidth settings.
+Like in scenario 1 we emulate three different delays and two different bandwidth
+ settings.
  We now also vary the AQM mechanism used on the router between FIFO, CoDel
  and FQ CoDel.
  This means we have 18 experiments in total.
@@ -13834,15 +15079,7 @@ TEACUP Config File
 \end_layout
 
 \begin_layout Standard
-You can download the configuration file from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "teacup-examples-web"
-
-\end_inset
-
-.
- To use the configuration rename it to config.py.
+To use the configuration rename it to config.py.
  In the following we explain the parts of the configuration file that have
  changed compared to scenario 1.
 \end_layout
@@ -13871,7 +15108,7 @@ TPCONF_router = ['newtcprt3', ]
 
 \begin_layout Plain Layout
 
-TPCONF_hosts = [ 'newtcp20', 'newtcp21', 'newtcp27', ]
+TPCONF_hosts = [ 'newtcp20', 'newtcp33', ]
 \end_layout
 
 \begin_layout Plain Layout
@@ -13886,17 +15123,12 @@ TPCONF_host_internal_ip = {
 
 \begin_layout Plain Layout
 
-	'newtcp20': ['172.16.10.60'], 
+	'newtcp20': ['172.16.10.60'], 	
 \end_layout
 
 \begin_layout Plain Layout
 
-	'newtcp21': ['172.16.10.61'], 
-\end_layout
-
-\begin_layout Plain Layout
-
-	'newtcp27': ['172.16.11.67'], 
+	'newtcp33': ['172.16.11.73'], 
 \end_layout
 
 \begin_layout Plain Layout
@@ -13929,9 +15161,8 @@ Scenario 6, host configuration
 \end_layout
 
 \begin_layout Standard
-The traffic generator setup now starts a web server and generates fake streaming
- content on newtcp27 before starting the DASH-like flows as shown in Listing
- 
+The traffic generator setup now starts a web server on newtcp33 before starting
+ the DASH flow as shown in Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "lis:Scenario6-Traffic"
@@ -13950,67 +15181,57 @@ status open
 
 \begin_layout Plain Layout
 
-traffic_dash = [ 
+traffic_dash_streaming = [ 
 \end_layout
 
 \begin_layout Plain Layout
 
-	# Start server and create content (server must be started first) 
+	# Start server (server must be started first)
 \end_layout
 
 \begin_layout Plain Layout
 
-	('0.0', '1', " start_http_server, server='newtcp27', port=80 "), 
+   	( '0.0', '1', " start_http_server, server='newtcp33', port='8000', 
 \end_layout
 
 \begin_layout Plain Layout
 
-	('0.0', '2', " create_http_dash_content, server='newtcp27', duration=2*V_duratio
-n, " 
+	  docroot='/data/dash_dataset' "), 
 \end_layout
 
 \begin_layout Plain Layout
 
-                 " rates='500, 1000', cycles='5, 10' "),
 \end_layout
 
 \begin_layout Plain Layout
 
-	# Create DASH-like flows 
+	# Create DASH flows 
 \end_layout
 
 \begin_layout Plain Layout
 
-	('0.5', '3', " start_httperf_dash, client='newtcp20', server='newtcp27',
- port=80, " 
+	( '0.1', '2', " start_dash_streaming_dashjs, client='newtcp20', serv='newtcp33',
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
-                 " duration=V_duration, rate=500, cycle=5, prefetch=2.0,
- " 
+	  serv_port='8000', browser='firefox', chunk_size=V_chunksize, mpd=V_mpd,
 \end_layout
 
 \begin_layout Plain Layout
 
-                 " prefetch_timeout=2.0 "), 
+	  player_path='136.186.229.181:8080/dashjs-v2.4.1/samples/dash-if-reference-player',
+ 
 \end_layout
 
 \begin_layout Plain Layout
 
-	('0.5', '4', " start_httperf_dash, client='newtcp20', server='newtcp27',
- port=80, " 
+	  duration=V_duration " ),
 \end_layout
 
 \begin_layout Plain Layout
 
-                 " duration=V_duration, rate=1000, cycle=10, prefetch=2.0,
- " 
-\end_layout
-
-\begin_layout Plain Layout
-
-                 " prefetch_timeout=2.0 "),
 \end_layout
 
 \begin_layout Plain Layout
@@ -14020,7 +15241,11 @@ n, "
 
 \begin_layout Plain Layout
 
-TPCONF_traffic_gens = traffic_dash
+\end_layout
+
+\begin_layout Plain Layout
+
+TPCONF_traffic_gens = traffic_dash_streaming
 \end_layout
 
 \begin_layout Plain Layout
@@ -14048,6 +15273,19 @@ Scenario 6, traffic configuration
 \end_layout
 
 \begin_layout Standard
+We need to add one additional DASH-specific parameter to TPCONF_chunksize_mpd
+ and TPCONF_parameter_list, and two variables to TPCONF_variable_defaults
+ as shown in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Scenario6-Parameters"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 Finally, we need to configure the different AQM mechanisms used (see Listing
  
 \begin_inset CommandInset ref
@@ -14056,11 +15294,9 @@ reference "lis:Scenario6-Parameters"
 
 \end_inset
 
-).
- TPCONF_vary_parameters already included the `aqms' parameters in scenario
- 1, so TPCONF_parameter_list and TPCONF_variable_defaults look like in scenario
- 1.
- We only have to change TPCONF_aqms.
+) with TPCONF_aqms.
+ In order to permutate across different video chunk sizes and MPDs, the
+ variable `chunksize_mpd' needs to be added to TPCONF_vary_parameters.
 \end_layout
 
 \begin_layout Standard
@@ -14068,6 +15304,84 @@ reference "lis:Scenario6-Parameters"
 lstparams "basicstyle={\footnotesize\ttfamily},captionpos=b,float={*t}"
 inline false
 status open
+
+\begin_layout Plain Layout
+
+# Video chunk size and MPD pair
+\end_layout
+
+\begin_layout Plain Layout
+
+TPCONF_chunksize_mpd = [
+\end_layout
+
+\begin_layout Plain Layout
+
+    ('10','BigBuckBunny_10s.mpd'),   
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+TPCONF_parameter_list = {
+\end_layout
+
+\begin_layout Plain Layout
+
+#   Vary name V_ variable file name values extra vars 
+\end_layout
+
+\begin_layout Plain Layout
+
+    'chunksize_mpd' : (['V_chunksize','V_mpd'], ['chunksize','mpd'], TPCONF_chun
+ksize_mpd, {}),
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+TPCONF_variable_defaults = {
+\end_layout
+
+\begin_layout Plain Layout
+
+#   V_ variable			value
+\end_layout
+
+\begin_layout Plain Layout
+
+    'V_chunksize'	:	TPCONF_chunksize_mpd[0][0],
+\end_layout
+
+\begin_layout Plain Layout
+
+    'V_mpd'		: 	TPCONF_chunksize_mpd[0][1],
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \begin_layout Plain Layout
 
@@ -14121,7 +15435,7 @@ Topology
 
 \begin_layout Standard
 We now have the host newtcp20 connected to the 172.16.10.0/24 network and hosts
- newtcp22--30 connected to the 172.16.11.0/24 network.
+ newtcp22–30 connected to the 172.16.11.0/24 network.
  The machine newtcprt3 connects the two experiment subnets.
  All three machines also have a second network interface that is used to
  control the experiment via TEACUP.
@@ -14649,7 +15963,7 @@ reference "lis:Scenario7-Vary-parameters"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily},captionpos=b,float={*t}"
+lstparams "float={*t},basicstyle={\scriptsize\ttfamily},captionpos=b"
 inline false
 status open
 
@@ -15124,7 +16438,7 @@ name "sec:Conclusions"
 \end_layout
 
 \begin_layout Standard
-In this report we described TEACUP, a Python-based software we developed
+This report describes TEACUP version 1.1, a Python-based software developed
  to run automated TCP performance tests in a controlled testbed.
  In the future we will continue to extend TEACUP with more features.
 \end_layout
@@ -15138,7 +16452,7 @@ TEACUP versions prior to 1.0 were developed as part of a project funded by
  Cisco Systems and titled "Study in TCP Congestion Control Performance In
  A Data Centre".
  This was a collaborative effort between Swinburne University of Technology's
- Center for Advanced Internet Archectures and Fred Baker of Cisco Systems.
+ Centre for Advanced Internet Architectures and Fred Baker of Cisco Systems.
  These may be found at 
 \begin_inset Flex URL
 status collapsed
@@ -15169,6 +16483,11 @@ http://sourceforge.net/projects/teacup/
 .
 \end_layout
 
+\begin_layout Standard
+Russell Collom and Jonathan Kua contributed additional text in 2017 for
+ version 1.1 of this document.
+\end_layout
+
 \begin_layout Section*
 Copyright and License
 \begin_inset CommandInset label
@@ -15181,15 +16500,15 @@ name "sec:Copying"
 \end_layout
 
 \begin_layout Standard
-This document, 
+This document is based on 
 \begin_inset Quotes eld
 \end_inset
 
-TEACUP v1.0 -- A System for Automated TCP Testbed Experiments
+TEACUP v1.0 – A System for Automated TCP Testbed Experiments
 \begin_inset Quotes erd
 \end_inset
 
- by Sebastian Zander and Grenville Armitage, is 
+ by Sebastian Zander and Grenville Armitage, 
 \begin_inset ERT
 status open
 
@@ -15206,9 +16525,9 @@ copyright
 \begin_inset space ~
 \end_inset
 
-2015 -- 2016 CAIA, Swinburne University of Technology.
- As of June 2016 this document has been licensed under a Creative Commons
- Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0, 
+2015 – 2016 CAIA, Swinburne University of Technology.
+ The original was released in June 2016 under a Creative Commons Attribution-Sha
+reAlike 4.0 International License (CC BY-SA 4.0, 
 \begin_inset Flex URL
 status collapsed
 

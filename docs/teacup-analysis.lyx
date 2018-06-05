@@ -61,6 +61,11 @@
                 pdfpagelayout=SinglePage,         % Initial view is page-by-page
                 pdfstartview=FitV,                % Fit the document to window height.
                ]{hyperref}
+
+\newcommand{\sh}[2]{{\small \texttt{#1 #2}}}
+
+\usepackage{pbox}
+\usepackage{booktabs}
 \end_preamble
 \options 11pt, a4paper, conference
 \use_default_options false
@@ -121,11 +126,12 @@
 \papercolumns 2
 \papersides 1
 \paperpagestyle fancy
-\tracking_changes false
+\tracking_changes true
 \output_changes false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\author 193492759 "gja" 
 \end_header
 
 \begin_body
@@ -138,7 +144,7 @@ status open
 
 
 \backslash
-title{TEACUP v1.0 -- Data Analysis Functions}
+title{TEACUP v1.1 -- Data Analysis Functions}
 \end_layout
 
 \end_inset
@@ -156,35 +162,10 @@ status open
 \backslash
 author{
 \backslash
-IEEEauthorblockN{Sebastian Zander, Grenville Armitage}
+IEEEauthorblockN{Editors: Sebastian Zander, Grenville Armitage}
 \end_layout
 
 \begin_layout Plain Layout
-
-
-\backslash
-IEEEauthorblockA{Centre for Advanced Internet Architectures
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-Swinburne University of Technology
-\backslash
-
-\backslash
-
-\end_layout
-
-\begin_layout Plain Layout
-
-Melbourne, Australia
-\backslash
-
-\backslash
 
 \end_layout
 
@@ -192,7 +173,14 @@ Melbourne, Australia
 
 
 \backslash
-url{szander@swin.edu.au}, 
+IEEEauthorblockA{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+url{s.zander@murdoch.edu.au}, 
 \backslash
 url{garmitage@swin.edu.au}}}
 \end_layout
@@ -256,10 +244,10 @@ cite{dash-standard}.
  However, the impact of different TCP congestion control algorithms on TCP-based
  streaming flows (within a mix of other typical traffic) is not well understood.
  Experiments in a controlled testbed allow shedding more light on this issue.
- TEACUP (TCP Experiment Automation Controlled Using Python) version 1.0 is
+ TEACUP (TCP Experiment Automation Controlled Using Python) version 1.1 is
  a software tool for running automated TCP experiments in a testbed 
 \backslash
-cite{zander2015caia_teacup_v1.0}.
+cite{zander2018_teacup_v1.1_system}.
  This report describes the analysis functions TEACUP provides to extract
  statistics and plot graphs based on data collected during the experiments.
  
@@ -287,14 +275,14 @@ baselineskip}
 \backslash
 noindent
 \backslash
-begin{keywords} TCP, experiments, automated control, data analysis 
+begin{IEEEkeywords} TCP, experiments, automated control, data analysis 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-end{keywords} 
+end{IEEEkeywords} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -371,20 +359,13 @@ footrulewidth}{0pt}% Footer rule
 \backslash
 fancyfoot[C]{
 \backslash
-small{
+small{Based on a version of  
 \backslash
-copyright~2015 -- 2016 CAIA, Swinburne University of Technology
+url{http://caia.swin.edu.au/reports/150529B/CAIA-TR-150529B.pdf}, orginally
+ released June 2016 under Creative Commons BY-SA 4.0 License, 
 \backslash
-
-\backslash
-Originally published as 
-\backslash
-url{http://caia.swin.edu.au/reports/150529B/CAIA-TR-150529B.pdf}
-\backslash
-
-\backslash
-This version released June 2016 under Creative Commons BY-SA 4.0 License
- -- see terms on page~
+copyright~2015 -- 2016 CAIA, Swinburne University of Technology.
+ See terms on page~
 \backslash
 pageref{sec:Copying}}}
 \end_layout
@@ -430,7 +411,7 @@ headrulewidth}{0pt}
 \backslash
 lfoot{
 \backslash
-small{TEACUP v1.0 -- Data Analysis Functions}}
+small{TEACUP v1.1 -- Data Analysis Functions}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -446,7 +427,7 @@ cfoot{}
 \backslash
 rfoot{
 \backslash
-small{June 9, 2016~~page 
+small{Feb 9, 2018~~page 
 \backslash
 thepage ~of 
 \backslash
@@ -545,15 +526,31 @@ key "dash-standard"
 
 \begin_layout Standard
 This report describes the data analysis functionality of TEACUP (TCP Experiment
- Automation Controlled Using Python) version 1.0 -- a software tool for running
+ Automation Controlled Using Python) version 1.1 – a software tool for running
  automated TCP experiments in a testbed 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0"
+key "zander2018_teacup_v1.1_system"
 
 \end_inset
 
 .
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Updating a previous analysis report for TEACUP version 1.0 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "CAIA-TR-150529B"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
  The TEACUP project originated at Swinburne University of Technology's Centre
  for Advanced Internet Architectures (
 \begin_inset Flex URL
@@ -582,14 +579,14 @@ http://sourceforge.net/projects/teacup
 \end_layout
 
 \begin_layout Standard
-Based on a configuration file TEACUP can perform a series of experiments
+Based on a python configuration file TEACUP can perform a series of experiments
  with different traffic mixes, different bottlenecks (such as bandwidths,
  queue mechanisms), different emulated network delays and/or loss rates,
  and different host settings (e.g.
  TCP congestion control algorithm) 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0"
+key "zander2018_teacup_v1.1_system"
 
 \end_inset
 
@@ -684,7 +681,7 @@ This section provides an overview of TEACUP's architecture for data extraction
 \end_layout
 
 \begin_layout Subsection
-Architecture
+Experiment analysis architecture
 \end_layout
 
 \begin_layout Standard
@@ -692,20 +689,31 @@ TEACUP's extract and analysis functions are implemented as Fabric tasks
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0"
+key "zander2018_teacup_v1.1_system"
 
 \end_inset
 
 .
 \end_layout
 
+\begin_layout Subsubsection
+Extract and analyse tasks
+\end_layout
+
 \begin_layout Standard
 The architecture of TEACUP's analysis part is relatively straight-forward.
- At the lowest layer TEACUP uses extract tasks to extract statistics from
- the data collected during experiments and store these in interim data files.
+ At the lowest layer TEACUP uses 
+\emph on
+extract tasks
+\emph default
+ to extract statistics from the data collected during experiments and store
+ these in interim data files.
  The extract tasks can be invoked by end-users directly to extract data,
- but they are also called by higher-layer analyse tasks, invoked by the
- user, that generate graphs based on the extracted data.
+ but they are also called by higher-layer 
+\emph on
+analyse tasks
+\emph default
+, invoked by the user, that generate graphs based on the extracted data.
  TEACUP's analyse tasks pre-process the data for plotting, but the actual
  graph generation is carried out by R functions.
  Figure 
@@ -716,9 +724,8 @@ reference "fig:TEACUP_analysis_architecture"
 \end_inset
 
  depicts this architecture.
- As the figure indicates there is not a one-to-one relationship between
- analysis and extract tasks, as some analysis tasks may run multiple extract
- tasks.
+ There is not a one-to-one relationship between analysis and extract tasks,
+ as some analysis tasks may run multiple extract tasks.
 \end_layout
 
 \begin_layout Standard
@@ -769,92 +776,103 @@ Extract tasks generate files with interim data and pass the names of these
  of the files together with other parameters to the plot function.
 \end_layout
 
-\begin_layout Standard
-TEACUP cleanly separates the Python pre-processing and R plotting code with
- a well-defined interface between the the two parts.
- As Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:TEACUP_analysis_architecture"
-
-\end_inset
-
- indicates, information regarding the data to be plotted is passed using
- environment variables, so TEACUP's existing plotting functions can be replaced
- by alternative user-supplied plotting functions implemented in any convenient
- language or tool.
-\end_layout
-
-\begin_layout Subsection
-Experiment configuration information
-\end_layout
-
-\begin_layout Standard
-For experiments carried out with TEACUP prior to version 0.9, the config.py
- file used when extract or analysis tasks are executed must be the file
- used to run the experiments (as far as the testbed configuration is concerned)
- or the config file used to run the experiments must be specified with --set
- teacup_config (see technical report 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "zander2015caia_teacup_v1.0"
-
-\end_inset
-
- on how to load user-specified config files).
- 
-\end_layout
-
-\begin_layout Standard
-Since version 0.9 TEACUP stores all config variables for a series of experiments
- in a file <test_id_pfx>_varying_params.log.gz located in the experiment series
- sub-directory (see technical report 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "zander2015caia_teacup_v1.0"
-
-\end_inset
-
-).
- Extract and analysis functions will access this file and the config file
- used to run the experiments is not required anymore when running analysis
- tasks.
-\end_layout
-
-\begin_layout Subsection
-Modifying or replacing analysis functionality
+\begin_layout Subsubsection
+User-supplied plotting/graphing functions
 \end_layout
 
 \begin_layout Standard
 The data extraction and analysis aspect of TEACUP is quite distinct from
  the tasks that actually run experiments and gather testbed data.
- Instead of using TEACUP's analysis functions, end-users may want to develop
- their own data analysis and graphing tools.
- However, TEACUP also provides some options to customise the behaviour of
- its analysis functions, so users may find it easier to modify or extend
- the existing functions instead.
- For example, Section 
+ And the analysis aspect of TEACUP cleanly separates the Python pre-processing
+ and R plotting code with a well-defined interface between the the two parts,
+ passing information regarding the data to be plotted using environment
+ variables.
+\end_layout
+
+\begin_layout Standard
+If end-users want to develop their own data analysis and graphing tools,
+ TEACUP's existing R-based plotting functions can be replaced by alternative,
+ user-supplied plotting functions implemented in any convenient language
+ or tool.
+ Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:customising_plotting"
 
 \end_inset
 
- describes how to customise the plotting by (1) manipulating the environment
- variables passed to the plot script and (2) replacing the default plot
- scrips with customised scripts.
+ describes how to customise the plotting/graphing by (1) manipulating the
+ environment variables passed to the plot script and (2) replacing the default
+ plot scripts with customised scripts.
 \end_layout
 
 \begin_layout Subsection
-Interim data file names
+Experiment configuration data
 \end_layout
 
 \begin_layout Standard
-Interim data files are named as follows.
- The first part of the file name is the experiment ID, which allows to link
- the interim data file to the experiment it was generated from.
- Then for extract and analysis task that process per-flow data, the next
- part of the file name is of the form 
+Since TEACUP version 0.9 all config variables for an experiment or group
+ of experiments are stored in a file named 
+\family typewriter
+\size small
+<testIDprefix>_varying_params.log.gz
+\family default
+\size default
+ located in the experiment-specific sub-directory.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+By default this will be under 
+\family typewriter
+\size footnotesize
+./<testIDprefix>/
+\family default
+\size default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zander2018_teacup_v1.1_system"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ This file is subsequently used to provide context for extraction and analysis
+ functions.
+\end_layout
+
+\begin_layout Subsection
+Intermediate data file names
+\end_layout
+
+\begin_layout Standard
+During extraction and post-processing, intermediate data files are named
+ as follows:
+\end_layout
+
+\begin_layout Itemize
+The first part of the file name is the 
+\series bold
+test ID
+\series default
+ (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Specifying-experiments-TestIDs"
+
+\end_inset
+
+), which links each intermediate data file to the specific experiment from
+ which it was generated.
+\end_layout
+
+\begin_layout Itemize
+For extract and analysis tasks that process per-flow data, the next part
+ of the file name is of the form 
 \family typewriter
 \size small
 <src_ip>_<src_port>_<dst_ip>_<dst_port>
@@ -863,9 +881,11 @@ Interim data files are named as follows.
 , where <src_ip> is the source IP address, <src_port> is the source port,
  <dst_ip> is the destination IP address and <dst_port> is the destination
  port.
- The last part of the file name is an extension that indicates the type
- of data a file contains.
- The extension is specific to the extract function.
+\end_layout
+
+\begin_layout Itemize
+The last part of the file name is an extension that indicates the type of
+ data a file contains (specific to each extract function).
  Section 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -873,15 +893,28 @@ reference "sec:Data_extraction"
 
 \end_inset
 
- describes the extension names in more detail.
- Listing 
+ describes extension names in more detail.
+\end_layout
+
+\begin_layout Standard
+Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "lis:Example-interim-file"
 
 \end_inset
 
- shows an example interim data file name.
+ shows an example intermediate data file name where the test ID is `exp_20150218
+-135735_aqm_pfifo_responders_4', the source was 172.16.10.60:50001, destination
+ was 172.16.11.61:80 with the .rtimes extension indicating a file generated
+ by the extract_incast task (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:extract_incast"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -892,8 +925,7 @@ status open
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_4_172.16.10.60_50001_172.16.11.61_80.rt
-imes
+exp_20150218-135735_aqm_pfifo_responders_4_172.16.10.60_50001_172.16.11.61_80.rtimes
 \end_layout
 
 \begin_layout Plain Layout
@@ -925,30 +957,40 @@ Directory caching
 \end_layout
 
 \begin_layout Standard
-Most of TEACUP's extract and analyse tasks make use of the 
+Most of TEACUP's extract and analyse tasks use the unix 
 \family typewriter
 \size footnotesize
 find
 \family default
 \size default
- command line tool to locate experiment data files or intermediate data
- files used for plotting.
- The root directory for find is the directory in which the task is run (or
- in other words the fabfile.py directory).
+ command to locate experiment data files or intermediate data files used
+ for plotting.
+ The root directory for 
+\family typewriter
+\size footnotesize
+find
+\family default
+\size default
+ is the directory in which the fab task is run (in other words the fabfile.py
+ directory).
  In case there are many experiment series' stored in sub directories under
  this directory the find process will be slow.
  
 \end_layout
 
 \begin_layout Standard
-To speed up the extraction and analysis, since version 0.9 TEACUP uses a
- directory cache, which stores a map of test ID prefixes and their associated
- sub directories.
+To speed up extraction and analysis, since version 0.9 TEACUP uses a directory
+ cache to store a map of test ID prefixes and their associated sub directories.
  If there is a cache entry for the test ID of a particular file that TEACUP
  is trying to locate, then the search will only be carried out under the
  cached sub directory.
- The cache file is named teacup_dir_cache.txt and is stored in the directory
- where fabfile.py is located.
+ The cache file is named 
+\family typewriter
+\size small
+teacup_dir_cache.txt
+\family default
+\size default
+ in the directory where fabfile.py is located.
  
 \end_layout
 
@@ -974,16 +1016,20 @@ Many of TEACUP's extract and analysis functions work on a per-flow basis.
 
 \begin_layout Standard
 To speed up the extraction and analysis, since version 0.9 TEACUP uses a
- flow cache, which stores a map of file names (including the path relative
- to the directory in which fabfile is located) and their associated flow
- tuples.
+ flow cache to store a map of file names (including the path relative to
+ the directory in which fabfile is located) and their associated flow tuples.
  If a cache entry is present for a file, TEACUP will use the flow tuples
  from the cache as basis for the analysis.
  If there is no cache entry, TEACUP will extract the flow tuples from the
  file (e.g.
  tcpdump file) and create a new cache entry.
- The cache file is teacup_flow_cache.txt and is stored in the directory where
- fabfile.py is located.
+ The cache file is 
+\family typewriter
+\size small
+teacup_flow_cache.txt
+\family default
+\size default
+ in the directory where fabfile.py is located.
 \end_layout
 
 \begin_layout Standard
@@ -1009,8 +1055,8 @@ name "sec:Data_extraction"
 \end_layout
 
 \begin_layout Standard
-TEACUP provides a number of basic extract tasks for extracting data to be
- plotted from the data collected during the experiments.
+TEACUP provides a number of tasks for extracting intermediate data to be
+ plotted from the raw data collected during the experiments.
  Here we describe the extract tasks, their parameters and their output.
  The extracted data is used by the analysis tasks described in Section 
 \begin_inset CommandInset ref
@@ -1020,10 +1066,11 @@ reference "sec:Data_analysis"
 \end_inset
 
 .
- Note that analysis tasks automatically call relevant extract tasks to extract
- the data needed for plotting.
+ Note that analysis tasks automatically call relevant extract tasks to obtain
+ the intermediate data needed for plotting – there is no need to explicitly
+ run an extract task prior to a related analyse task.
  However, the extract tasks can be executed directly by an end-user who
- wishes to only extract data but not plot graph(s).
+ wishes to only extract intermediate data but not plot graph(s).
 \end_layout
 
 \begin_layout Standard
@@ -1064,7 +1111,7 @@ Extracting the TCP congestion window size (CWND) from SIFTR and Web10G data
 
 \begin_layout Enumerate
 Extracting TCP's RTT estimate from SIFTR and Web10G data (extract_tcp_rtt).
- The task extracts both, the smoothed estimate and an unsmoothed estimate
+ This task extracts both, the smoothed estimate and an unsmoothed estimate
  (for SIFTR the unsmoothed estimate is the improved ERTT 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1077,6 +1124,11 @@ key "CAIA-TR-100219A"
 
 \begin_layout Enumerate
 Extract arbitrary TCP statistics from SIFTR and Web10G data (extract_tcp_stat);
+\end_layout
+
+\begin_layout Enumerate
+Extract RTT (using SPP and/or estimated RTT from SIFTR and Web10G data),
+ as well as CWND and packet size data all at once (extract_all);
 \end_layout
 
 \begin_layout Enumerate
@@ -1099,22 +1151,37 @@ Extracting the response times for incast experiments from tcpdump files
 \end_layout
 
 \begin_layout Enumerate
-Extrating the inter-query times for incast experiments from tcpdump files
- (extract_incast_iqtimes).
+Extracting the inter-query times for incast experiments from tcpdump files
+ (extract_incast_iqtimes);
+\end_layout
+
+\begin_layout Enumerate
+Extracting the packet loss rates from tcpdump files (extract_pktloss);
+\end_layout
+
+\begin_layout Enumerate
+Extracting the one way delay (OWD) from tcpdump files (extract_owd).
 \end_layout
 
 \begin_layout Subsection
-Common parameters
+Common task parameters
 \end_layout
 
 \begin_layout Standard
-This section describes the common parameter.
+This section describes the common parameters.
  Most of these are supported by all extract tasks, but some of them are
  only supported by a subset of tasks.
 \end_layout
 
 \begin_layout Subsubsection
-Specifying experiments to process
+Specifying experiments to process (test IDs)
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Specifying-experiments-TestIDs"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1124,16 +1191,85 @@ The
 test_id
 \family default
 \size default
- parameter specifies the ID of the experiment from which to extract data.
- The 
+ parameter specifies the full 
+\series bold
+test ID
+\series default
+ of the experiment from which to extract data.
+ An experiment in this context means results logged under a particular 
+\series bold
+test ID prefix
+\series default
+ for a run using a specific combination of optional parameters encoded in
+ the test ID.
+ From section 3 of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zander2018_teacup_v1.1_system"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+<testID> = <testIDprefix>_[<parName>_<parVal>_]*
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size footnotesize
+<testIDprefix>
+\family default
+\size default
+ groups together related experiments generated by iterating over range of
+ values for a subset of testbed parameters.
+ Unless overriden by the user when an experiment is launched, 
+\family typewriter
+\size footnotesize
+<testIDprefix>
+\family default
+\size default
+ defaults to a string of the form `exp_YYYYMMDD-HHMMSS' (based on the date
+ when the overall experiment was launched).
+\end_layout
+
+\begin_layout Standard
+A TEACUP fab task's 
 \family typewriter
 \size small
 test_id
 \family default
 \size default
- parameter accepts multiple test IDs separated by semicolons.
+ parameter typically accepts multiple test IDs separated by semicolons.
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Since TEACUP v0.5.
@@ -1142,9 +1278,10 @@ Since TEACUP v0.5.
 
 \end_inset
 
- If a list is specified, data will be extracted for each test ID.
- Extracted data is stored in files that start with the experiment ID and
- have a task-specific extension.
+ If such a semicolon-separated list of testIDs is specified, data will be
+ extracted for each test ID.
+ Extracted data is stored in files that start with the experiment's test
+ ID and have a task-specific extension.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1161,8 +1298,8 @@ replot_only
 .
  While the parameter can be used when executing an extract task, it is mainly
  used for analysis tasks and passed on to the underlying extract tasks.
- This parameter allows to replot the graphs without extracting the data
- again (e.g.
+ This parameter allows the replotting of the graphs without extracting the
+ data again (e.g.
  from tcpdump, SIFTR or Web10G files).
  If 
 \family typewriter
@@ -1180,10 +1317,10 @@ Data output directory
 \end_layout
 
 \begin_layout Standard
-By default all extracted data files are generated in the sub directory where
- the experiment data is located (the sub directory name being the test ID
- prefix) inside the directory where fab is executed.
- To put the output files into a specific directory, the 
+By default all extracted data files are created in the sub directory where
+ the experiment's raw data is located (a sub directory whose name is the
+ test ID prefix) inside the directory where fab is executed.
+ To put these output files into a specific directory, the 
 \family typewriter
 \size footnotesize
 out_dir
@@ -1211,252 +1348,6 @@ to the location of the log files
 \end_layout
 
 \begin_layout Subsubsection
-Clock offset analysis and correction
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:clock-offset-analysis"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-TEACUP provides an additional mechanism to evaluate the quality of the time
- synchronisation between hosts and (optionally) correct for clock offsets
- in the post-analysis.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
- Since TEACUP version 0.7.
-\end_layout
-
-\end_inset
-
- This mechanism requires that broadcast/multicast pings were enabled for
- an experiment (with TPCONF_bc_ping_enable=`1') as described in Section
- IV-I in technical report 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "zander2015caia_teacup_v1.0"
-
-\end_inset
-
-, 
-\end_layout
-
-\begin_layout Paragraph
-Computing clock offsets
-\end_layout
-
-\begin_layout Standard
-The get_clock_offsets tasks allows computing the clock offsets between all
- hosts using the clock of one host as reference (by default the router's
- clock).
- The task will generate a file for each experiment in experiments_completed.txt
- by default, for a specific experiment if the 
-\family typewriter
-\size small
-test_id
-\family default
-\size default
- parameter is specified, or for a number of experiments listed in a file
- specified with the 
-\family typewriter
-\size small
-exp_list
-\family default
-\size default
- parameter.
- 
-\end_layout
-
-\begin_layout Standard
-The 
-\family typewriter
-\size small
-baseline_host
-\family default
-\size default
- parameter can be used to specify the reference clock and the 
-\family typewriter
-\size small
-out_dir
-\family default
-\size default
- parameter specifies the directory in which the clock offset file is generated.
- Assuming <test_id> is the experiment ID, the name of the clock offsets
- file is <test_id>_clock_offsets.txt.
-\end_layout
-
-\begin_layout Standard
-The following is an example of using the get_clock_offsets task where we
- specify a specific output directory and instruct TEACUP to use the clock
- of host `testrouter' as reference:
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-noindent 
-\backslash
-colorbox{lightgray}{
-\end_layout
-
-\end_inset
-
-
-\family typewriter
-\size small
-
-\begin_inset Box Frameless
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "98col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status collapsed
-
-\begin_layout Plain Layout
-
-\family typewriter
-\size footnotesize
-> fab get_clock_offsets:out_dir=../clock_data, baseline_host=testrouter
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Correcting timestamps during data extraction or analysis
-\end_layout
-
-\begin_layout Standard
-The 
-\family typewriter
-\size small
-ts_correct
-\family default
-\size default
- parameter instructs extract tasks to use previously-computed clock offset
- data to correct timestamps for plotting (e.g.
- timestamps from tcpdump or web10g files).
- As explained earlier, the correction can only be done if an experiment
- was run with broadcast/multicast pings (see Section IV-I in technical report
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "zander2015caia_teacup_v1.0"
-
-\end_inset
-
-).
- 
-\end_layout
-
-\begin_layout Standard
-No timestamp correction occurs if 
-\family typewriter
-\size small
-ts_correct=0
-\family default
-\size default
- or is undefined.
- If 
-\family typewriter
-\size small
-ts_correct=1
-\family default
-\size default
-, the extract functions will generate uncorrected data files as well as
- additional data files with all timestamps corrected according to the clock
- offsets calculated by the get_clock_offsets task (the additional files
- have an appended .tscorr extension), and analyse functions will plot the
- data with timestamps corrected (based on the .tscorr files).
-\end_layout
-
-\begin_layout Standard
-Note that if ts_correct is set to 1 and no clock offsets file is present,
- TEACUP will automatically try to create the file
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-<test_id>_clock_offsets.txt file
-\end_layout
-
-\end_inset
-
-.
- Also note that enabling 
-\family typewriter
-\size small
-ts_correct
-\family default
-\size default
- will only modify timestamps in the additional interim data files used for
- plotting.
- Original timestamps in the actual log files (e.g.
- timestamps in tcpdump or web10g files) are 
-\emph on
-not
-\emph default
- modified.
-\end_layout
-
-\begin_layout Standard
-Prior to TEACUP version 0.9 
-\family typewriter
-\size small
-ts_correct=0
-\family default
-\size default
- was the default, but since version 0.9 the default is 
-\family typewriter
-\size small
-ts_correct=1
-\family default
-\size default
-.
- If an experiment was run without broadcast/multicast pings, 
-\family typewriter
-\size small
-ts_correct=0
-\family default
-\size default
- must be specified for extract or analysis tasks, or otherwise these tasks
- will fail.
- 
-\end_layout
-
-\begin_layout Subsubsection
 Data series selection
 \end_layout
 
@@ -1471,7 +1362,7 @@ name "sub:Data-series-selection"
 \end_layout
 
 \begin_layout Standard
-All extract tasks, except extract_dash_goodput, provide the 
+All extract tasks, except extract_dash_goodput, offer the 
 \family typewriter
 \size small
 source_filter
@@ -1569,7 +1460,7 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1633,7 +1524,7 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1698,7 +1589,7 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1726,8 +1617,8 @@ status open
 \begin_layout Standard
 Instead of an actual port number on can specify the wild-card character
  (`*').
- This allows to filter on a specific source or destination with any port
- number.
+ This allows the filtering of a specific source or destination with any
+ port number.
  For example, we can plot data for all flows 
 \emph on
 from
@@ -1765,7 +1656,7 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1797,7 +1688,8 @@ Note that
 source_filter
 \family default
 \size default
- identifies the flows selected, not the flows filtered out.
+ identifies the flows selected as the 'source' of information, not the flows
+ to be filtered out.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1843,7 +1735,7 @@ replot_only
 \end_layout
 
 \begin_layout Subsubsection
-Burst-separation (incast experiments)
+Burst-separation (incast and similar experiments)
 \end_layout
 
 \begin_layout Standard
@@ -1857,17 +1749,17 @@ name "sub:burst_separation"
 \end_layout
 
 \begin_layout Standard
-The tasks extract_rtt, extract_ackseq and extract_incast can extract data
- on a per-burst basis for incast experiments, where we have bursts of TCP
- requests sent by a querier to multiple responders interspersed by idle
- times.
+A number of tasks can extract data on a per-burst basis for experiments
+ where we have bursts of TCP requests sent by a querier to one or more responder
+s interspersed by idle times.
  The parameter 
 \family typewriter
 \size small
 burst_sep
 \family default
 \size default
- allows to specify the time between bursts.
+ specifies the minimum time between the end of one burst and the start of
+ another.
  Any idle time longer than 
 \family typewriter
 \size small
@@ -1898,14 +1790,259 @@ sburst
 eburst
 \family default
 \size default
- can be used to select the bursts to be plotted (start index of 1).
- They are not useful when running an extract task directly.
- They are only useful when passed to an analyse task, which passes them
- further to an extract task.
+ can be used to select the bursts to be plotted (with a start index of 1).
+ These parameters are passed to an analyse task, which passes them further
+ to an extract task.
 \end_layout
 
 \begin_layout Subsection
-extract_pktsizes -- Extract packet sizes for throughput computation
+Clock offset analysis and correction
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:clock-offset-analysis"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since version 0.7, TEACUP provides an additional mechanism to evaluate the
+ quality of the time synchronisation between hosts and (optionally) correct
+ for clock offsets in the post-analysis.
+ Broadcast or multicast pings must have been enabled for an experiment,
+ with TPCONF_bc_ping_enable=`1' 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zander2018_teacup_v1.1_system"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Computing clock offsets
+\end_layout
+
+\begin_layout Standard
+The get_clock_offsets task computes the clock offsets between all hosts
+ using the clock of one host as reference (by default the router's clock).
+ By default this task will generate a 
+\family typewriter
+\size small
+<testID>_clock_offsets.txt
+\family default
+\size default
+ file for each experiment in experiments_completed.txt, for a specific experiment
+ if the 
+\family typewriter
+\size small
+test_id
+\family default
+\size default
+ parameter is specified, or for a number of experiments listed in a file
+ specified with the 
+\family typewriter
+\size small
+exp_list
+\family default
+\size default
+ parameter.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+\size small
+baseline_host
+\family default
+\size default
+ parameter can be used to specify the host whose timestamps will be considered
+ the reference clock, and the 
+\family typewriter
+\size small
+out_dir
+\family default
+\size default
+ parameter specifies the directory in which the clock offset file is generated.
+ Assuming <testID> is the experiment ID, the name of the clock offsets file
+ is <testID>_clock_offsets.txt.
+\end_layout
+
+\begin_layout Standard
+The following is an example of using the get_clock_offsets task where we
+ specify a specific output directory and instruct TEACUP to use the clock
+ of host `testrouter' as reference:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab get_clock_offsets:out_dir=../clock_data, baseline_host=testrouter
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Correcting timestamps during data extraction or analysis
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+\size small
+ts_correct
+\family default
+\size default
+ parameter instructs extract tasks to use previously-computed clock offset
+ data to correct timestamps for plotting (e.g.
+ timestamps from tcpdump or web10g files).
+ As explained earlier, the correction can only be done if an experiment
+ was run with broadcast/multicast pings (see Section IV-I in technical report
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zander2018_teacup_v1.1_system"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+No timestamp correction occurs if 
+\family typewriter
+\size small
+ts_correct=0
+\family default
+\size default
+ or is undefined.
+ If 
+\family typewriter
+\size small
+ts_correct=1
+\family default
+\size default
+, the extract functions will generate uncorrected data files as well as
+ additional data files with all timestamps corrected according to the clock
+ offsets calculated by the get_clock_offsets task (the additional files
+ have an appended .tscorr extension), and analyse functions will plot the
+ data with timestamps corrected (based on the .tscorr files).
+\end_layout
+
+\begin_layout Standard
+Note that if 
+\family typewriter
+\size small
+ts_correct=1
+\family default
+\size default
+ and no clock offsets file is present, TEACUP will automatically try to
+ create the 
+\family typewriter
+\size small
+<testID>_clock_offsets.txt
+\family default
+\size default
+ file(s).
+ Also note that enabling 
+\family typewriter
+\size small
+ts_correct
+\family default
+\size default
+ will only modify timestamps in the additional intermediate data files used
+ for plotting.
+ Original timestamps in the actual log files (e.g.
+ timestamps in tcpdump or web10g files) are 
+\emph on
+not
+\emph default
+ modified.
+\end_layout
+
+\begin_layout Standard
+Extract and analyse tasks prior to TEACUP version 0.9 used 
+\family typewriter
+\size small
+ts_correct=0
+\family default
+\size default
+ as the default.
+ Since version 0.9 the default is 
+\family typewriter
+\size small
+ts_correct=1
+\family default
+\size default
+.
+ To analyse an experiment that was run without broadcast/multicast pings,
+ you must manually specify 
+\family typewriter
+\size small
+ts_correct=0
+\family default
+\size default
+ for extract or analysis tasks, otherwise these tasks will fail.
+ 
+\end_layout
+
+\begin_layout Subsection
+extract_pktsizes – Extract packet sizes for throughput computation
 \end_layout
 
 \begin_layout Standard
@@ -1930,7 +2067,7 @@ This task extracts packet size information from tcpdump files.
 \end_layout
 
 \begin_layout Standard
-Besides the common parameters the task has the parameters 
+Besides the common parameters this task has the parameters 
 \family typewriter
 \size small
 link_len 
@@ -1957,8 +2094,8 @@ The parameter
 link_len 
 \family default
 \size default
-allows to specify whether the packet sizes extracted are the IP sizes (`0')
- or the sizes including the link layer header (`1').
+allows the specification of whether the packet sizes extracted are the IP
+ sizes (`0') or the sizes including the link layer header (`1').
  
 \end_layout
 
@@ -1989,7 +2126,9 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract packet
+ size information including the link layer header from a tcpdump file for
+ a certain testID, to the current working directory under the results folder:
 \end_layout
 
 \begin_layout Standard
@@ -2028,8 +2167,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_pktsizes:test_id= 20131206-102931_tcp_newreno,out_dir=./results,
- link_len=1
+> fab extract_pktsizes:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../
+results,link_len=1
 \end_layout
 
 \end_inset
@@ -2049,7 +2188,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_rtt -- RTT estimates (based on SPP)
+extract_rtt – RTT estimates (based on SPP)
 \end_layout
 
 \begin_layout Standard
@@ -2073,28 +2212,97 @@ key "sppweb"
 .
  Extracted data files are created for each bidirectional traffic flow with
  .rtts extension.
- They contain the following space-separated columns with one line per timestamp:
- timestamp of RTT and RTT estimated by SPP.
+ They contain pairs of 
+\family typewriter
+\size small
+<timestamp> <RTT>
+\family default
+\size default
+ as two space-separated columns, with one line per timestamp.
 \end_layout
 
 \begin_layout Standard
-Besides the common parameters the task has the parameter 
+Besides the common parameters this task has the parameter 
 \family typewriter
 \size small
 udp_map
 \family default
 \size default
 .
- This parameter allows to map unidirectional UDP flows in opposite direction
- into bidirectional UDP flows, as SPP needs bidirectional flows to estimate
- the RTT.
- The format for the parameter is a semicolon-separated list of source IP
- source port pairs.
- Each pair must be specified as <src_ip1>,<src_port1>:<src_ip2>,<src_port2>,
- where <src_ip1>,<src_port1> is the source IP addresses and source port
- pair of one UDP flow and <src_ip2>,<src_port2> is the source IP addresses
- and source port pair of another UDP flow (in opposite direction).
- The task also has the 
+ SPP requires two flows, one in each direction, to estimate the RTT between
+ two points in the network.
+ For TCP connections TEACUP assumes the Data flow in one direction can be
+ paired with the ACK flow in the opposite direction for SPP's analysis.
+ However, the 
+\family typewriter
+\size small
+udp_map
+\family default
+\size default
+ parameter allows us to specify
+\change_deleted 193492759 1518046267
+ 
+\change_unchanged
+ two unrelated unidirectional UDP flows in opposite directions as the input
+ data to SPP.
+ 
+\end_layout
+
+\begin_layout Standard
+The format for 
+\family typewriter
+\size small
+udp_map
+\family default
+\size default
+ is a semicolon-separated list of source IP source port pairs.
+ Each pair must be specified as 
+\family typewriter
+\size footnotesize
+<src_ip1>
+\backslash
+,<src_port1>:<src_ip2>
+\backslash
+,<src_port2>
+\family default
+\size default
+, where <src_ip1>
+\backslash
+,<src_port1> is the source IP addresses and source port pair of one unidirection
+al UDP flow and <src_ip2>
+\backslash
+,<src_port2> is the source IP addresses and source port pair of another
+ unidirectional UDP flow in opposite direction.
+ Note: The 
+\begin_inset Quotes eld
+\end_inset
+
+
+\backslash
+
+\begin_inset Quotes erd
+\end_inset
+
+ is used when required to escape the 
+\begin_inset Quotes eld
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+ characters while specifying 
+\family typewriter
+\size small
+udp_map
+\family default
+\size default
+ on the command line.
+ 
+\end_layout
+
+\begin_layout Standard
+This task also has the 
 \family typewriter
 \size small
 burst_sep
@@ -2113,7 +2321,7 @@ eburst
 \family default
 \size default
  parameters which make it possible to extract the RTT estimates on a burst-by-bu
-rst bases for incast experiments.
+rst basis for relevant experiments.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2121,7 +2329,9 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows a simple example of how to use this task to extract
+ RTT based on SPP for a certain testID, to the current working directory
+ under the results folder:
 \end_layout
 
 \begin_layout Standard
@@ -2160,7 +2370,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_rtt:test_id= 20131206-102931_tcp_newreno, out_dir=./results/
+> fab extract_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../resul
+ts
 \end_layout
 
 \end_inset
@@ -2180,9 +2391,9 @@ status open
 \end_layout
 
 \begin_layout Standard
-The following command shows how to combine two unidirectional UDP flows,
- one originating from 192.168.0.10 port 5000 and the other originating from
- 192.168.0.11 port 5001:
+The following command shows the same example as before but now illustrates
+ how to combine two unidirectional UDP flows, one originating from 192.168.0.10
+ port 5000 and the other originating from 192.168.0.11 port 5001:
 \end_layout
 
 \begin_layout Standard
@@ -2224,15 +2435,20 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_rtt:test_id= 20131206-102931_tcp_newreno, udp_map= 
+> fab extract_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, udp_map=
+ 
 \begin_inset Quotes erd
 \end_inset
 
-192.168.0.10,5000:192.168.0.11,5001
+192.168.0.10
+\backslash
+,5000: 192.168.0.11
+\backslash
+,5001
 \begin_inset Quotes erd
 \end_inset
 
-
+,out_dir=../results
 \end_layout
 
 \end_inset
@@ -2252,7 +2468,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_cwnd -- TCP CWND
+extract_cwnd – TCP CWND
 \end_layout
 
 \begin_layout Standard
@@ -2271,7 +2487,7 @@ This task extracts the CWND data from TCP log files.
  extension.
  They contain the following comma-separated columns with one line per timestamp:
  timestamp and CWND value (from SIFTR or web10g log file).
- Besides the common parameters the task has the parameter 
+ Besides the common parameters this task has the parameter 
 \family typewriter
 \size small
 io_filter
@@ -2281,7 +2497,7 @@ io_filter
  outgoing or incoming and outgoing packets (explained in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:extract_cwnd"
+reference "sub:filtering_siftr_analysis"
 
 \end_inset
 
@@ -2293,7 +2509,17 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract CWND data
+ from TCP logs for a certain testID, to the current working directory under
+ the results folder.
+ Additionally an 
+\family typewriter
+\size small
+io_filter
+\family default
+\size default
+ parameter value is specified to show only outbound packets from the SIFTR
+ logs:
 \end_layout
 
 \begin_layout Standard
@@ -2332,7 +2558,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_cwnd:test_id= 20131206-102931_tcp_newreno, out_dir=./results/
+> fab extract_cwnd:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../resu
+lts,io_filter=o
 \end_layout
 
 \end_inset
@@ -2352,7 +2579,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_tcp_rtt -- RTT estimates from TCP
+extract_tcp_rtt – RTT estimates from TCP
 \end_layout
 
 \begin_layout Standard
@@ -2362,7 +2589,7 @@ This task extracts TCP's RTT estimates from the TCP log files (SIFTR or
  extension.
  They contain the following comma-separated columns with one line per timestamp:
  timestamp, smoothed RTT estimate and sample/unsmoothed RTT estimate.
- Besides the common parameters the task has the parameter 
+ Besides the common parameters this task has the parameter 
 \family typewriter
 \size small
 io_filter
@@ -2371,7 +2598,7 @@ io_filter
  (explained in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:extract_cwnd"
+reference "sub:filtering_siftr_analysis"
 
 \end_inset
 
@@ -2383,7 +2610,17 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract RTT based
+ on the TCP logs for a certain testID, to the current working directory
+ under the results folder.
+ Additionally an 
+\family typewriter
+\size small
+io_filter
+\family default
+\size default
+ parameter value is specified to show only outbound packets from the SIFTR
+ logs:
 \end_layout
 
 \begin_layout Standard
@@ -2422,8 +2659,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_cwnd:test_id= 20131206-102931_tcp_newreno, out_dir=./results/,io_fi
-lter=o
+> fab extract_tcp_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../r
+esults,io_filter=o
 \end_layout
 
 \end_inset
@@ -2443,7 +2680,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_tcp_stat -- Extract any TCP statistic
+extract_tcp_stat – Extract any TCP statistic
 \end_layout
 
 \begin_layout Standard
@@ -2467,7 +2704,7 @@ This task extracts a user-defined statistic from the TCP log files.
 \end_layout
 
 \begin_layout Standard
-Besides the common parameters the task has the parameter 
+Besides the common parameters this task has the parameter 
 \family typewriter
 \size small
 io_filter
@@ -2476,7 +2713,7 @@ io_filter
  (explained in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:extract_cwnd"
+reference "sub:filtering_siftr_analysis"
 
 \end_inset
 
@@ -2527,7 +2764,31 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract TCP statistics
+ from TCP logs for a certain testID, to the current working directory under
+ the results folder.
+ Additionally an 
+\family typewriter
+\size small
+io_filter
+\family default
+\size default
+ parameter value is specified to show only outbound packets from the SIFTR
+ logs.
+ The 
+\family typewriter
+\size small
+siftr_index
+\family default
+\size default
+ and 
+\family typewriter
+\size small
+web10g_index
+\family default
+\size default
+ parameters are given values to specify the statistical column being looked
+ at in their respective logs:
 \end_layout
 
 \begin_layout Standard
@@ -2566,8 +2827,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_tcp_stat:test_id= 20131206-102931_tcp_newreno,out_dir=./results,
- siftr_index=22,web10g_index=120
+> fab extract_tcp_stat:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../
+results,io_filter=o,siftr_index=22, web10g_index=120
 \end_layout
 
 \end_inset
@@ -2587,7 +2848,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_all -- Combination of basic extract methods
+extract_all – Combination of basic extract methods
 \end_layout
 
 \begin_layout Standard
@@ -2597,16 +2858,88 @@ tt and extract_pktsizes.
  tasks.
 \end_layout
 
+\begin_layout Subsubsection
+Examples
+\end_layout
+
+\begin_layout Standard
+The following shows an example of how to use this task to extract the SPP
+ RTT and regular RTT, CWND and packets sizes for a certain testID, to the
+ current working directory under the results folder:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab extract_all:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../resul
+ts
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-extract_ackseq -- Extract acknowledged bytes or dupACKs
+extract_ackseq – Extract acknowledged bytes or dupACKs
 \end_layout
 
 \begin_layout Standard
 This task extracts TCP acknowledgement data.
- It is useful for incast experiments but not limited to these.
  Extracted data files are created for each traffic flow and have an .acks.0
  extension (without burst separation) or a file extension is .acks.<burst_number>
- (with burst separation).
+ (with burst separation, section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:burst_separation"
+
+\end_inset
+
+).
  The data files contain the following space-separated columns with one line
  per timestamp: timestamp, cumulative acknowledged bytes (from tcpdump log)
  and cumulative dupACKs (from tcpdump log).
@@ -2614,7 +2947,7 @@ This task extracts TCP acknowledgement data.
 \end_layout
 
 \begin_layout Standard
-The task has the common parameters as well as the burst-separation parameters
+This task has the common parameters as well as the burst-separation parameters
  
 \family typewriter
 \size small
@@ -2641,7 +2974,7 @@ reference "sub:burst_separation"
 \end_inset
 
 .
- The task also has the parameter 
+ This task also has the parameter 
 \family typewriter
 \size small
 total_per_experiment
@@ -2716,7 +3049,16 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract TCP acknowledg
+ement data for a certain testID, to the current working directory under
+ the results folder.
+ The 
+\family typewriter
+\size small
+burst_sep
+\family default
+\size default
+ parameter allows the specification of the time between bursts:
 \end_layout
 
 \begin_layout Standard
@@ -2755,8 +3097,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_ackseq:test_id= 20131206-102931_tcp_newreno,out_dir=./results,
- burst_sep=1.0
+> fab extract_ackseq:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../re
+sults,burst_sep=1.0
 \end_layout
 
 \end_inset
@@ -2776,12 +3118,21 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_dash_goodput -- Extract goodput for DASH experiments
+extract_dash_goodput – Extract goodput for DASH-like experiments based on
+ httperf
 \end_layout
 
 \begin_layout Standard
-This task extracts goodput for DASH-like clients.
- Extracted data files are created for each DASH-like client and have a .dashgp
+This task extracts goodput for DASH-like clients, based on data from the
+ httperf log files (*_httperf_dash.log.gz) generated by the start_httperf_dash
+ traffic generator.
+ (Note: The use of the start_httperf_dash traffic generator is deprecated
+ for TEACUP v1.1 in favor of launching real DASH clients using start_dash_streami
+ng_dashjs.)
+\end_layout
+
+\begin_layout Standard
+Extracted data files are created for each DASH-like client and have a .dashgp
  extension.
  They contain the following comma-separated data columns with one line per
  data block downloaded: timestamp of request, size of requested and downloaded
@@ -2791,7 +3142,7 @@ This task extracts goodput for DASH-like clients.
 \end_layout
 
 \begin_layout Standard
-Besides the common parameters the task has a 
+Besides the common parameters this task has a 
 \family typewriter
 \size small
 dash_log_list
@@ -2826,7 +3177,9 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract goodput
+ from DASH-like clients for a certain dash log list, to the current working
+ directory under the results folder:
 \end_layout
 
 \begin_layout Standard
@@ -2865,7 +3218,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_dash_goodput: dash_log_list=dash_logs.txt,out_dir=./results/
+> fab extract_dash_goodput:dash_log_list= dash_logs.txt,out_dir=../results
 \end_layout
 
 \end_inset
@@ -2885,7 +3238,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_incast -- Extract response times for incast experiments (from httperf
+extract_incast – Extract response times for incast experiments (from httperf
  logs)
 \end_layout
 
@@ -2911,7 +3264,7 @@ This task extracts response times for incast experiments.
 \end_layout
 
 \begin_layout Standard
-Besides the common parameters the task has the 
+Besides the common parameters this task has the 
 \family typewriter
 \size small
 sburst
@@ -2957,7 +3310,7 @@ Slowest response only
 \end_layout
 
 \begin_layout Standard
-The task has a parameter 
+This task has a parameter 
 \family typewriter
 \size small
 slowest_only
@@ -2970,8 +3323,8 @@ slowest_only
 slowest_only
 \family default
 \size default
- is set to `1', the task will also generate a file with the extension .rtimes.slow
-est that only contains the slowest response time over all flows for each
+ is set to `1', this task will also generate a file with the extension .rtimes.slo
+west that only contains the slowest response time over all flows for each
  burst.
  If 
 \family typewriter
@@ -2979,9 +3332,9 @@ est that only contains the slowest response time over all flows for each
 slowest_only
 \family default
 \size default
- is set to `2', the task will also generate a file with the extension .rtimes.slow
-est that only contains the time between the first request sent and the time
- the last response was finished for each burst (default is `0').
+ is set to `2', this task will also generate a file with the extension .rtimes.slo
+west that only contains the time between the first request sent and the
+ time the last response was finished for each burst (default is `0').
 \end_layout
 
 \begin_layout Subsubsection
@@ -2989,7 +3342,22 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract response
+ times from incast experiments httperf logs for a certain testID, to the
+ current working directory under the results folder.
+ The parameters 
+\family typewriter
+\size small
+sburst
+\family default
+\size default
+ and 
+\family typewriter
+\size small
+eburst
+\family default
+\size default
+ are specified to select the bursts to be plotted:
 \end_layout
 
 \begin_layout Standard
@@ -3028,8 +3396,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_incast:test_id= 20131206-102931_tcp_newreno,out_dir=./results,
- sburst=2,eburst=0
+> fab extract_incast:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../re
+sults,sburst=2,eburst=0
 \end_layout
 
 \end_inset
@@ -3049,7 +3417,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_incast_restimes -- Extract response times for incast experiments
+extract_incast_restimes – Extract response times for incast experiments
  (from tcpdump)
 \end_layout
 
@@ -3074,7 +3442,7 @@ reference "sub:extract_incast"
 \end_layout
 
 \begin_layout Standard
-The task has the common parameters.
+This task has the common parameters.
  Furthermore, it has the parameter 
 \family typewriter
 \size small
@@ -3107,7 +3475,7 @@ Slowest response only
 \end_layout
 
 \begin_layout Standard
-The task has a parameter 
+This task has a parameter 
 \family typewriter
 \size small
 slowest_only
@@ -3120,8 +3488,8 @@ slowest_only
 slowest_only
 \family default
 \size default
- is set to `1', the task will also generate a file with the extension .restimes.sl
-owest that only contains the slowest response time over all flows for each
+ is set to `1', this task will also generate a file with the extension .restimes.s
+lowest that only contains the slowest response time over all flows for each
  burst.
  If 
 \family typewriter
@@ -3129,13 +3497,87 @@ owest that only contains the slowest response time over all flows for each
 slowest_only
 \family default
 \size default
- is set to `2', the task will also generate a file with the extension .restimes.sl
-owest that only contains the time between the first request sent and the
+ is set to `2', this task will also generate a file with the extension .restimes.s
+lowest that only contains the time between the first request sent and the
  time the last response was finished for each burst (default is `0').
 \end_layout
 
+\begin_layout Subsubsection
+Examples
+\end_layout
+
+\begin_layout Standard
+The following shows an example of how to use this task to extract response
+ times from incast experiments tcpdump logs for a certain testID, to the
+ current working directory under the results folder.
+ The parameter 
+\family typewriter
+\size small
+query_host
+\family default
+\size default
+ is required to make sure the querying host according to the ran experiment
+ is specified:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab extract_incast_restimes:test_id= exp_20131206-102931_tcp_newreno_run_0,
+ out_dir=../results,query_host=testhost1
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-extract_incast_iqtimes -- Extract inter-query times (incast experiments)
+extract_incast_iqtimes – Extract inter-query times (incast experiments)
 \end_layout
 
 \begin_layout Standard
@@ -3152,15 +3594,21 @@ This task extracts the times between requests sent by the querier for incast
 \end_layout
 
 \begin_layout Standard
-The task has the common parameters.
+This task has the common parameters.
  It also has the 
 \family typewriter
 \size small
 burst_sep
 \family default
 \size default
- parameter used to detect the bursts; however, the semantic here is slightly
- different as 
+ parameter used to detect the bursts (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:burst_separation"
+
+\end_inset
+
+); however, the semantic here is slightly different as 
 \family typewriter
 \size small
 burst_sep
@@ -3193,7 +3641,7 @@ The parameter
 by_responder
 \family default
 \size default
- is set to `1' by default meaning per responder data files are created.
+ is set to `1' by default, meaning per responder data files are created.
  If set to `0' one file with the times for all responders is created.
  
 \end_layout
@@ -3209,7 +3657,7 @@ By default and if the parameter
 cumulative 
 \family default
 \size default
-is set to `0' raw inter-query times are computed (as explained above).
+is set to `0', raw inter-query times are computed (as explained above).
  If the parameter 
 \family typewriter
 \size small
@@ -3229,7 +3677,24 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract the times
+ between requests sent by the querier from incast experiments for a certain
+ testID, to the current working directory under the results folder.
+ The parameter 
+\family typewriter
+\size small
+query_host
+\family default
+\size default
+ is required to make sure the querying host according to the ran experiment
+ is specified.
+ The parameter 
+\family typewriter
+\size small
+cumulative
+\family default
+\size default
+ is used to plot bursts in a cumulative fashion:
 \end_layout
 
 \begin_layout Standard
@@ -3268,8 +3733,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_iqtimes:test_id= 20131206-102931_tcp_newreno,out_dir=./results,
- query_host=testhost1,cumulative=1
+> fab extract_iqtimes:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../r
+esults,query_host=testhost1, cumulative=1
 \end_layout
 
 \end_inset
@@ -3289,17 +3754,96 @@ status open
 \end_layout
 
 \begin_layout Subsection
-extract_pktloss -- Extract packet loss information
+extract_owd – Extract OWD information
 \end_layout
 
 \begin_layout Standard
-This task can only be used with emulated FPS game traffic generated with
- the start_fps_game function.
- Extracted data files are created for each traffic flow and have a .loss
- extension.
- They contain the following space-separated columns with one line per packet:
- timestamp, lost flag (0 if packet arrived, 1 if packet was lost).
- The task has the common parameters.
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:extract_owd"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The extracted data files for each data flow are given the .owd extension.
+ They contain the following space-separated columns with one line per timestamp:
+ timestamp of OWD and OWD estimated.
+\end_layout
+
+\begin_layout Standard
+It utilises many of the common parameters specified previously under the
+ extract_rtt, and the burst-separation parameters 
+\family typewriter
+\size small
+burst_sep
+\family default
+\size default
+, 
+\family typewriter
+\size small
+sburst
+\family default
+\size default
+ and 
+\family typewriter
+\size small
+eburst
+\family default
+\size default
+ described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:burst_separation"
+
+\end_inset
+
+.
+ Additionally it provides 
+\family typewriter
+\size small
+anchor_map
+\family default
+\size default
+ as well as 
+\family typewriter
+\size small
+owd_midpoint
+\family default
+\size default
+ parameters.
+ The 
+\family typewriter
+\size small
+anchor_map
+\family default
+\size default
+ parameter, in the form <src_ip1>:<dst_ip1>;<src_ip2>:<dst_ip2>;...
+ can be used to determine whether to log OWD packets of the source ip address
+ when closer to the destination IP.
+ For the
+\family typewriter
+\size small
+ owd_midpoint
+\family default
+\size default
+ parameter, this can be used determine whether the OWD is logged at the
+ packets origin (`0'), or at the halfway between the origin and the destination
+ (`1').
+ 
+\end_layout
+
+\begin_layout Standard
+There is also a 
+\family typewriter
+\size small
+seek_window 
+\family default
+\size default
+parameter for the matching of packets within the seek window size of the
+ most recent match in the destination capture file.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3307,7 +3851,9 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task:
+The following shows an example of how to use this task to extract the one-way
+ delay for a certain testID, to the current working directory under the
+ results folder:
 \end_layout
 
 \begin_layout Standard
@@ -3346,8 +3892,176 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab extract_pktloss:test_id= 20141003-111821_game_traffic_aqm_pfifo, out_dir=./
-results
+> fab extract_owd:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../resul
+ts
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+extract_pktloss – Extract packet loss information
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:extract_pktloss"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This task has the common parameters, the burst-separation parameters 
+\family typewriter
+\size small
+burst_sep
+\family default
+\size default
+, 
+\family typewriter
+\size small
+sburst
+\family default
+\size default
+ and 
+\family typewriter
+\size small
+eburst
+\family default
+\size default
+ described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:burst_separation"
+
+\end_inset
+
+ and provides an optional 
+\family typewriter
+\size small
+log_loss
+\family default
+\size default
+ parameter.
+ The task is used to identify when packet losses occur versus time, or the
+ cumulative count of packet losses versus time for specified traffic.
+ Extracted intermediate data files are created for each traffic flow and
+ have a .loss2 extension.
+\end_layout
+
+\begin_layout Standard
+If 
+\family typewriter
+\size small
+log_loss=1
+\family default
+\size default
+, the intermediate file contains lines of 
+\family typewriter
+\size small
+<timestamp> <loss_flag>
+\family default
+\size default
+, where loss_flag=0 if the packet seen at the source was also seen at the
+ destination, or loss_flag=1 if the packet seen at the source was lost.
+\end_layout
+
+\begin_layout Standard
+If 
+\family typewriter
+\size small
+log_loss=2
+\family default
+\size default
+ (the default) the intermediate file contains lines of 
+\family typewriter
+\size small
+<timestamp> <cumulative_loss_count>
+\family default
+\size default
+, where cumulative_loss_count is the number of loss events experienced by
+ a given flow at each specific point in time.
+\end_layout
+
+\begin_layout Subsubsection
+Examples
+\end_layout
+
+\begin_layout Standard
+The following shows an example of how to use this task to extract packet
+ loss for a certain testID, to the current working directory under a 
+\begin_inset Quotes eld
+\end_inset
+
+../results
+\begin_inset Quotes erd
+\end_inset
+
+ folder.
+ Setting 
+\family typewriter
+\size small
+log_loss=2
+\family default
+\size default
+ means an intermediate file of cumulative loss count versus time will be
+ created:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab extract_pktloss:test_id= exp_20141003-111821_tcp_newreno_run_0, out_dir=../r
+esults,log_loss=2
 \end_layout
 
 \end_inset
@@ -3386,7 +4100,7 @@ Now we describe TEACUP's analyse tasks that allow to plot various types
  First, we give an overview of the existing analysis tasks.
  Then we discuss parameters common to most tasks as well as common environment
  variables that are used by the plotting code.
- Next, we discuss the tasks in detail.
+ Next, we discuss these tasks in detail.
  Finally, we discuss ways to customise the plotting beyond using the existing
  tasks.
 \end_layout
@@ -3432,7 +4146,7 @@ Plotting the TCP congestion window size (CWND) based on SIFTR and Web10G
 
 \begin_layout Enumerate
 Plotting the TCP RTT estimate based on SIFTR and Web10G data (analyse_tcp_rtt).
- The task can plot both, the smoothed estimate and an unsmoothed estimate
+ This task can plot both, the smoothed estimate and an unsmoothed estimate
  (for SIFTR the unsmoothed estimate is the improved ERTT 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -3446,6 +4160,11 @@ key "CAIA-TR-100219A"
 \begin_layout Enumerate
 Plotting an arbitrary TCP statistic from SIFTR and Web10G data (analyse_tcp_stat
 );
+\end_layout
+
+\begin_layout Enumerate
+Plots RTT using SPP and estimated from SIFTR and Web10G data, as well as
+ plotting the CWND and packet size data all at once (analyse_all);
 \end_layout
 
 \begin_layout Enumerate
@@ -3467,12 +4186,17 @@ Plotting the response times for incast experiments (analyse_incast);
 \end_layout
 
 \begin_layout Enumerate
-Plotting the inter-query times for incast experiments (analyse_incast_iqtimes).
+Plotting the inter-query times for incast experiments (analyse_incast_iqtimes);
 \end_layout
 
-\begin_layout Standard
-A convenience function exists that plots graphs 1--4 listed above (analyse_all).
- 
+\begin_layout Enumerate
+Plotting the packet loss being experienced based off tcpdump data (analyse_pktlo
+ss);
+\end_layout
+
+\begin_layout Enumerate
+Plotting the one way delay (OWD) being experienced based off tcpdump data
+ (analyse_owd);
 \end_layout
 
 \begin_layout Standard
@@ -3525,12 +4249,12 @@ test_id
 \size default
  parameter.
  The analysis can be run for a single experiment only by specifying a single
- test ID.
+ testID.
  For example, the following command generates the RTT graph for the experiment
  
 \family typewriter
 \size footnotesize
-20131206-102931_dash_2000_tcp_newreno
+exp_20131206-102931_tcp_newreno_run_0
 \family default
 \size default
 :
@@ -3572,7 +4296,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_rtt:test_id= 20131206-102931_dash_2000_tcp_newreno
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0
 \end_layout
 
 \end_inset
@@ -3598,7 +4322,7 @@ The
 test_id
 \family default
 \size default
- parameter also accepts multiple test IDs separated by semicolons.
+ parameter also accepts multiple test IDs (testIDs) separated by semicolons.
 \begin_inset Foot
 status collapsed
 
@@ -3629,7 +4353,7 @@ test_id
 \family default
 \size default
  parameter some tasks, such as analyse_cmpexp and analyse_2d_density, have
- a parameter that allows specifying a file that contains a list of experiment
+ a parameter that allows specifying a file that contains a list of test
  IDs.
  
 \end_layout
@@ -3664,7 +4388,7 @@ reference "sub:Data-series-selection"
 
 \end_inset
 
- describes how to use the parameter.
+ describes how to use this parameter.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3679,8 +4403,8 @@ replot_only
 \family default
 \size default
 .
- This parameter allows to replot the graphs without extracting the data
- again (e.g.
+ This parameter allows the re-plotting of the graphs without extracting
+ the data again (e.g.
  from tcpdump, SIFTR or Web10G files).
  If 
 \family typewriter
@@ -3755,10 +4479,9 @@ Specifying the location of intermediate data files
 \end_layout
 
 \begin_layout Standard
-By default all interim data files are generated in a sub directory (with
- the directory name being the test ID prefix) inside the directory where
- fab is executed.
- To put the output files into a specific directory the 
+By default all intermediate data files are generated in a sub directory
+ (whose name is the test ID prefix) inside the directory where fab is executed.
+ To put these output files into a specific directory the 
 \family typewriter
 \size footnotesize
 out_dir
@@ -3825,7 +4548,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_all:out_dir=./results/
+> fab analyse_all:out_dir=../results
 \end_layout
 
 \end_inset
@@ -3869,12 +4592,12 @@ status open
 
 \begin_layout Plain Layout
 
-<fabfile_dir>/20131206-102931_exp/results/
+<fabfile_dir>/exp_20131206-102931/results/
 \end_layout
 
 \begin_layout Plain Layout
 
-<fabfile_dir>/20131206-124510_exp/results/
+<fabfile_dir>/exp_20131206-124510/results/
 \end_layout
 
 \end_inset
@@ -3894,21 +4617,21 @@ out_dir
 \family default
 \size default
 .
- This can be adjusted using the 
+ This can be overridden using the 
 \family typewriter
 \size footnotesize
 pdf_dir
 \family default
 \size default
  parameter.
- Like 
+ As with 
 \family typewriter
 \size footnotesize
 out_dir
 \family default
 \size default
- the specified directory is either an absolute path or a relative path which
- is relative to the location of the experiment's log files.
+, the specified directory is either an absolute path or a relative path
+ which is relative to the location of the experiment's log files.
  The directory is automatically created if it does not exist.
  The parameter can be used as follows:
 \end_layout
@@ -3943,14 +4666,14 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> fab analyse_spp_rtt:test_id= 20131206-102931_dash_2000_tcp_newreno, out_dir=./r
-esults,pdf_dir=./pdfs
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../resul
+ts,pdf_dir=../pdfs
 \end_layout
 
 \end_inset
@@ -4017,7 +4740,7 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -4091,7 +4814,7 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -4149,7 +4872,7 @@ ymax
 \size default
  is determined automatically).
  The parameters can be used as follows (here the y-axis range is set to
- 100--200
+ 100–200
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -4186,14 +4909,14 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> fab analyse_spp_rtt:test_id= 20131206-102931_dash_2000_tcp_newreno, ymin=100,y
-max=200
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, ymin=100,ymax=
+200
 \end_layout
 
 \end_inset
@@ -4217,7 +4940,7 @@ Adjusting time (x-axes) scales
 \end_layout
 
 \begin_layout Standard
-All tasks tasks that plot data over time have the parameters 
+All tasks that plot data over time have the parameters 
 \family typewriter
 \size footnotesize
 stime
@@ -4242,8 +4965,8 @@ etime
 \family default
 \size default
  is the duration of the experiment).
- Note that using these parameters allows to zoom in, but the data outside
- the specified interval is not filtered out.
+ Note that using these parameters allows theability to zoom in, but the
+ data outside the specified interval is not filtered out.
  The y-axis maximum is adjusted automatically to the maximum occurring in
  the specified x-axis interval, but the legend is not adjusted.
  To remove unwanted entries in the legend (e.g.
@@ -4262,7 +4985,7 @@ reference "sub:Data-series-selection"
 
 ).
  The parameters can be used as follows (here the x-axis range is set to
- 5--10 seconds):
+ 5–10 seconds):
 \end_layout
 
 \begin_layout Standard
@@ -4295,14 +5018,14 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> fab analyse_spp_rtt:test_id= 20131206-102931_dash_2000_tcp_newreno, stime=5,et
-ime=10
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, stime=5,etime=
+10
 \end_layout
 
 \end_inset
@@ -4335,7 +5058,8 @@ lnames
 \family default
 \size default
  can be used to replace these with more informative names.
- One must specify the same number as names as there are data series.
+ One must specify the same number as names as there are data series or source
+ filters.
  Names specified must be separated by semicolons.
  The parameter can be used as follows:
 \end_layout
@@ -4370,14 +5094,14 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> fab analyse_spp_rtt:test_id= 20131206-102931_dash_2000_tcp_newreno, lnames='TC
-P Reno;TCP Cubic'
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, lnames='TCP
+ Reno;TCP Cubic'
 \end_layout
 
 \end_inset
@@ -4407,7 +5131,7 @@ The
 out_name
 \family default
 \size default
- parameter allows to change the name of the PDF files produced.
+ parameter allows the changing of the name for the PDF files produced.
  If 
 \family typewriter
 \size footnotesize
@@ -4455,14 +5179,14 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> fab analyse_spp_rtt:test_id= 20131206-102931_dash_2000_tcp_newreno, out_name='
-ExperimentA'
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, out_name='Expe
+rimentA'
 \end_layout
 
 \end_inset
@@ -4520,7 +5244,64 @@ replot_only
 \family default
 \size default
  is set to `0' (i.e.
- you must re-extract intermediate data if you want to change io_filter)
+ you must re-extract intermediate data if you want to change io_filter).
+ The parameter can be used as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab analyse_tcp_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, io_filter=
+o
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -4556,21 +5337,24 @@ reference "sub:clock-offset-analysis"
 \end_layout
 
 \begin_layout Subsubsection
-Burst-separation (incast experiments)
+Burst-separation (incast and similar experiments)
 \end_layout
 
 \begin_layout Standard
-The tasks analyse_rtt, analyse_ackseq and analyse_incast can extract and
- plot data on a per-burst basis for incast experiments, where we have bursts
- of TCP requests sent by a querier to multiple responders interspersed by
- idle times.
+A number of tasks can extract and plot data on a per-burst basis for experiments
+ where we have bursts of TCP requests sent by a querier to one or more responder
+s interspersed by idle times.
  The parameter 
 \family typewriter
 \size small
 burst_sep
 \family default
 \size default
- allows to specify the time between bursts.
+ specifies the minimum time between
+\change_deleted 193492759 1518046267
+ 
+\change_unchanged
+ the end of one burst and the start of another.
  Any idle time longer than 
 \family typewriter
 \size small
@@ -4606,6 +5390,63 @@ eburst=0
 \family default
 \size default
  means to end with the last burst.
+ The parameters can be used as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab analyse_incast:test_id= exp_20131206-102931_tcp_newreno_run_0, burst_sep=1
+,sburst=2,eburst=0
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -4637,7 +5478,63 @@ source_filter
 \family default
 \size default
  should be specified that filters on a particular source or destination.
- 
+ The parameter can be used as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, source_filter=
+"S_172.16.10.2_81", total_per_experiment=1
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -4721,13 +5618,41 @@ TC_AGGR_WIN_SIZE is specified in seconds, with fractional values allowed.
  By default TC_AGGR_WIN_SIZE=1 and TC_AGGR_INT_FACTOR=4.
 \end_layout
 
+\begin_layout Standard
+
+\series bold
+Note:
+\series default
+ Be careful when analysing traffic having an on-off pattern with idle (off)
+ periods larger than TC_AGGR_WIN_SIZE.
+ Rather than produce a data point of 
+\begin_inset Quotes eld
+\end_inset
+
+0 Kbps
+\begin_inset Quotes erd
+\end_inset
+
+, analyse_throughput will 
+\emph on
+not
+\emph default
+ generate any data point at all when there is no packet within the sliding
+ TC_AGGR_WIN_SIZE window of time.
+ It can be visually misleading at first glance to see specific (high) throughput
+ values plotted during the ON period, but no data points during the OFF
+ periods.
+ Such sparse traffic also skews the results high when using analyse_cmpexp
+ to generate throughput boxplots.
+\end_layout
+
 \begin_layout Subsubsection
 Point thinning
 \end_layout
 
 \begin_layout Standard
 By default all plot functions will plot every point for each data series.
- If the data series' are very large, the resulting PDF files will be large
+ If the data series are very large, the resulting PDF files will be large
  and the figures will take a long time to display.
  To reduce the size of the plots and the time for opening them without loosing
  important information TEACUP implements 
@@ -4762,9 +5687,9 @@ Using the absolute Euclidean distance is problematic if the scales of x-axis
 \end_layout
 
 \begin_layout Standard
-Since version 0.8 TEACUP also allows to specify the variable TC_PTHIN_DIST_FAC
- which controls the minimum distance of points in x-dimension and y-dimension
- separately, relative to the x-range and y-range plotted.
+Since version 0.8 TEACUP also allows the specification of the variable TC_PTHIN_D
+IST_FAC which controls the minimum distance of points in x-dimension and
+ y-dimension separately, relative to the x-range and y-range plotted.
  A point is plotted if either the distance in x-dimension is larger or equal
  TC_PTHIN_DIST_FAC*<xrange> or the distance in y-dimension is larger or
  equal TC_PTHIN_DIST_FAC*<yrange>, where <xrange> and <yrange> are given
@@ -4806,7 +5731,7 @@ etime
 \size default
 .
  Legend entries for these flows are still plotted, although they can be
- supressed by using 
+ suppressed by using 
 \family typewriter
 \size small
 source_filter
@@ -4881,7 +5806,7 @@ status open
 \family typewriter
 \size footnotesize
 > TC_AGGR_WIN_SIZE=2 TC_AGGR_INT_FACTOR=8 TC_PTHIN_DIST=0.25 fab analyse_throughp
-ut: test_id=20131206-102931_dash_2000_tcp_newreno
+ut: test_id=exp_20131206-102931_tcp_newreno_run_0
 \end_layout
 
 \end_inset
@@ -4901,12 +5826,12 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_throughput -- Plot throughput over time
+analyse_throughput – Plot throughput over time
 \end_layout
 
 \begin_layout Standard
 This task plots the total or per-flow throughput over time.
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -5062,7 +5987,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_throughput:test_id= 20131206-102931_dash_2000_tcp_newreno
+> fab analyse_throughput:test_id= exp_20131206-102931_tcp_newreno_run_0
 \end_layout
 
 \end_inset
@@ -5122,7 +6047,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_throughput:test_id= 20131206-102931_dash_2000_tcp_newreno,
+> fab analyse_throughput:test_id= exp_20131206-102931_tcp_newreno_run_0,
  link_len=1
 \end_layout
 
@@ -5143,12 +6068,12 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_rtt -- Plot RTT (SPP) over time
+analyse_rtt – Plot RTT (SPP) over time
 \end_layout
 
 \begin_layout Standard
 This task plots RTT estimated by SPP for each bidirectional flow over time.
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -5267,14 +6192,93 @@ reference "sub:extract_rtt"
 ).
 \end_layout
 
+\begin_layout Subsubsection
+Examples
+\end_layout
+
+\begin_layout Standard
+The following command generates a SPP RTT graph were a udp_map was required
+ due to udp traffic being present:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size footnotesize
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab analyse_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, udp_map=
+\begin_inset Quotes erd
+\end_inset
+
+192.168.0.10
+\backslash
+,5000: 192.168.0.11
+\backslash
+,5001
+\begin_inset Quotes erd
+\end_inset
+
+,out_dir=../results
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-analyse_cwnd -- Plot TCP CWND over time
+analyse_cwnd – Plot TCP CWND over time
 \end_layout
 
 \begin_layout Standard
 This task plots the TCP CWND from SIFTR or web10g logs for each direction
  of a TCP flow over time.
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -5375,8 +6379,76 @@ reference "sub:filtering_siftr_analysis"
 .
 \end_layout
 
+\begin_layout Subsubsection
+Examples
+\end_layout
+
+\begin_layout Standard
+The following command generates a CWND graph for outbound packets according
+ to the SIFTR logs:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size footnotesize
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab analyse_cwnd:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../resu
+lts,io_filter=o
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-analyse_tcp_rtt -- Plot TCP RTT over time
+analyse_tcp_rtt – Plot TCP RTT over time
 \end_layout
 
 \begin_layout Standard
@@ -5392,7 +6464,7 @@ name "sub:analyse_tcp_rtt"
 \begin_layout Standard
 The analyse_tcp_rtt task plots a graph of TCP's estimate of the RTT (from
  SIFTR or web10g log files).
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -5563,7 +6635,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_tcp_rtt:test_id= 20131206-102931_dash_2000_tcp_newreno, smoothed=0
+> fab analyse_tcp_rtt:test_id= exp_20131206-102931_tcp_newreno_run_0, smoothed=0
 \end_layout
 
 \end_inset
@@ -5583,7 +6655,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_all -- Combines basic analysis tasks
+analyse_all – Combines basic analysis tasks
 \end_layout
 
 \begin_layout Standard
@@ -5689,7 +6761,7 @@ For analyse_all the parameter
 exp_list
 \family default
 \size default
- allows to change the file used as list of test IDs (by default 
+ allows the changing of the file used as list of test IDs (by default 
 \family typewriter
 \size small
 experiments_completed.txt
@@ -5730,13 +6802,13 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> fab analyse_all:exp_list=myexp_list.txt, out_dir="./results" 
+> fab analyse_all:exp_list=myexp_list.txt, out_dir="../results" 
 \end_layout
 
 \end_inset
@@ -5778,10 +6850,10 @@ resume_id
 \family default
 \size default
  parameter.
- For example, if for a test ID 20131206-102931_dash_2000_tcp_newreno_run_0
- we cannot do the analysis because of corrupted data files and the next
- test ID is 20131206-102931_dash_2000_tcp_newreno_run1, we can continue
- the analysis with this command:
+ For example, if for a test ID exp_20131206-102931_tcp_newreno_run_0 we
+ cannot do the analysis because of corrupted data files and the next test
+ ID is exp_20131206-102931_tcp_newreno_run_1, we can continue the analysis
+ with this command:
 \end_layout
 
 \begin_layout Standard
@@ -5814,13 +6886,13 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> fab analyse_all:resume_id= 20131206-102931_dash_2000_tcp_newreno_run_1
+> fab analyse_all:resume_id= exp_20131206-102931_tcp_newreno_run_1
 \end_layout
 
 \end_inset
@@ -5840,13 +6912,13 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_tcp_stat -- Plot arbitrary TCP statistic over time
+analyse_tcp_stat – Plot arbitrary TCP statistic over time
 \end_layout
 
 \begin_layout Standard
 The analyse_tcp_stat function can be used to plot any TCP statistic from
  SIFTR or Web10G logs.
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -6073,8 +7145,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_tcp_stat:test_id= 20131206-102931_tcp_newreno,out_dir=./results,
- siftr_index=22,web10g_index=120, ylabel="Snd buf (kbytes)",yscaler=0.001
+> fab analyse_tcp_stat:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../
+results, siftr_index=22, web10g_index=120,ylabel="Snd buf (kbytes)",yscaler=0.001
 \end_layout
 
 \end_inset
@@ -6094,7 +7166,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_ackseq -- Plot acknowledged bytes or dupACKSs over time
+analyse_ackseq – Plot acknowledged bytes or dupACKSs over time
 \end_layout
 
 \begin_layout Standard
@@ -6110,7 +7182,7 @@ name "sub:analyse_ackseq"
 \begin_layout Standard
 This task plots the cumulative number of bytes acknowledged or the cumulative
  number of dupACKs for TCP flows.
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -6277,13 +7349,41 @@ source_filter
  set 
 \family typewriter
 \size footnotesize
-source_filter=S_172.16.10.60_*
+source_filter=
+\size small
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\size footnotesize
+S_172.16.10.60_*
+\size small
+
+\begin_inset Quotes erd
+\end_inset
+
+
 \family default
 \size default
 , but to plot the acknowledged bytes for this source we have to use 
 \family typewriter
 \size footnotesize
-source_filter=D_172.16.10.60_*
+source_filter=
+\size small
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\size footnotesize
+D_172.16.10.60_*
+\size small
+
+\begin_inset Quotes erd
+\end_inset
+
+
 \family default
 \size default
 .
@@ -6300,7 +7400,7 @@ The parameter
 dupacks
 \family default
 \size default
- allows to choose whether acknowledged bytes (
+ allows the ability to choose whether acknowledged bytes (
 \family typewriter
 \size small
 dupacks
@@ -6320,7 +7420,7 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following shows an example of how to use the task to plot per burst
+The following shows an example of how to use this task to plot per burst
  acknowledged bytes omitting the first burst (assuming the gaps between
  bursts are at least 1 second long):
 \end_layout
@@ -6361,8 +7461,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_ackseq:test_id= 20131206-102931_tcp_newreno,out_dir=./results,
- burst_sep=1.0,sburst=2,eburst=0
+> fab analyse_ackseq:test_id= exp_20131206-102931_tcp_newreno_run_0, out_dir=../re
+sults,burst_sep=1.0,sburst=2, eburst=0
 \end_layout
 
 \end_inset
@@ -6382,7 +7482,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-anlyse_dash_goodput -- Plot DASH-like client goodput over time
+analyse_dash_goodput – Plot DASH-like client goodput over time
 \end_layout
 
 \begin_layout Standard
@@ -6396,11 +7496,17 @@ name "sub:plot-dash-goodput"
 \end_layout
 
 \begin_layout Standard
-The analyse_dash_goodput task allows to plot the goodput for DASH-like traffic
- over time.
- The plot is based on data from the httperf log files of the DASH-like clients
- (named <test_id>_httperf_dash.log.gz).
- The task has the common parameters 
+The analyse_dash_goodput task allows the plotting of the goodput for DASH-like
+ traffic over time.
+ The plot is based on data from the httperf log files (*_httperf_dash.log.gz)
+ generated by the start_httperf_dash traffic generator.
+ (Note: The use of the start_httperf_dash traffic generator is deprecated
+ for TEACUP v1.1 in favor of launching real DASH clients using start_dash_streami
+ng_dashjs.)
+\end_layout
+
+\begin_layout Standard
+This task has the common parameters 
 \family typewriter
 \size small
 etime
@@ -6483,7 +7589,7 @@ Extracting data for specific experiments
 \end_layout
 
 \begin_layout Standard
-By default the task extracts data from all client log files for all test
+By default this task extracts data from all client log files for all test
  IDs specified.
  However, if 
 \family typewriter
@@ -6491,7 +7597,7 @@ By default the task extracts data from all client log files for all test
 dash_log_list
 \family default
 \size default
- is specified the task extracts the data from the log files listed in a
+ is specified this task extracts the data from the log files listed in a
  text file (the value of 
 \family typewriter
 \size small
@@ -6499,8 +7605,8 @@ dash_log_list
 \family default
 \size default
  is the file name).
- This allows to explicitly list which dash client logs are used, and these
- files can also be from experiments with different test IDs.
+ This allows the explicit listing of which dash client logs are used, and
+ these files can also be from experiments with different test IDs.
  The format of the log list file is one file name per line.
  The paths do not need to be specified, as TEACUP will automatically find
  the files assuming they are in a sub directory below the fabfile.py directory.
@@ -6542,7 +7648,7 @@ By default analyse_dash_goodput will also plot the nominal goodput, i.e.
  The TC_NO_NOMINAL environment variable can be used to tell plot_dash_goodput
  to not plot this.
  If TC_NO_NOMINAL=1 the nominal goodput will not be plotted.
- Note that the task can only plot a maximum of 11 data series in a single
+ Note that this task can only plot a maximum of 11 data series in a single
  graph.
 \end_layout
 
@@ -6551,7 +7657,7 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The task can be used as follows: 
+This task can be used as follows: 
 \end_layout
 
 \begin_layout Standard
@@ -6590,8 +7696,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_dash_goodput: dash_log_list=dash_logs.txt,out_dir=./results/,
- lnames="newreno;cdg;vegas"
+> fab analyse_dash_goodput: dash_log_list=dash_logs.txt, out_dir=../results,lnames=
+"newreno;cdg;vegas"
 \end_layout
 
 \end_inset
@@ -6611,13 +7717,13 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_goodput -- Plot TCP goodput over time
+analyse_goodput – Plot TCP goodput over time
 \end_layout
 
 \begin_layout Standard
-This task plots goodput for TCP flows.
- This task plots the total or per-flow goodput over time.
- The task has the standard parameters 
+This task plots goodput for TCP flows, as well as the total or per-flow
+ goodput over time.
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -6732,6 +7838,17 @@ reference "sub:analyse_ackseq"
 ).
  In the future it would be better to compute the goodput from the TCP sequence
  numbers directly.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This looks like it is still the case, from the analyse.py file.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -6779,8 +7896,16 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_goodput:test_id= 20131206-102931_dash_2000_tcp_newreno, source_fil
-ter=D_172.16.11.60_*, total_per_experiment=1
+> fab analyse_goodput:test_id= exp_20131206-102931_tcp_newreno_run_0, source_fil
+ter=
+\begin_inset Quotes erd
+\end_inset
+
+D_172.16.11.60_*
+\begin_inset Quotes erd
+\end_inset
+
+, total_per_experiment=1
 \end_layout
 
 \end_inset
@@ -6800,7 +7925,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_incast -- Plot response times over time (incast)
+analyse_incast – Plot response times over time (incast)
 \end_layout
 
 \begin_layout Standard
@@ -6808,7 +7933,7 @@ The task analyse_incast can be used to plot response times for incast experiment
 s over time.
  It plots the response times as reported by httperf (httperf log files are
  present if incast traffic was generated).
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -6979,7 +8104,21 @@ source_filter
  to specify 
 \family typewriter
 \size footnotesize
-source_filter=D_172.16.11.60_*
+source_filter=
+\size small
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\size footnotesize
+D_172.16.11.60_*
+\size small
+
+\begin_inset Quotes erd
+\end_inset
+
+
 \family default
 \size default
 .
@@ -6990,7 +8129,7 @@ Boxplots instead of lines
 \end_layout
 
 \begin_layout Standard
-The task has a 
+This task has a 
 \family typewriter
 \size small
 boxplot
@@ -7016,7 +8155,7 @@ By default analyse_incast extracts the data from the httperf log files.
 tcpdump 
 \family default
 \size default
-is set to `1' the task will extract the response times from the tcpdump
+is set to `1' this task will extract the response times from the tcpdump
  files collected at the querier (time between seeing the GET and the last
  packet of the response).
  If 
@@ -7041,7 +8180,7 @@ Slowest response only
 \end_layout
 
 \begin_layout Standard
-The task has a parameter 
+This task has a parameter 
 \family typewriter
 \size small
 slowest_only
@@ -7054,7 +8193,7 @@ slowest_only
 slowest_only
 \family default
 \size default
- is set to `1', instead of plotting separate data for each flow, the task
+ is set to `1', instead of plotting separate data for each flow, this task
  will only plot the slowest response time over all flows for each burst.
  If 
 \family typewriter
@@ -7062,7 +8201,7 @@ slowest_only
 slowest_only
 \family default
 \size default
- is set to `2', instead of plotting separate data for each flow, the task
+ is set to `2', instead of plotting separate data for each flow, this task
  will only plot the time between the first request sent and the time the
  last response was finished for each burst (default is `0').
 \end_layout
@@ -7112,8 +8251,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_incast: test_id=20140704-181632_incast_tcp_newreno, ,out_dir=./resu
-lts/, slowest_only='1'
+> fab analyse_incast:test_id= exp_20140704-181632_incast_tcp_newreno_run_0,
+ out_dir=../results,slowest_only='1'
 \end_layout
 
 \end_inset
@@ -7173,8 +8312,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_incast: test_id=20140704-181632_incast_tcp_newreno, ,out_dir=./resu
-lts/, tcpdump='1', query_host=testhost1
+> fab analyse_incast:test_id= exp_20140704-181632_incast_tcp_newreno_run_0,
+ out_dir=../results,tcpdump='1', query_host=testhost1
 \end_layout
 
 \end_inset
@@ -7194,13 +8333,13 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_incast_iqtimes -- Plot inter-query times (incast)
+analyse_incast_iqtimes – Plot inter-query times (incast)
 \end_layout
 
 \begin_layout Standard
 This task plots the times between requests sent by the querier (for checking
  whether requests were sent close together in time).
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -7309,7 +8448,7 @@ Definition of inter-query time
 \begin_layout Standard
 By default inter-query time is defined as the time difference between a
  request and the first request in the same burst of requests.
- This allows to view how far query times are spread within each burst.
+ This allows the viewing of how far query times are spread within each burst.
  To get a better idea of the timing jitter, the parameter 
 \family typewriter
 \size small
@@ -7344,7 +8483,7 @@ Cumulative response times
 
 \begin_layout Standard
 By default inter-query times are plotted against the time they occurred.
- The task also supports a cumulative plot mode to be able to analyse whether
+ This task also supports a cumulative plot mode to be able to analyse whether
  inter-query times significantly differ between different responders or
  different experiments.
  Setting the parameter 
@@ -7431,8 +8570,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_incast_iqtimes: test_id=20140704-181632_incast_tcp_newreno,
- ,out_dir=./results/, query_host=testhost1, cumulative=0
+> fab analyse_incast_iqtimes:test_id= exp_20140704-181632_incast_tcp_newreno_run
+_0, out_dir=../results,query_host=testhost1, cumulative=0
 \end_layout
 
 \end_inset
@@ -7492,8 +8631,8 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_incast_iqtimes: test_id=20140704-181632_incast_tcp_newreno,
- ,out_dir=./results/, query_host=testhost1, cumulative=1,by_responder=1
+> fab analyse_incast_iqtimes:test_id= exp_20140704-181632_incast_tcp_newreno_run
+_0, out_dir=../results,query_host=testhost1, cumulative=1,by_responder=1
 \end_layout
 
 \end_inset
@@ -7513,13 +8652,12 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_pktloss -- Plot packet loss rate
+analyse_owd – Plot OWD over time
 \end_layout
 
 \begin_layout Standard
-This task plots the packet loss rate in percent for emulated FPS game traffic
- flows.
- The task has the standard parameters 
+This task plots the OWD being experienced, for the specified traffic flows.
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -7604,10 +8742,52 @@ ymin
 \family default
 \size default
 .
- Packet loss is computed from the raw data by computing the percentage of
- lost packets for each time window.
- The environment variables TC_AGGR_WINDOW_SIZE and TC_AGGR_INT_FACTOR can
- be used to control the window size and oversampling.
+ It also has the burst separation parameters 
+\family typewriter
+\size small
+burst_sep
+\family default
+\size default
+, 
+\family typewriter
+\size small
+sburst 
+\family default
+\size default
+and
+\family typewriter
+\size small
+ eburst
+\family default
+\size default
+ (explained in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:extract_rtt"
+
+\end_inset
+
+).
+ The extra parameters 
+\family typewriter
+\size small
+anchor_map,owd_midpoint 
+\family default
+\size default
+and 
+\family typewriter
+\size small
+seek_window
+\family default
+\size default
+ can also be used (explained in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:extract_owd"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsubsection
@@ -7615,8 +8795,8 @@ Examples
 \end_layout
 
 \begin_layout Standard
-The following command plots the packet loss rate for two game traffic flows
- originating from the same source:
+The following command plots the OWD being experienced for two flows originating
+ from the same source:
 \end_layout
 
 \begin_layout Standard
@@ -7655,12 +8835,12 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_pktloss: test_id=20141003-111821_game_traffic_aqm_pfifo, ,out_dir=.
-/results/, source_filter=
+> fab analyse_owd:test_id= exp_20141003-111821_tcp_newreno_run_0, out_dir=../resul
+ts,source_filter= 
 \begin_inset Quotes erd
 \end_inset
 
-S_172.16.10.2:10000; S_172.16.10.2:10001
+S_172.16.10.2:10000;S_172.16.10.2:10001
 \begin_inset Quotes erd
 \end_inset
 
@@ -7684,7 +8864,225 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_cmpexp -- Plot metric depending on experiment variables 
+analyse_pktloss – Plot packet loss versus time
+\end_layout
+
+\begin_layout Standard
+This task plots the packet loss rate for the specified traffic flows, either
+ loss events versus time or cumulative loss count versus time.
+ This task has the standard parameters 
+\family typewriter
+\size small
+etime
+\family default
+\size default
+, 
+\family typewriter
+\size small
+lnames
+\family default
+\size default
+, 
+\family typewriter
+\size small
+min_values
+\family default
+\size default
+, 
+\family typewriter
+\size small
+omit_const
+\family default
+\size default
+,
+\family typewriter
+\size small
+ out_dir
+\family default
+\size default
+,
+\family typewriter
+\size small
+ out_name
+\family default
+\size default
+, 
+\family typewriter
+\size small
+pdf_dir
+\family default
+\size default
+, 
+\family typewriter
+\size small
+replot_only
+\family default
+\size default
+,
+\family typewriter
+\size small
+ source_filter
+\family default
+\size default
+,
+\family typewriter
+\size small
+ stime
+\family default
+\size default
+, 
+\family typewriter
+\size small
+test_id
+\family default
+\size default
+, 
+\family typewriter
+\size small
+ts_correct
+\family default
+\size default
+, 
+\family typewriter
+\size small
+ymin
+\family default
+\size default
+, and
+\family typewriter
+\size small
+ ymax
+\family default
+\size default
+.
+ It also has the burst separation parameters 
+\family typewriter
+\size small
+burst_sep
+\family default
+\size default
+, 
+\family typewriter
+\size small
+sburst 
+\family default
+\size default
+and
+\family typewriter
+\size small
+ eburst
+\family default
+\size default
+ (explained in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:extract_rtt"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+The additional parameter 
+\family typewriter
+\size small
+log_loss=1 
+\family default
+\size default
+requests a graph of loss events versus time, while 
+\family typewriter
+\size small
+log_loss=2
+\family default
+\size default
+ (the default) requests a graph of cumulative count of loss events versus
+ time (explained in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:extract_pktloss"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsubsection
+Examples
+\end_layout
+
+\begin_layout Standard
+The following command plots the cumulative packet loss rate for a game traffic
+ flow:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab analyse_pktloss:test_id= exp_20141003-111821_tcp_newreno_run_0, out_dir=../r
+esults,source_filter= 
+\begin_inset Quotes erd
+\end_inset
+
+S_172.16.10.2:10000
+\begin_inset Quotes erd
+\end_inset
+
+,log_loss=2
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+analyse_cmpexp – Plot metric depending on experiment variables 
 \end_layout
 
 \begin_layout Standard
@@ -7698,13 +9096,13 @@ name "sub:plot-metric-comparison"
 \end_layout
 
 \begin_layout Standard
-The task analyse_cmpexp allows to plot the metrics `throughput', `spprtt',
- `tcprtt' (unsmoothed/ERTT), `cwnd', `tcpstat', `ackseq', `restime' and
- `iqtime' depending on the different experiment parameters for different
+The task analyse_cmpexp allows the plotting of the metrics `throughput',
+ `spprtt', `tcprtt' (unsmoothed/ERTT), `cwnd', `tcpstat', `ackseq', `restime'
+ and `iqtime' depending on the different experiment parameters for different
  selected flows.
  It can show the metric distribution as boxplots (default), or plot the
  mean or median.
- The task has the standard parameters 
+ This task has the standard parameters 
 \family typewriter
 \size small
 etime
@@ -7792,7 +9190,7 @@ Specifying test IDs
 \end_layout
 
 \begin_layout Standard
-The task has no 
+This task has no 
 \family typewriter
 \size footnotesize
 test_id
@@ -7805,9 +9203,10 @@ test_id
 exp_list
 \family default
 \size default
- parameter allows to specify a text file containing the list of experiments
- as for analyse_all (one experiment ID per line), making it possible to
- precisely select which combinations of parameters should be considered.
+ parameter allows the specification of a text file containing the list of
+ experiments, the same as for analyse_all (one experiment's testID per line),
+ making it possible to precisely select which combinations of parameters
+ should be considered.
  For example, we can remove certain parameter values by removing all test
  IDs with these values from the list passed via 
 \family typewriter
@@ -7816,7 +9215,10 @@ exp_list
 \family default
 \size default
 .
- Note that all experiments to be compared must have the same test ID prefix
+ Note that all experiments to be compared must have the same 
+\bar under
+test ID prefix
+\bar default
  and the same parameters varied.
 \end_layout
 
@@ -7843,7 +9245,7 @@ exp_list
 Since version 0.9 TEACUP identifies which variables were used and what their
  names are from the experiment file names directly and does not need to
  access config.py.
- In order to reliable detect the parameter names, the user must specify
+ In order to reliably detect the parameter names, the user must specify
  the test ID prefix format (as regular expression) using the parameter 
 \family typewriter
 \size footnotesize
@@ -7851,11 +9253,11 @@ test_id_prefix
 \family default
 \size default
 .
- By default the parameter is set to `[0-9]{8}
+ By default the parameter is set to `exp_[0-9]{8}
 \backslash
--[0-9]{6}_experiment' (to match the default 
+-[0-9]{6}' (to match the default 
 \family typewriter
-YYYYMMDD_HHMMSS_experiment
+exp_YYYYMMDD_HHMMSS
 \family default
  format for test ID prefixes).
 \end_layout
@@ -7887,11 +9289,10 @@ res_dir
 \size default
  is set and points to the existing intermediate files
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
-E.g.
- The location given by the 
+For example, the location given by the 
 \family typewriter
 \size footnotesize
 out_dir
@@ -8024,8 +9425,8 @@ ymax
 lnames
 \family default
 \size default
- parameter allows to specify the legend names used as list of semicolon-separate
-d strings (as for the other analyse tasks).
+ parameter allows the specification of the legend names used as list of
+ semicolon-separated strings (as for the other analyse tasks).
  Note, the number of legend strings must the same as the number of source
  filters.
  By default the legend names are the source filters specified.
@@ -8064,7 +9465,8 @@ Currently it is not possible to reorder the different parameters for plotting
 omit_const_xlab_vars
 \family default
 \size default
- allows to automatically exclude constant variables from the x-axis labels.
+ allows the ability to automatically exclude constant variables from the
+ x-axis labels.
  If set to `1' any variables that always had the same value in all experiments
  do not appear in the x-axis labels.
 \end_layout
@@ -8085,7 +9487,7 @@ By default analyse_cmpexp groups experiments by traffic flow, meaning each
 group-by-experiment
 \family default
 \size default
- allows to group by test ID prefix instead by setting 
+ allows the ability to group by test ID prefix instead by setting 
 \family typewriter
 \size footnotesize
 group-by-experiment=1
@@ -8124,11 +9526,11 @@ merge_data=0
  If 
 \family typewriter
 \size footnotesize
-merge_data=1
+merge_data=1,
 \family default
 \size default
  only one box/median/mean will be plotted for each experiment.
- Note, TEACUP simply merges all types of data -- the user must decide whether
+ Note, TEACUP simply merges all types of data – the user must decide whether
  merging actually makes sense.
 \end_layout
 
@@ -8137,9 +9539,9 @@ Metric specific parameters
 \end_layout
 
 \begin_layout Standard
-The task has a number of metric specific parameters that are passed to the
- appropriate extract functions and/or select the data columns in the interim
- data files needed.
+This task has a number of metric specific parameters that are passed to
+ the appropriate extract functions and/or select the data columns in the
+ interim data files needed.
  
 \end_layout
 
@@ -8419,10 +9821,10 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_cmpexp:exp_list= myexp_list.txt,res_dir="./results/", variables="run
+> fab analyse_cmpexp:exp_list=myexp_list.txt, res_dir="../results", variables="run
 \backslash
-=0", source_filter= "D_172.16.10.2_5001;D_172.16.10.3_5006", metric=tcprtt, lnames="CD
-G;Newreno"
+=0",source_filter= "D_172.16.10.2_5001;D_172.16.10.3_5006", metric=tcprtt,lnames="CDG;
+Newreno"
 \end_layout
 
 \end_inset
@@ -8442,18 +9844,24 @@ status open
 \end_layout
 
 \begin_layout Subsection
-analyse_2_density -- Plot two metrics against each other depending on experiment
+analyse_2d_density – Plot two metrics against each other depending on experiment
  variables
 \end_layout
 
 \begin_layout Standard
-The analyse_2_density task can create 2-dimensional density plots or ellipse
+The analyse_2d_density task can create 2-dimensional density plots or ellipse
  plots allowing to explore the relationship between two metrics depending
  on different experiment parameter combinations.
  It supports the same metrics as analyse_cmpexp: `throughput', `spprtt',
  `tcprtt' (unsmoothed/ERTT), `cwnd', `tcpstat', `ackseq', `restime' and
  `iqtime'.
- The task has the standard parameters 
+ This task has the standard parameters 
+\family typewriter
+\size small
+etime
+\family default
+\size default
+, 
 \family typewriter
 \size small
 out_dir
@@ -8469,6 +9877,12 @@ replot_only
 \family typewriter
 \size small
 source_filter
+\family default
+\size default
+, 
+\family typewriter
+\size small
+stime
 \family default
 \size default
 ,
@@ -8519,6 +9933,17 @@ pdf_dir
 
 \begin_layout Standard
 Please note that this task is somewhat experimental and still under development.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Possibly still the case
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -8526,7 +9951,7 @@ Specifying test IDs
 \end_layout
 
 \begin_layout Standard
-The task has no 
+This task has no 
 \family typewriter
 \size footnotesize
 test_id
@@ -8539,8 +9964,8 @@ test_id
 exp_list
 \family default
 \size default
- parameter allows to specify a text file containing the list of experiments
- as for analyse_cmpexp.
+ parameter allows the specification of a text file containing the list of
+ experiments as for analyse_cmpexp.
  Also, as for analyse_cmpexp, the parameter 
 \family typewriter
 \size footnotesize
@@ -8634,19 +10059,7 @@ Axis limits
 \end_layout
 
 \begin_layout Standard
-Instead of the usual parameters 
-\family typewriter
-\size small
-stime
-\family default
-\size default
-,
-\family typewriter
-\size small
- etime
-\family default
-\size default
-, analyse_2d_density has the parameters 
+Initially analyse_2d_density used the parameters 
 \family typewriter
 \size small
 xmin
@@ -8659,6 +10072,19 @@ xmin
 \family default
 \size default
  for limiting the x-axis values.
+ Support now exists for using 
+\family typewriter
+\size small
+stime
+\family default
+\size default
+ and 
+\family typewriter
+\size small
+etime
+\family default
+\size default
+ to do the same thing.
  Note that due to the internals of a different plotting function used (R
  ggplot2), the parameters 
 \family typewriter
@@ -8758,9 +10184,9 @@ Metric specific parameters
 \end_layout
 
 \begin_layout Standard
-The task has a number of metric specific parameters that are passed to the
- extract functions and/or select the data columns in the interim data files
- needed.
+This task has a number of metric specific parameters that are passed to
+ the extract functions and/or select the data columns in the interim data
+ files needed.
  It has all the metric-specific parameters of analyse_cmpexp, except 
 \family typewriter
 \size footnotesize
@@ -8799,7 +10225,7 @@ xstat_index
 xmetric=tcpstat
 \family default
 \size default
- and 
+, and 
 \family typewriter
 \size footnotesize
 ystat_index
@@ -8854,7 +10280,7 @@ The variable TC_BINS can be used to set the number of bins for the 2D density
 
 \begin_layout Standard
 The variable TC_MEDIAN can be set to 1 to plot the median for each group.
- By default the task does not plot the median.
+ By default this task does not plot the median.
  The variable TC_NO_LEGEND can be set to 1 to suppress the legend, which
  by default is shown to the right of the graph.
 \end_layout
@@ -8919,11 +10345,11 @@ status open
 
 \family typewriter
 \size footnotesize
-> TC_ADD_RAND=1 fab analyse_2d_density: exp_list= myexp_list.txt,res_dir="./result
-s/", variables="run
+> TC_ADD_RAND=1 fab analyse_2d_density: exp_list=myexp_list.txt,res_dir="../results
+", variables="run
 \backslash
 =0",source_filter= "D_172.16.11.68_5000",xmetric=throughput, ymetric=tcprtt,link_le
-n=1, group_by=
+n=1,group_by=
 \begin_inset Quotes erd
 \end_inset
 
@@ -8931,7 +10357,7 @@ aqm
 \begin_inset Quotes erd
 \end_inset
 
-,lnames="fifo;codel;pie"
+, lnames="fifo;codel;pie"
 \end_layout
 
 \end_inset
@@ -8991,10 +10417,10 @@ status open
 
 \family typewriter
 \size footnotesize
-> TC_ELLIPSE=1 TC_ADD_RAND=1 fab analyse_2d_density: exp_list=myexp_list.txt,res_
-dir="./results/", variables="run
+> TC_ELLIPSE=1 TC_ADD_RAND=1 fab analyse_2d_density:exp_list=myexp_list.txt,
+ res_dir="../results",variables="run
 \backslash
-=0",source_filter= "D_172.16.11.68_5000",xmetric=throughput, ymetric=tcprtt,link_le
+=0", source_filter="D_172.16.11.68_5000", xmetric=throughput,ymetric=tcprtt,link_le
 n=1, group_by=
 \begin_inset Quotes erd
 \end_inset
@@ -9041,6 +10467,1474 @@ Currently the underlying plot function for all time series graphs, such
 \begin_layout Standard
 The number of groups (corresponding to legend entries) that can be plotted
  in one graph with analyse_cmpexp and analyse_2d_density is limited to 12.
+\end_layout
+
+\begin_layout Section
+Teaplot – browser-based tool for animating TEACUP experimental data
+\end_layout
+
+\begin_layout Standard
+By default, TEACUP uses its analysis functions to generate results obtained
+ from its gathered experimental data, in the form of pdf documents.
+ Teaplot adds the ability to use a web browser to animate these experimental
+ results (Note: This is experimental, so problems may exist).
+ The processes involved with the usage of Teaplot are described below.
+ For extra information such as how it was developed, and any installation
+ requirements, please consult the other included Teaplot documentation as
+ of TEACUP v1.1.
+\end_layout
+
+\begin_layout Subsection
+Requirements
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sect:usage-1"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The following assumptions are made when running a TEACUP Fabric task, and
+ thus Teaplot:
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+fab
+\family default
+ is being executed in a directory containing a link to or copy of TEACUP's
+ 
+\family typewriter
+fabfile.py
+\family default
+, and a relevant and properly configured 
+\family typewriter
+config.py
+\family default
+ 
+\end_layout
+
+\begin_layout Itemize
+The file 
+\family typewriter
+config.py
+\family default
+ defines 
+\family typewriter
+TPCONF_script_path
+\family default
+, which points to the extracted TEACUP source tree (
+\family typewriter
+$TEACUP_DIR
+\family default
+) 
+\end_layout
+
+\begin_layout Itemize
+The Fabfile directory (
+\family typewriter
+$FABFILE_DIR
+\family default
+) is home to one or more experiment directories that contain actual raw
+ experiment results files.
+ 
+\end_layout
+
+\begin_layout Itemize
+The required dependencies for Teaplot are installed (see separate Teaplot
+ documentation).
+\end_layout
+
+\begin_layout Subsection
+Task Arguments
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "table:args"
+
+\end_inset
+
+ shows the arguments that can be added to the Fabric task to customise the
+ functionality of Teaplot.
+ All arguments are optional, and are supplied to the Fabric task like so:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab animate:arg1="value1",arg2=
+\begin_inset Quotes erd
+\end_inset
+
+value3
+\begin_inset Quotes erd
+\end_inset
+
+,...
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Values should be enclosed by quote marks (i.e.
+ 
+\family typewriter
+"…"
+\family default
+) or apostrophes (i.e.
+ 
+\family typewriter
+'…'
+\family default
+).
+ A value of 
+\family typewriter
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\family default
+ generally denotes a null, or blank, value.
+ For the arguments 
+\family typewriter
+out_dir
+\family default
+ and 
+\family typewriter
+exp_dir
+\family default
+, a value of 
+\family typewriter
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\family default
+ indicates that Teaplot should use the current working directory as that
+ directory.
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+exp_list
+\family default
+ and 
+\family typewriter
+exp_list
+\family default
+ are interpreted as relative to the current working directory (the directory
+ in which the Fabric task is executed).
+ 
+\family typewriter
+out_dir
+\family default
+ is relative to the experiment directories, as each one is processed by
+ TEACUP.
+ 
+\family typewriter
+animate_dir
+\family default
+ is relative to the directory defined by 
+\family typewriter
+TPCONF_script_path
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "table:defaults"
+
+\end_inset
+
+ shows the additional arguments for the Fabric task that relate to the defaults
+ to use for the web client.
+\end_layout
+
+\begin_layout Standard
+For example, if the user wishes to have the server listen on IP address
+ 
+\family typewriter
+127.0.0.1
+\family default
+ on port 8000, the fabric task would be as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent 
+\backslash
+colorbox{lightgray}{
+\end_layout
+
+\end_inset
+
+
+\family typewriter
+\size small
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "98col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+> fab animate:address="127.0.0.1:8000"
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Fabric task arguments for Teaplot
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "table:args"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+small 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{l  l}	 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+textbf{Argument} & 
+\backslash
+textbf{Description} 
+\backslash
+
+\backslash
+ 
+\backslash
+toprule 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{address}      &  
+\backslash
+pbox{5.5cm}{IP address for the server.
+ 
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{'127.0.0.1'}}  
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{port}          &  
+\backslash
+pbox{5.5cm}{Port number for the server.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{'8000'}}  
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{animate
+\backslash
+_dir} &    
+\backslash
+pbox{5.5cm}{Teaplot directory containing the Django WSGI application.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{animate}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{out
+\backslash
+_dir}      &  
+\backslash
+pbox{5.5cm}{ Directory in which to generate TEACUP intermediate files.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{''}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{processes}    &  
+\backslash
+pbox{5.5cm}{ Number of uWSGI processes to use.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{1}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{threads}       &  
+\backslash
+pbox{5.5cm}{Number of uWSGI threads for each process.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{1}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{exp
+\backslash
+_list}     &  
+\backslash
+pbox{5.5cm}{ Location of the experiments
+\backslash
+_completed.txt file generated by TEACUP.
+  
+\backslash
+
+\backslash
+ Default: 	
+\backslash
+texttt{'experiments
+\backslash
+_completed.txt'}}  
+\backslash
+
+\backslash
+ 
+\backslash
+bottomrule 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Fabric task arguments for default client settings
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "table:defaults"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+small 	
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{l  l}	 		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+textbf{Argument} & 
+\backslash
+textbf{Description} 
+\backslash
+
+\backslash
+ 
+\backslash
+toprule 		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{source
+\backslash
+_filter}&  
+\backslash
+pbox{5.5cm}{TEACUP source filters (semicolon-separated) to use as default
+ in the web client.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{''}} 	
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{test
+\backslash
+_id}      &  
+\backslash
+pbox{5.5cm}{ TEACUP test IDs (semicolon-separated) to use as default in the
+ web client.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{''}} 
+\backslash
+
+\backslash
+ 	
+\backslash
+midrule  		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{metric}        & 
+\backslash
+pbox{5.5cm}{Default TEACUP metrics (semicolon-separated).
+ 
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{''}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{graph
+\backslash
+_count} &  
+\backslash
+pbox{5.5cm}{Default number of graphs to display.
+ 
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{'1'} } 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{graph
+\backslash
+_names}  &  
+\backslash
+pbox{5.5cm}{ Names of the graphs displayed (semicolon-separated) by default.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{''}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\backslash
+texttt{lnames}        &  
+\backslash
+pbox{5.5cm}{Legend/Flow names to show on the graphs (semicolon-separated).
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{''}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  	
+\backslash
+texttt{siftr}         & 
+\backslash
+pbox{5.5cm}{ Enable ('1') or disable ('0') SIFTR.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{'0'}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{web10g}        & 
+\backslash
+pbox{5.5cm}{Enable ('1') or disable ('0') web10g.
+  
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{'0'}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{etime}         & 
+\backslash
+pbox{5.5cm}{ Default end time in seconds for a new graph.
+ 
+\backslash
+texttt{'0'} infers no default end time.
+  
+\backslash
+
+\backslash
+ Default: 	
+\backslash
+texttt{'0'}} 
+\backslash
+
+\backslash
+ 
+\backslash
+midrule  		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+texttt{stime}         & 
+\backslash
+pbox{5.5cm}{ Default start time in seconds.
+ 
+\backslash
+
+\backslash
+ Default: 
+\backslash
+texttt{'0'}} 
+\backslash
+
+\backslash
+ 
+\backslash
+bottomrule 	
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Launching the Client
+\end_layout
+
+\begin_layout Standard
+In order to visualise TEACUP experiment data, the following steps should
+ be carried out:
+\end_layout
+
+\begin_layout Enumerate
+Start the web server component using the method outlined in the previous
+ section (ensuring that the IP address and port chosen are reachable by
+ the client) 
+\end_layout
+
+\begin_layout Enumerate
+Open the web browser on the client computer, and navigate to the IP address
+ and port pair used by the server 
+\begin_inset Newline newline
+\end_inset
+
+ e.g.
+ 
+\family typewriter
+http://127.0.0.1:8000
+\family default
+ 
+\end_layout
+
+\begin_layout Enumerate
+If desired, increase the number of graphs to be shown on-screen by clicking
+ the 
+\begin_inset Quotes eld
+\end_inset
+
+Graph
+\begin_inset Quotes erd
+\end_inset
+
+ button in the top navigation bar, and then modifying the 
+\begin_inset Quotes eld
+\end_inset
+
+Number of graphs
+\begin_inset Quotes erd
+\end_inset
+
+ control as desired.
+ Alternatively, restart the server with the desired number as the value
+ for the argument 
+\family typewriter
+graph_count
+\family default
+.
+ The name of each graph can also be optionally set here, or using the argument
+ 
+\family typewriter
+graph_names
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Selecting Tests and Flows
+\end_layout
+
+\begin_layout Enumerate
+The Teaplot client web UI should now be visible on-screen.
+ First, open the metric selection dialogue by clicking 
+\begin_inset Quotes eld
+\end_inset
+
+Metrics
+\begin_inset Quotes erd
+\end_inset
+
+ in the navigation bar.
+ By default the 
+\begin_inset Quotes eld
+\end_inset
+
+Data Sources
+\begin_inset Quotes erd
+\end_inset
+
+ tab should be selected, allowing the selection of one or more of the collapsibl
+e test ID's prefix with its corresponding experiments located in each one
+ (which the Teaplot server reports it has found in the 
+\family typewriter
+experiments_completed.txt
+\family default
+ file identified by 
+\family typewriter
+exp_list
+\family default
+).
+ 
+\end_layout
+
+\begin_layout Enumerate
+Select the 
+\begin_inset Quotes eld
+\end_inset
+
+Metrics
+\begin_inset Quotes erd
+\end_inset
+
+ tab, and select one or more metrics for extraction and processing.
+ If SIFTR or Web10G metrics are required, the server should be restarted
+ with the additional argument 
+\family typewriter
+siftr='1'
+\family default
+ or 
+\family typewriter
+web10g='1'
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Click the 
+\begin_inset Quotes eld
+\end_inset
+
+Update Flows
+\begin_inset Quotes erd
+\end_inset
+
+ button to send the requested parameters to the server.
+ The server will then extract the metric data from the selected experiments.
+ The metrics dialogue will close once this operation has successfully completed.
+ If an error has occurred, refer to the file 
+\family typewriter
+teaplot.log
+\family default
+ inside 
+\family typewriter
+$FABFILE_DIR
+\family default
+ for more information.
+ This process may take tens of seconds, especially if a specific metric
+ and test ID combination has not previously been extracted.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Open the 
+\begin_inset Quotes eld
+\end_inset
+
+Flow
+\begin_inset Quotes erd
+\end_inset
+
+ dialogue by clicking the 
+\begin_inset Quotes eld
+\end_inset
+
+Flow
+\begin_inset Quotes erd
+\end_inset
+
+ button in the navigation bar.
+ The metrics and accompanying flows 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotemark[1]
+\end_layout
+
+\end_inset
+
+ available for display will be shown here.
+ The flows are grouped by collapsible metric boxes, with the corresponding
+ experimental IDs selected previously as the Data Source, with the source
+ filters available within each being alphabetically sorted.
+ The flow start times displayed are calculated relative to the earliest
+ flow start time in each group.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotemark[2]
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+Select a number of flows to show on the graph using the check boxes.
+ Once a flow is selected, it will be added to the 
+\begin_inset Quotes eld
+\end_inset
+
+Y Axis Flow Mapping
+\begin_inset Quotes erd
+\end_inset
+
+ table.
+ From here, the graph on which to display the data can be selected.
+ Furthermore, alternative axis configurations can be selected.
+ 
+\emph on
+However
+\emph default
+, as of version 0.2, selecting anything other than 
+\begin_inset Quotes eld
+\end_inset
+
+Time
+\begin_inset Quotes erd
+\end_inset
+
+ for the X Axis and 
+\begin_inset Quotes eld
+\end_inset
+
+Nothing
+\begin_inset Quotes erd
+\end_inset
+
+ for the Z Axis is considered experimental; different flow and metric configurat
+ions may not work or be compatible.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Once the desired flows have been selected, click the 
+\begin_inset Quotes eld
+\end_inset
+
+Update View
+\begin_inset Quotes erd
+\end_inset
+
+ button to send the request.
+ This may take several seconds, as the server must process the data, normalise
+ time stamps, and transfer the data for the client, where it is then plotted
+ on the appropriate graph.
+ The number of flows and total number of data points will heavily influence
+ how long this process will take.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotemark[3]
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotetext[1]{
+\end_layout
+
+\end_inset
+
+A 
+\begin_inset Quotes eld
+\end_inset
+
+flow
+\begin_inset Quotes erd
+\end_inset
+
+ refers to a one-way data stream between an IP address and port pair, shown
+ in the format 
+\family typewriter
+<source IP>_<source port>_<destination IP>_<destination port>
+\family default
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+ e.g.: 
+\family typewriter
+172.16.10.3_28176_172.16.11.3_8000
+\family default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotetext[2]{
+\end_layout
+
+\end_inset
+
+A 
+\begin_inset Quotes eld
+\end_inset
+
+group
+\begin_inset Quotes erd
+\end_inset
+
+ refers to an experiment/test grouping as calculated by TEACUP; a single
+ group contains a single test run.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotetext[3]{
+\end_layout
+
+\end_inset
+
+The amount of data transferred between the client and server during this
+ process is approximately 1MB per 100,000 data points.
+ This could be greatly reduced (if required) through the use of transparent
+ HTTP compression such as 
+\family typewriter
+gzip
+\family default
+, which could be introduced through the use of a reverse-proxy web-server
+ application on the server host.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection
+Interactivity
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sect:interactivity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once the 
+\begin_inset Quotes eld
+\end_inset
+
+Update View
+\begin_inset Quotes erd
+\end_inset
+
+ process is complete, the dialogue will close and the data will appear on
+ the appropriate graphs.
+ The X (time) axis limits will automatically adjust to include the entire
+ data set; the X axis of each graph is identically scaled, with the same
+ start and end times.
+ The Y and Z (if selected) axes will automatically scale to include the
+ highest value on each graph; these axis are not linked (i.e.
+ each graph has its own independent scale).
+ If 
+\family typewriter
+stime
+\family default
+ or 
+\family typewriter
+etime
+\family default
+ arguments were specified with the Fabric task, the graphs will automatically
+ adjust the X axis to the designated values.
+ If desired, the minimum and maximum values of each axis can be adjusted
+ using the sliders in the 
+\begin_inset Quotes eld
+\end_inset
+
+Control
+\begin_inset Quotes erd
+\end_inset
+
+ panel.
+ These values are represented as percentages of the maximum value on each
+ axis.
+ All graphs are linked and controlled by the same sliders.
+ If no name is currently set for a graph, it will be updated with the metric
+ it is currently displaying.
+\end_layout
+
+\begin_layout Standard
+Individual flows are represented by a single colour, irrespective of metric,
+ in order to ease visual comparisons of the same flow on multiple graphs.
+ If desired, names can be assigned to individual flows by clicking the flow
+ name in the 
+\begin_inset Quotes eld
+\end_inset
+
+Legend
+\begin_inset Quotes erd
+\end_inset
+
+ panel, or by providing a semicolon-separated list of names via the 
+\family typewriter
+lnames
+\family default
+ argument when starting Teaplot.
+\end_layout
+
+\begin_layout Standard
+The graph view is controlled using the mouse.
+ In 2D view (the default), panning can be achieved by clicking and holding
+ the right mouse button, while zooming is achieved using the scroll wheel.
+\end_layout
+
+\begin_layout Subsection
+Button Functions
+\end_layout
+
+\begin_layout Standard
+3D view can be toggled (for experimental 3D plots) using the 
+\begin_inset Quotes eld
+\end_inset
+
+Toggle 3D View
+\begin_inset Quotes erd
+\end_inset
+
+ button found in the top navigation bar.
+ Clicking the 
+\begin_inset Quotes eld
+\end_inset
+
+Reset View
+\begin_inset Quotes erd
+\end_inset
+
+ will reset the position of the graph view to the default.
+\end_layout
+
+\begin_layout Standard
+Clicking 
+\begin_inset Quotes eld
+\end_inset
+
+Toggle Grid
+\begin_inset Quotes erd
+\end_inset
+
+ will show or hide the grey dividing lines shown on the graphs.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+Toggle Controls
+\begin_inset Quotes erd
+\end_inset
+
+ can be used to show or hide the 
+\begin_inset Quotes eld
+\end_inset
+
+Control
+\begin_inset Quotes erd
+\end_inset
+
+ panel described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sect:interactivity"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There are three buttons that essentially act as the Animation functionality
+ buttons.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+Start
+\begin_inset Quotes erd
+\end_inset
+
+ button begins the graph animation, the duration of which can be controlled
+ using the 
+\begin_inset Quotes eld
+\end_inset
+
+Animation Time
+\begin_inset Quotes erd
+\end_inset
+
+ slider found in the 
+\begin_inset Quotes eld
+\end_inset
+
+Controls
+\begin_inset Quotes erd
+\end_inset
+
+ panel.
+ This animation produces a bar which moves left-to-right across all graphs
+ simultaneously, 
+\begin_inset Quotes eld
+\end_inset
+
+uncovering
+\begin_inset Quotes erd
+\end_inset
+
+ data points as it moves.
+ This can be used to visualise the interaction between metrics over time.
+ Clicking the 
+\begin_inset Quotes eld
+\end_inset
+
+Stop
+\begin_inset Quotes erd
+\end_inset
+
+ button while the animation is running will pause it, which can then be
+ resumed by clicking the "Start" button again.
+ There is also a 'Reset" button, which can be used to reset the animation
+ back to its default position regardless of the animation being paused or
+ not.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Quotes eld
+\end_inset
+
+Export Command
+\begin_inset Quotes erd
+\end_inset
+
+ button displays a dialogue containing a list of arguments which can be
+ passed to the Fabric task the next time the server task is executed.
+ These arguments represent the current state of the web client interface
+ and current selections made by the user, so that the user can record these
+ arguments and restart the server in more-or-less the same state, with the
+ same metrics, for example, at a later time.
+ 
 \end_layout
 
 \begin_layout Section
@@ -9122,7 +12016,7 @@ status open
 
 \family typewriter
 \size footnotesize
-> fab analyse_throughput:test_id= 20131206-102931_dash_2000_tcp_newreno,
+> fab analyse_throughput:test_id= exp_20131206-102931_tcp_newreno_run_0,
  plot_params="TC_YLAB
 \backslash
 =
@@ -9232,7 +12126,7 @@ The plot script gets its input from TEACUP via the environment variables.
  (see 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0"
+key "zander2018_teacup_v1.1_system"
 
 \end_inset
 
@@ -9295,8 +12189,8 @@ tcp_comparison.sh
  can be used to combine throughput, RTT, CWND or SPP RTT graphs for up to
  four different TCP congestion control algorithms on one page.
  For example, the following command creates four PDFs, each with four graphs
- for each TCP congestion control algorithm (assuming the test ID is 20131220-182
-929_del_<delay>_tcp_<tcp_algo>):
+ for each TCP congestion control algorithm (assuming the test ID is exp_20131220
+-182929_del_<delay>_tcp_<tcp_algo>):
 \end_layout
 
 \begin_layout Standard
@@ -9329,13 +12223,20 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> tcp_comparison.sh 20131220-182929_del_10_tcp test
+> tcp_comparison.sh 
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+exp_20131220-182929_del_10_tcp test
 \end_layout
 
 \end_inset
@@ -9432,13 +12333,13 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
 \family typewriter
 \size footnotesize
-> tcp_comparison_allinone.sh 20131220-182929_del_10_tcp test
+> tcp_comparison_allinone.sh exp_20131220-182929_del_10_tcp test
 \end_layout
 
 \end_inset
@@ -9513,7 +12414,8 @@ combine_graphs.sh
 \family default
 \size default
 , which is used by the scripts for TCP comparison.
- The script allows to combine an arbitrary number of graphs one one page.
+ The script allows the combination of an arbitrary number of graphs on one
+ page.
  For example, if we want to compare the CWND graphs for two different delay
  values and four different TCP congestion control algorithms we can do this
  with the following command: 
@@ -9549,7 +12451,7 @@ width "98col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9570,7 +12472,7 @@ status collapsed
 
 \family typewriter
 \size footnotesize
-20131220-182929_del_*_tcp_*cwnd*.pdf | sort`
+exp_20131220-182929_del_*_tcp_*cwnd*.pdf | sort`
 \end_layout
 
 \end_inset
@@ -9626,7 +12528,7 @@ combine_graphs.sh
 \end_layout
 
 \begin_layout Section
-Use Case -- Analysing an Incast Experiment
+Use Case – Analysing an Incast Experiment
 \end_layout
 
 \begin_layout Standard
@@ -9730,9 +12632,9 @@ status open
 \family typewriter
 \size scriptsize
 > TC_POINT_SIZE=0.25 TC_AGGR_WIN_SIZE=0.05 TC_AGGR_INT_FACTOR=10 fab analyse_throu
-ghput:test_id= 20150218-135735_experiment_aqm_pfifo_responders_4, out_dir=../resul
-t,link_len=1,source_filter= "S_172.16.11.61_80; S_172.16.1 1.62_81;S_172.16.11.63_82;S_17
-2.16.11.64_83", etime=6,plot_params='TC_YLAB
+ghput:test_id= exp_20150218-135735_aqm_pfifo_responders_4, out_dir=../result,link_
+len=1,source_filter= "S_172.16.11.61_80;S_172.16.11.62_81; S_172.16.11.63_82;S_172.16.11.64_
+83",etime=6, plot_params='TC_YLAB
 \backslash
 ="Throughput (mbps)" TC_YSCALER
 \backslash
@@ -9796,9 +12698,9 @@ status open
 
 \family typewriter
 \size scriptsize
-> TC_POINT_SIZE=0.25 fab analyse_rtt:test_id= 20150218-135735_experiment_aqm_pfif
-o_responders_4, out_dir=../results,source_filter="S_172.16.11.61_80; S_172.16.11.62_81;S
-_172.16.11.63_82; S_172.16.11.64_83",etime=6
+> TC_POINT_SIZE=0.25 fab analyse_rtt:test_id= exp_20150218-135735_aqm_pfifo_respo
+nders_4, out_dir=../results,source_filter="S_172.16.11.61_80; S_172.16.11.62_81;S_172.16.1
+1.63_82; S_172.16.11.64_83",etime=6
 \end_layout
 
 \end_inset
@@ -9829,11 +12731,11 @@ reference "fig:Throughput-and-RTT"
  The throughput graph shows that the throughput varies depending on the
  responder.
  For example, in the first part of the first burst responders 1, 3 and 4
- have roughly 12--15
+ have roughly 12–15
 \begin_inset space \thinspace{}
 \end_inset
 
-mpbs whereas responder 2 has 7--10
+mpbs whereas responder 2 has 7–10
 \begin_inset space \thinspace{}
 \end_inset
 
@@ -10006,9 +12908,9 @@ status open
 
 \family typewriter
 \size scriptsize
-> TC_POINT_SIZE=0.5 fab analyse_incast_iqtimes:test_id= 20150218-135735_experimen
-t_aqm_pfifo_responders_4, out_dir=../results,query_host=newtcp20, by_responder=1,c
-umulative=1 
+> TC_POINT_SIZE=0.5 fab analyse_incast_iqtimes:test_id= exp_20150218-135735_aqm_p
+fifo_responders_4, out_dir=../results,query_host=newtcp20, by_responder=1,cumulati
+ve=1 
 \end_layout
 
 \end_inset
@@ -10042,7 +12944,7 @@ reference "fig:Incast-inter-query-times"
 \end_inset
 
 ms.
- However, from burst 8 onwards, the requests were sent more and more spread
+ However, from burst 8 onward, the requests were sent more and more spread
  out with the request to responder 1 falling behind more and more.
  Still, even for the last burst all requests were sent within 9
 \begin_inset space \thinspace{}
@@ -10143,8 +13045,8 @@ status open
 
 \family typewriter
 \size scriptsize
-> TC_POINT_SIZE=0.5 fab analyse_incast:test_id= 20150218-135735_experiment_aqm_pf
-ifo_responders_4, out_dir=../results
+> TC_POINT_SIZE=0.5 fab analyse_incast:test_id= exp_20150218-135735_aqm_pfifo_res
+ponders_4, out_dir=../results
 \end_layout
 
 \end_inset
@@ -10290,9 +13192,9 @@ status open
 
 \family typewriter
 \size scriptsize
-> TC_POINT_SIZE=0.25 fab analyse_ackseq:test_id= 20150218-135735_experiment_aqm_p
-fifo_responders_4, out_dir=../results,source_filter= "D_172.16.11.61_80;D_172.16.11.62_8
-1; D_172.16.11.63_82;D_172.16.11.64_83", burst_sep=1,sburst=1,eburst=2
+> TC_POINT_SIZE=0.25 fab analyse_ackseq:test_id= exp_20150218-135735_aqm_pfifo_re
+sponders_4, out_dir=../results,source_filter= "D_172.16.11.61_80;D_172.16.11.62_81;
+ D_172.16.11.63_82;D_172.16.11.64_83",burst_sep=1, sburst=1,eburst=2
 \end_layout
 
 \end_inset
@@ -10389,47 +13291,47 @@ status open
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_4
+exp_20150218-135735_aqm_pfifo_responders_4
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_5
+exp_20150218-135735_aqm_pfifo_responders_5
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_6
+exp_20150218-135735_aqm_pfifo_responders_6
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_7
+exp_20150218-135735_aqm_pfifo_responders_7
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_8
+exp_20150218-135735_aqm_pfifo_responders_8
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_9
+exp_20150218-135735_aqm_pfifo_responders_9
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_10
+exp_20150218-135735_aqm_pfifo_responders_10
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_11
+exp_20150218-135735_aqm_pfifo_responders_11
 \end_layout
 
 \begin_layout Plain Layout
 
-20150218-135735_experiment_aqm_pfifo_responders_12
+exp_20150218-135735_aqm_pfifo_responders_12
 \end_layout
 
 \end_inset
@@ -10541,10 +13443,10 @@ status open
 
 \family typewriter
 \size scriptsize
-> TC_NICER_XLABS=1 fab analyse_cmpexp:exp_list= explist.txt,out_dir=../results,
- source_filter="D_172.16.11.61_80;D_172.16.11.62_81; D_172.16.11.63_82;D_172.16.11.64_83",
- metric=restime,ptype=box,omit_const_xlab_vars=1, out_name="FIRST_FOUR",plot_scr
-ipt="R CMD BATCH --vanilla ./my_plot_cmp_experiments.R"
+> TC_NICER_XLABS=1 fab analyse_cmpexp:exp_list=explist.txt, out_dir=../results,sour
+ce_filter="D_172.16.11.61_80; D_172.16.11.62_81;D_172.16.11.63_82; D_172.16.11.64_83",metric
+=restime,ptype=box, omit_const_xlab_vars=1,out_name="FIRST_FOUR", plot_script="R
+ CMD BATCH --vanilla ./my_plot_cmp_experiments.R"
 \end_layout
 
 \end_inset
@@ -10674,10 +13576,10 @@ status open
 
 \family typewriter
 \size scriptsize
-> TC_NICER_XLABS=1 fab analyse_cmpexp:exp_list= explist.txt,out_dir=../results,
- source_filter="S_172.16.10.60_*",merge_data=1, metric=restime,ptype=box,omit_const
-_xlab_vars=1, out_name="ALL",plot_script="R CMD BATCH --vanilla ./my_plot_cmp_exp
-eriments.R" 
+> TC_NICER_XLABS=1 fab analyse_cmpexp:exp_list=explist.txt, out_dir=../results,sour
+ce_filter="S_172.16.10.60_*", merge_data=1,metric=restime,ptype=box, omit_const_xla
+b_vars=1,out_name="ALL",plot_script="R CMD BATCH --vanilla ./my_plot_cmp_experime
+nts.R" 
 \end_layout
 
 \end_inset
@@ -10776,7 +13678,7 @@ TEACUP is a Python-based software tool we developed to run automated TCP
  performance tests in a controlled testbed 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "zander2015caia_teacup_v1.0"
+key "zander2018_teacup_v1.1_system"
 
 \end_inset
 
@@ -10794,7 +13696,7 @@ TEACUP versions prior to 1.0 were developed as part of a project funded by
  Cisco Systems and titled "Study in TCP Congestion Control Performance In
  A Data Centre".
  This was a collaborative effort between Swinburne University of Technology's
- Center for Advanced Internet Archectures and Fred Baker of Cisco Systems.
+ Centre for Advanced Internet Architectures and Fred Baker of Cisco Systems.
  These may be found at 
 \begin_inset Flex URL
 status collapsed
@@ -10825,6 +13727,11 @@ http://sourceforge.net/projects/teacup/
 .
 \end_layout
 
+\begin_layout Standard
+Russell Collom contributed additional text in 2017 for version 1.1 of this
+ document.
+\end_layout
+
 \begin_layout Section*
 Copyright and License
 \begin_inset CommandInset label
@@ -10837,11 +13744,11 @@ name "sec:Copying"
 \end_layout
 
 \begin_layout Standard
-This document, 
+This document is based on 
 \begin_inset Quotes eld
 \end_inset
 
-TEACUP v1.0 -- Data Analysis Functions
+TEACUP v1.0 – Data Analysis Functions
 \begin_inset Quotes erd
 \end_inset
 
@@ -10862,9 +13769,9 @@ copyright
 \begin_inset space ~
 \end_inset
 
-2015 -- 2016 CAIA, Swinburne University of Technology.
- As of June 2016 this document has been licensed under a Creative Commons
- Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0, 
+2015 – 2016 CAIA, Swinburne University of Technology.
+ The original was released in June 2016 under a Creative Commons Attribution-Sha
+reAlike 4.0 International License (CC BY-SA 4.0, 
 \begin_inset Flex URL
 status collapsed
 
@@ -10878,7 +13785,7 @@ http://creativecommons.org/licenses/by-sa/4.0
 ).
  Based on a work at 
 \begin_inset Flex URL
-status open
+status collapsed
 
 \begin_layout Plain Layout
 

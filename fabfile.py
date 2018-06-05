@@ -148,11 +148,6 @@ except ImportError:
     pass
 
 try:
-    from analyse import extract_pktloss, analyse_pktloss
-except ImportError:
-    pass
-
-try:
     from clockoffset import get_clock_offsets, adjust_timestamps
 except ImportError:
     pass
@@ -182,6 +177,10 @@ try:
 except ImportError:
     pass
 
+try:
+    from analyse_owd import extract_owd, analyse_owd, analyse_pktloss, extract_pktloss
+except ImportError:
+    pass
 
 ## Set to zero if we don't need OS initialisation anymore
 # XXX this is a bit ugly as a global
