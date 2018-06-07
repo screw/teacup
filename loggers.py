@@ -587,7 +587,7 @@ def start_rlite_gather(
 #  @param remote_dir Directrory on remote where file is created
 #  @param local_dir Directory on control host where file is copied to
 @parallel
-def stop_rlte_gather(file_prefix='', remote_dir='', local_dir='.'):
+def stop_rlite_gather(file_prefix='', remote_dir='', local_dir='.'):
     "Stop rlite-gather instance on host"
 
     pid = bgproc.get_proc_pid(env.host_string, 'rlite-gather', '0')
