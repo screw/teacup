@@ -559,12 +559,8 @@ def start_rlite_gather(
     if remote_dir != '' and remote_dir[-1] != '/':
         remote_dir += '/'
 
-    if env.host_string in config.TPCONF_router:
-            file_name = remote_dir + file_prefix + '_' + \
-                env.host_string.replace(':', '_') + '_router.csv'
-    else:
-            file_name = remote_dir + file_prefix + '_' + \
-                env.host_string.replace(':', '_') + '.csv'
+    file_name = remote_dir + file_prefix + '_' + \
+        env.host_string.replace(':', '_') + '_rlite.csv'
 
     gather_cmd = 'rlite-gather-stats.sh'
 
