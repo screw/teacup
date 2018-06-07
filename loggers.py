@@ -559,26 +559,25 @@ def start_rlite_gather(
     if remote_dir != '' and remote_dir[-1] != '/':
         remote_dir += '/'
 
-        if env.host_string in config.TPCONF_router:
-                file_name = remote_dir + file_prefix + '_' + \
-                    env.host_string.replace(':', '_') + \
-                    + '_router.csv'
-        else:
-                file_name = remote_dir + file_prefix + '_' + \
-                    env.host_string.replace(':', '_') + '.csv'
+    if env.host_string in config.TPCONF_router:
+            file_name = remote_dir + file_prefix + '_' + \
+                env.host_string.replace(':', '_') + '_router.csv'
+    else:
+            file_name = remote_dir + file_prefix + '_' + \
+                env.host_string.replace(':', '_') + '.csv'
 
-        gather_cmd = 'rlite-gather-stats.sh'
+    gather_cmd = 'rlite-gather-stats.sh'
 
-        pid = runbg(gather_cmd, logfile=file_name)
+    pid = runbg(gather_cmd, out_file=file_name)
 
-        name = 'rlite-gather'
-        bgproc.register_proc_later(
-            env.host_string,
-            local_dir,
-            name,
-            '0',
-            pid,
-            file_name)
+    name = 'rlite-gather'
+    bgproc.register_proc_later(
+        env.host_string,
+        local_dir,
+        name,
+        '0',
+        pid,
+        file_name)
 
 
 ## Start CPU load logger

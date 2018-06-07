@@ -1,7 +1,7 @@
 #!/bin/sh
 
 print_help() {
-  printf 'USAGE: %s OUTFILE\n' "$0"
+  printf 'USAGE: %s\n' "$0"
 }
 
 rlite_ctl() {
@@ -55,9 +55,9 @@ while true; do
 
     for FLOW_ID in $FLOW_IDS; do
       TIME="$(date +%s%N)"
-      printf "%s,%s,%s," "$TIME" "$DIF" "$FLOW_ID" >> "$OUTFILE"
-      rlite-ctl flow-dump "$FLOW_ID" | sed -e 's/.*= \([[:digit:]]\+\).*/\1/' | awk -F'\n' '{if(NR == 1) {printf $0} else {printf ","$0}}' >> "$OUTFILE"
-      printf '\n' >> "$OUTFILE"
+      printf "%s,%s,%s," "$TIME" "$DIF" "$FLOW_ID"
+      rlite-ctl flow-dump "$FLOW_ID" | sed -e 's/.*= \([[:digit:]]\+\).*/\1/' | awk -F'\n' '{if(NR == 1) {printf $0} else {printf ","$0}}'
+      printf '\n'
     done
   done
   sleep 0.01
@@ -65,9 +65,7 @@ done
 
 }
 
-OUTFILE="$1"
-
-if [ -z "$OUTFILE" ]; then
+if [ "$1" = "-h" ]; then
    print_help
    return 1
 fi
