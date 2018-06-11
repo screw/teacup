@@ -1981,6 +1981,10 @@ def analyse_all(exp_list='experiments_completed.txt', test_id='', out_dir='',
                     min_values, omit_const=omit_const, lnames=lnames, link_len=link_len,
                     stime=stime, etime=etime, out_name=out_name, pdf_dir=pdf_dir,
                     ts_correct=ts_correct, plot_params=plot_params, plot_script=plot_script)
+            execute(analyse_rlite_rtt, test_id, out_dir, replot_only,
+                    min_values, omit_const=omit_const, lnames=lnames, stime=stime,
+                    etime=etime, out_name=out_name, pdf_dir=pdf_dir,
+                    plot_params=plot_params, plot_script=plot_script)
 
 
 ## Extract incast response times from httperf files
@@ -3662,6 +3666,147 @@ def analyse_pktloss(test_id='', out_dir='', replot_only='0', source_filter='',
 
     # done
     puts('\n[MAIN] COMPLETED plotting packet loss rate %s \n' % out_name)
+
+
+## Extract RTT for RINA flows
+## The extracted files have an extension of .rtts. The format is CSV with the
+## columns:
+## 1. Timestamp RTT measured (miliseconds)
+## 2. RTT (miliseconds)
+#  @param test_id Test ID prefix of experiment to analyse
+#  @param out_dir Output directory for results
+#  @param replot_only Don't extract data again that is already extracted
+#  @param source_filter Filter on specific sources
+#  @param ts_correct '0' use timestamps as they are (default)
+#                    '1' correct timestamps based on clock offsets estimated
+#                        from broadcast pings
+#  @param sburst Start plotting with burst N (bursts are numbered from 1)
+#  @param eburst End plotting with burst N (bursts are numbered from 1)
+#  @return Test ID list, map of flow names to interim data file names and
+#          map of file names and group IDs
+def _extract_rlite_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
+                udp_map='', sburst='1', eburst='0'):
+    "Extract RTT of flows with SPP"
+
+    ifile_ext = '.csv.gz'
+    ofile_ext = '.rtts'
+
+    already_done = {}
+    out_files = {}
+    out_groups = {}
+
+    test_id_arr = test_id.split(';')
+    if len(test_id_arr) == 0 or test_id_arr[0] == '':
+        abort('Must specify test_id parameter')
+
+    #local('which spp')
+
+    group = 1
+    for test_id in test_id_arr:
+
+        # first process rlite_gather files
+        gather_files = get_testid_file_list('', test_id,
+                                ifile_ext)
+
+        for gather_file in gather_files:
+            # get input directory name and create result directory if necessary
+            out_dirname = get_out_dir(gather_file, out_dir)
+            dir_name = os.path.dirname(gather_file)
+
+            # get unique flows
+            flows = lookup_flow_cache(gather_file)
+            if flows == None:
+                flows = _list(local('zcat %r | cut -d "," -f2,3 | grep -v Terminated | LC_ALL=C sort -u'%
+                                gather_file, capture=True))
+
+                append_flow_cache(gather_file, flows)
+
+            for flow in flows:
+
+                dif, port_id = flow.split(',')
+
+                # flow name
+                name = dif + '_' + port_id
+                # test id plus flow name
+                if len(test_id_arr) > 1:
+                    long_name = test_id + '_' + name
+                else:
+                    long_name = name
+
+                if long_name not in already_done:
+
+                    out_rtt = out_dirname + test_id + '_' + name + ofile_ext
+
+                    if replot_only == '0' or not ( os.path.isfile(out_rtt)):
+                        local('zcat %s | grep -v Terminated | grep "%s" | cut -d "," -f1,11 | sed "s/,/ /" > %s' %
+                              (gather_file, flow, out_rtt))
+
+                    already_done[long_name] = 1
+
+                    (out_files,
+                     out_groups) = select_bursts(long_name, group, out_rtt, 0, sburst, eburst,
+                                  out_files, out_groups)
+
+
+        group += 1
+
+    return (test_id_arr, out_files, out_groups)
+
+
+## Plot RTT for RINA flows
+#  @param test_id Test ID prefix of experiment to analyse
+#  @param out_dir Output directory for results
+#  @param replot_only Don't extract data again, just redo the plot
+#  @param source_filter Filter on specific sources
+#  @param min_values Minimum number of data points in file, if fewer points
+#                    the file is ignored
+#  @param omit_const '0' don't omit anything,
+#                    '1' omit any series that are 100% constant
+#                       (e.g. because there was no data flow)
+#  @param ymin Minimum value on y-axis
+#  @param ymax Maximum value on y-axis
+#  @param lnames Semicolon-separated list of legend names
+#  @param stime Start time of plot window in seconds
+#               (by default 0.0 = start of experiment)
+#  @param etime End time of plot window in seconds
+#               (by default 0.0 = end of experiment)
+#  @param out_name Name prefix for resulting pdf file
+#  @param pdf_dir Output directory for pdf files (graphs), if not specified it is
+#                 the same as out_dir
+#  @param ts_correct '0' use timestamps as they are (default)
+#                    '1' correct timestamps based on clock offsets estimated
+#                        from broadcast pings
+#  @param plot_params Set env parameters for plotting
+#  @param plot_script Specify the script used for plotting, must specify full path
+#   @param sburst Start plotting with burst N (bursts are numbered from 1)
+#   @param eburst End plotting with burst N (bursts are numbered from 1)
+@task
+def analyse_rlite_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
+                min_values='3', omit_const='0', ymin='0', ymax='0',
+                lnames='', stime='0.0', etime='0.0', out_name='', pdf_dir='',
+                ts_correct='1', plot_params='', plot_script='',
+                sburst='1', eburst='0'):
+    "Plot RTT of RINA flows"
+
+    (test_id_arr,
+     out_files,
+     out_groups) = _extract_rlite_rtt(test_id, out_dir, replot_only,
+                                source_filter, ts_correct,
+                                sburst, eburst)
+
+    (out_files, out_groups) = filter_min_values(out_files, out_groups, min_values)
+    out_name = get_out_name(test_id_arr, out_name)
+
+    plot_time_series(out_name, out_files, 'RINA RTT (ms)', 2, 1000.0, 'pdf',
+                 out_name + '_rlitertt', pdf_dir=pdf_dir, omit_const=omit_const,
+                 ymin=float(ymin), ymax=float(ymax), lnames=lnames,
+                 stime=stime, etime=etime, groups=out_groups, plot_params=plot_params,
+                 plot_script=plot_script, source_filter=source_filter,
+                 sort_flowkey='0')
+
+
+    # done
+    puts('\n[MAIN] COMPLETED plotting RINA RTTs %s \n' % out_name)
 
 
 
