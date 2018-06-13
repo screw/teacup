@@ -44,6 +44,7 @@ EOF
 gather() {
 
 DIFS="$(rlite-ctl ipcps-show | sed -n -e 's/.*dif_name='\''\([[:graph:]]\+\)'\''.*/\1/p')"
+START_TIME=$(date +%s%N)
 
 while true; do
   for DIF in $DIFS; do
@@ -55,7 +56,7 @@ while true; do
 
     for FLOW_ID in $FLOW_IDS; do
       TIME="$(date +%s%N)"
-      printf "%s,%s,%s," "$TIME" "$DIF" "$FLOW_ID"
+      printf "%s,%s,%s," "$(echo $((TIME-START_TIME)) | sed 's/\([0-9]\+\)\([0-9]\{9\}\)/\1.\2/')" "$DIF" "$FLOW_ID"
       rlite-ctl flow-dump "$FLOW_ID" | sed -e 's/.*= \([[:digit:]]\+\).*/\1/' | awk -F'\n' '{if(NR == 1) {printf $0} else {printf ","$0}}'
       printf '\n'
     done
