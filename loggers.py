@@ -437,6 +437,8 @@ def log_queue_stats(file_prefix='', remote_dir='', local_dir='.'):
 
         run('echo iptables -t mangle -vL >> %s' % file_name)
         run('iptables -t mangle -vL >> %s' % file_name)
+        if config.TPCONF_rlite == 1:
+            run('ebtables -L FORWARD --Lc >> %s' % file_name)
 
     getfile(file_name, local_dir)
 

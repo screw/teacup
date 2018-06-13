@@ -1170,6 +1170,9 @@ def init_tc():
     # load pseudo interface mdoule
     run('modprobe ifb')
 
+    if config.TPCONF_rlite == 1:
+        run('modprobe br_netfilter')
+
     # get all interfaces
     interfaces = get_netint_cached(env.host_string, int_no=-1)
 
@@ -1202,6 +1205,8 @@ def init_tc():
         cnt += 1
 
     run('iptables -t mangle -F')
+    if config.TPCONF_rlite == 1:
+        run('ebtables -F FORWARD')
     # this is just for counting all packets
     run('iptables -t mangle -A POSTROUTING -j MARK --set-mark 0')
 
