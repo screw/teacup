@@ -3711,7 +3711,7 @@ def _extract_rlite_rtt(test_id='', out_dir='', replot_only='0', source_filter=''
         for gather_file in gather_files:
             # get input directory name and create result directory if necessary
             out_dirname = get_out_dir(gather_file, out_dir)
-            dir_name = os.path.dirname(gather_file)
+            host = gather_file.split('_')[-2]
 
             # get unique flows
             flows = lookup_flow_cache(gather_file)
@@ -3729,7 +3729,7 @@ def _extract_rlite_rtt(test_id='', out_dir='', replot_only='0', source_filter=''
                 dif, port_id = flow.split(',')
 
                 # flow name
-                name = dif + '_' + port_id
+                name = host + '_' + dif + '_' + port_id
                 # test id plus flow name
                 if len(test_id_arr) > 1:
                     long_name = test_id + '_' + name
@@ -3803,7 +3803,7 @@ def analyse_rlite_rtt(test_id='', out_dir='', replot_only='0', source_filter='',
     (out_files, out_groups) = filter_min_values(out_files, out_groups, min_values)
     out_name = get_out_name(test_id_arr, out_name)
 
-    plot_time_series(out_name, out_files, 'RINA RTT (ms)', 2, 1000.0, 'pdf',
+    plot_time_series(out_name, out_files, 'RINA RTT (ms)', 2, 1.0, 'pdf',
                  out_name + '_rlitertt', pdf_dir=pdf_dir, omit_const=omit_const,
                  ymin=float(ymin), ymax=float(ymax), lnames=lnames,
                  stime=stime, etime=etime, groups=out_groups, plot_params=plot_params,
