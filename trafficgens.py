@@ -384,6 +384,8 @@ def start_rinaperf_client(counter='1', file_prefix='', remote_dir='', dif='',
         rinaperf_cmd += ' -B %s' % bandw
     if sdu_size != '':
         rinaperf_cmd += ' -s %s' % sdu_size
+    if duration != '':
+        rinaperf_cmd += ' -D %s' % duration
     if extra_params != '':
         rinaperf_cmd += ' ' + extra_params
     pid = runbg(rinaperf_cmd, wait, out_file=logfile)
