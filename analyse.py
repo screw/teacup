@@ -3716,8 +3716,11 @@ def _extract_rlite_rtt(test_id='', out_dir='', replot_only='0', source_filter=''
             # get unique flows
             flows = lookup_flow_cache(gather_file)
             if flows == None:
-                flows = _list(local('zcat %r | cut -d "," -f2,3 | grep -v Terminated | LC_ALL=C sort -u'%
-                                gather_file, capture=True))
+                flows = _list(local('zcat %r | cut -d "," -f2,3 | '
+                                    'grep -v Terminated | '
+                                    'grep -v ERR]flow_dump | '
+                                    'LC_ALL=C sort -u' %
+                                    gather_file, capture=True))
 
                 append_flow_cache(gather_file, flows)
 
@@ -3738,7 +3741,10 @@ def _extract_rlite_rtt(test_id='', out_dir='', replot_only='0', source_filter=''
                     out_rtt = out_dirname + test_id + '_' + name + ofile_ext
 
                     if replot_only == '0' or not ( os.path.isfile(out_rtt)):
-                        local('zcat %s | grep -v Terminated | grep "%s" | cut -d "," -f1,11 | sed "s/,/ /" > %s' %
+                        local('zcat %s | grep -v Terminated | '
+                              'grep -v ERR]flow_dump | '
+                              'grep "%s" | cut -d "," -f1,11 | '
+                              'sed "s/,/ /" > %s' %
                               (gather_file, flow, out_rtt))
 
                     already_done[long_name] = 1
