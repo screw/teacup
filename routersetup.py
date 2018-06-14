@@ -272,12 +272,6 @@ def init_tc_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', los
         if attach_to_queue == '':
             run(config_tc_cmd)
 
-        # configure filter to classify traffic based on mark on pseudo device
-        # if config.TPCONF_rlite == 1:
-        #     config_tc_cmd = 'tc filter add dev %s protocol all parent 1: ' \
-        #                     'handle %s fw flowid 1:%s' % (
-        #                         pseudo_interface, class_no, queue_class_no)
-        # else:
         config_tc_cmd = 'tc filter add dev %s protocol ip parent 1: ' \
                         'handle %s fw flowid 1:%s' % (
                             pseudo_interface, class_no, queue_class_no)
@@ -302,11 +296,6 @@ def init_tc_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', los
         # configure filter to redirect traffic to pseudo device first and also
         # classify traffic based on mark after leaving the pseudo interface traffic
         # will go back to actual interface
-        # if config.TPCONF_rlite == 1:
-        #     config_tc_cmd = 'tc filter add dev %s protocol all parent 1: handle %s ' \
-        #                     'fw flowid 1:%s action mirred egress redirect dev %s' % \
-        #         (interface, class_no, netem_class_no, pseudo_interface)
-        # else:
         config_tc_cmd = 'tc filter add dev %s protocol ip parent 1: handle %s ' \
                         'fw flowid 1:%s action mirred egress redirect dev %s' % \
             (interface, class_no, netem_class_no, pseudo_interface)
@@ -318,10 +307,6 @@ def init_tc_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', los
     config_it_cmd = 'iptables -t mangle -A POSTROUTING -s %s -d %s -j MARK --set-mark %s' % \
         (source, dest, class_no)
     run(config_it_cmd)
-    if config.TPCONF_rlite == 1:
-        config_et_cmd = 'ebtables -A FORWARD -p 0xd1f0 -j mark --mark-set %s' % \
-            class_no
-        run(config_et_cmd)
     if bidir == '1':
         config_it_cmd = 'iptables -t mangle -A POSTROUTING -s %s -d %s -j MARK --set-mark %s' % \
             (dest, source, class_no)
@@ -349,8 +334,6 @@ def show_tc_setup():
         run('tc -d -s filter show dev %s' % pseudo_interface)
         cnt += 1
     run('iptables -t mangle -vL')
-    if config.TPCONF_rlite == 1:
-        run('ebtables -L FORWARD --Lc')
 
 
 ## Show pipe setup

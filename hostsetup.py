@@ -1205,8 +1205,6 @@ def init_tc():
         cnt += 1
 
     run('iptables -t mangle -F')
-    if config.TPCONF_rlite == 1:
-        run('ebtables -F FORWARD')
     # this is just for counting all packets
     run('iptables -t mangle -A POSTROUTING -j MARK --set-mark 0')
 
