@@ -385,20 +385,21 @@ def init_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', loss='
             queue_disc_params,
             bidir)
     elif htype == 'Linux':
-        execute(
-            init_tc_pipe,
-            counter,
-            source_internal,
-            dest_internal,
-            rate,
-            delay,
-            rtt,
-            loss,
-            queue_size,
-            queue_size_mult,
-            queue_disc,
-            queue_disc_params,
-            bidir,
-            attach_to_queue)
+        # execute(
+        #     init_tc_pipe,
+        #     counter,
+        #     source_internal,
+        #     dest_internal,
+        #     rate,
+        #     delay,
+        #     rtt,
+        #     loss,
+        #     queue_size,
+        #     queue_size_mult,
+        #     queue_disc,
+        #     queue_disc_params,
+        #     bidir,
+        #     attach_to_queue)
+        pass
     else:
         abort("Router must be running FreeBSD or Linux")

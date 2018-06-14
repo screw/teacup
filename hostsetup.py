@@ -1184,7 +1184,7 @@ def init_tc():
             run('tc qdisc del dev %s root' % interface)
 
         # set root qdisc
-        run('tc qdisc add dev %s root handle 1 htb' % interface)
+        run('tc qdisc add dev %s root netem delay 60ms' % interface)
 
     # bring up pseudo ifb interfaces (for netem)
     cnt = 0
