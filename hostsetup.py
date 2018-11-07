@@ -1167,11 +1167,12 @@ def init_dummynet():
 ## Assume: the Linux firewall is turned off or "open"
 def init_tc():
 
-    # load pseudo interface mdoule
-    run('modprobe ifb')
-
     # get all interfaces
     interfaces = get_netint_cached(env.host_string, int_no=-1)
+
+    # load pseudo interface module
+    # need to remove it first in case it is already loaded with diff. numifbs
+    run('rmmod ifb; modprobe ifb numifbs=%d' % len(interfaces))
 
     # delete all rules
     for interface in interfaces:
