@@ -546,6 +546,85 @@ def stop_tcpdump(file_prefix='', remote_dir='', local_dir='.'):
     bgproc.remove_proc(env.host_string, 'tcpdump', '0')
 
 
+## Start monitor mode tcpdump (assume only one tcpdump per host)
+#  @param file_prefix Prefix for file name
+#  @param remote_dir Directrory on remote where file is created
+#  @param local_dir Directory for .start file
+#  @param snap_len tcpdump/windump snap length
+#  @param tcpdump_filter filter string passed to tcpdump
+#  @param internal_int If '0' external (control) interface
+#                      if '1' internal (testbed) interface (default)
+@parallel
+def start_monitor_tcpdump(
+        file_prefix='', remote_dir='', local_dir='.', snap_len='80',
+        tcpdump_filter='', internal_int='1'):
+    "Start tcpdump monitor mode instance on host"
+
+    # get host type
+    htype = get_type_cached(env.host_string)
+
+    if env.host_string in config.TPCONF_router:
+        interfaces = get_netint_cached(env.host_string, int_no=-1,
+                                       internal_int=internal_int)
+    else:
+        if htype == 'CYGWIN':
+            interfaces = get_netint_windump_cached(env.host_string,
+                                                    int_no=0,
+                                                    internal_int=internal_int)
+        else:
+            interfaces = get_netint_cached(env.host_string,
+                                            int_no=0,
+                                            internal_int=internal_int)
+
+    # FIXME: don't hardcode this!
+    interfaces = ['wls3']
+
+    if len(interfaces) < 1:
+        abort('Internal interface not specified')
+
+    if remote_dir != '' and remote_dir[-1] != '/':
+        remote_dir += '/'
+
+    for interface in interfaces:
+
+        if env.host_string in config.TPCONF_router:
+	    if internal_int == '1':
+                file_name = remote_dir + file_prefix + '_' + \
+                    env.host_string.replace(':', '_') + \
+                    '_' + interface + '_router.wdmp'
+            else:
+                file_name = remote_dir + file_prefix + '_' + \
+                    env.host_string.replace(':', '_') + '_ctl.wdmp'
+        else:
+            if internal_int == '1':
+                file_name = remote_dir + file_prefix + '_' + \
+                    env.host_string.replace(':', '_') + '.wdmp'
+            else:
+                file_name = remote_dir + file_prefix + '_' + \
+                    env.host_string.replace(':', '_') + '_ctl.wdmp'
+
+        if htype == 'FreeBSD' or htype == 'Linux' or htype == 'Darwin':
+            tcpdump_cmd = 'tcpdump -n -s %s -i %s -w %s -y IEEE802_11_RADIO --monitor-mode \'%s\'' % (
+                snap_len, interface, file_name, tcpdump_filter)
+        else:
+            # CYGWIN
+            #tcpdump_cmd = 'WinDump -n -s %s -i %s -w ' \
+            #    '"$(cygpath -aw "%s")" \'%s\'' % (
+            #        snap_len, interface, file_name, tcpdump_filter)
+            assert false # No idea how to do this on windows and don't care
+        pid = runbg(tcpdump_cmd)
+
+        name = 'monitortcpdump-' + interface
+        #bgproc.register_proc(env.host_string, name, '0', pid, file_name)
+        bgproc.register_proc_later(
+            env.host_string,
+            local_dir,
+            name,
+            '0',
+            pid,
+            file_name)
+
+
 ## Start CPU load logger
 #  @param file_prefix Prefix for file name
 #  @param remote_dir Directrory on remote where file is created
@@ -946,6 +1025,31 @@ def start_loggers(file_prefix='', remote_dir='', local_dir='.'):
 	    snap_len=snap_len,
 	    hosts=config.TPCONF_router +
 	    config.TPCONF_hosts)
+
+    # get monitor mode snaplen setting from config file if present
+    # default is unlimited
+    monitor_snap_len = 65535
+    try:
+        monitor_snap_len = config.TPCONF_pcap_snaplen_monitor
+        if monitor_snap_len == 0:
+            monitor_snap_len = 65535
+    except AttributeError:
+        pass
+
+    # start monitor mode tcpdumps on specified interfaces
+    try:
+        monitor_tcpdump_logger = config.TPCONF_monitor_tcpdump_logger
+    except AttributeError:
+        monitor_tcpdump_logger = '0'
+    if monitor_tcpdump_logger == '1':
+	execute(
+	    start_monitor_tcpdump,
+	    file_prefix,
+	    remote_dir,
+	    local_dir,
+	    snap_len=monitor_snap_len,
+	    hosts=config.TPCONF_monitor_hosts)
+
 
     # start TCP loggers
     try:
