@@ -1257,6 +1257,28 @@ def init_host_custom(*args, **kwargs):
             run(cmd)
 
 
+## Custom host teardown
+#  @param args Arguments (from user)
+#  @param kwargs Keyword arguments (from user)
+@task
+@parallel
+def teardown_host_custom(*args, **kwargs):
+    "Perform custom host teardown"
+
+    cmds = config.TPCONF_host_teardown_custom_cmds.get(env.host_string, None)
+    if cmds is not None:
+        for cmd in cmds:
+            # replace V_ variables
+            cmd = re.sub(
+                "(V_[a-zA-Z0-9_-]*)",
+                lambda m: "{}".format(
+                    kwargs[
+                        m.group(1)]),
+                cmd)
+            # execute
+            run(cmd)
+
+
 ## Do all host init
 #  @param ecn ECN off if '0', ECN on if '1'
 #  @param tcp_cc_algo TCP congestion control algo (see init_cc_algo())
@@ -1280,3 +1302,11 @@ def init_hosts(ecn='0', tcp_cc_algo='default', *args, **kwargs):
         args,
         **kwargs)
 
+## Do all host teardown
+#  @param args Arguments (from user)
+#  @param kwargs Keyword arguments (from user)
+def teardown_hosts(*args, **kwargs):
+    execute(teardown_host_custom,
+            hosts=config.TPCONF_router + config.TPCONF_hosts,
+            *args,
+            **kwargs)

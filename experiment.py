@@ -48,7 +48,7 @@ from sanitychecks import check_config, check_host, check_connectivity, \
     kill_old_processes, sanity_checks, get_host_info
 from hostsetup import init_host, init_ecn, init_cc_algo, init_router, \
     init_hosts, init_os_hosts, init_host_custom, init_topology_switch, \
-    init_topology_host 
+    init_topology_host, teardown_hosts, teardown_host_custom
 from loggers import start_tcpdump, stop_tcpdump, start_tcp_logger, \
     stop_tcp_logger, start_loggers, log_sysdata, log_queue_stats, \
     log_config_params, log_host_tcp, start_bc_ping_loggers
@@ -373,6 +373,9 @@ def run_experiment(test_id='', test_id_pfx='', *args, **kwargs):
     execute(kill_old_processes,
             hosts=config.TPCONF_router +
             config.TPCONF_hosts)
+
+    # run any specific teardown tasks
+    execute(teardown_hosts, *args, **kwargs)
 
     # done
     puts('\n[MAIN] COMPLETED experiment %s \n' % test_id)

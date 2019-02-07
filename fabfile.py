@@ -73,7 +73,8 @@ from sanitychecks import check_host, check_connectivity, kill_old_processes, \
     sanity_checks, get_host_info, check_config, check_time_sync
 from util import exec_cmd, authorize_key, copy_file
 from hostsetup import init_host, init_ecn, init_cc_algo, init_router, \
-        init_hosts, init_os, power_cycle, init_host_custom
+        init_hosts, init_os, power_cycle, init_host_custom, \
+        teardown_hosts, teardown_host_custom
 
 try:
     from hostsetup import init_topology
