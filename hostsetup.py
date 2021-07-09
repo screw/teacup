@@ -858,7 +858,8 @@ def init_host():
 
     if htype == 'FreeBSD':
         # record the number of reassembly queue overflows
-        run('sysctl net.inet.tcp.reass.overflows')
+        # REMOVED in FreeBSD 13.0
+        #run('sysctl net.inet.tcp.reass.overflows')
 
         # disable auto-tuning of receive buffer
         run('sysctl net.inet.tcp.recvbuf_auto=0')
