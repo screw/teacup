@@ -150,9 +150,11 @@ def init_dummynet_pipe(counter='1', source='', dest='', rate='', delay='',
 #               if '1' (two pipes in both directions)
 #  @param attach_to_queue Specify number of existing queue to use, but emulate
 #                         different delay/loss
+#  @param avg_packet_size Average packet size to use in calculating BDP (when applicable)
 def init_tc_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', loss='',
                  queue_size='', queue_size_mult='1.0', queue_disc='', 
-                 queue_disc_params='', bidir='0', attach_to_queue=''):
+                 queue_disc_params='', bidir='0', attach_to_queue='',
+                 avg_packet_size='600'):
 
     # compatibility with FreeBSD
     if queue_disc == 'fifo':
@@ -168,7 +170,7 @@ def init_tc_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', los
         if queue_disc == 'pfifo' or queue_disc == 'codel' or \
            queue_disc == 'fq_codel' or queue_disc == 'pie':
             # queue size in packets
-            avg_packet = 600  # average packet size
+            avg_packet = int(avg_packet_size)  # average packet size
             queue_size = int(
                 float(_rate) * (float(rtt) / 1000.0) / 8 / avg_packet)
             if queue_size_mult != '1.0':
@@ -360,7 +362,8 @@ def show_pipes():
 @task
 def init_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', loss='',
               queue_size='', queue_size_mult='1.0', queue_disc='', 
-              queue_disc_params='', bidir='0', attach_to_queue=''):
+              queue_disc_params='', bidir='0', attach_to_queue='',
+              avg_packet_size='600'):
     "Configure pipe on router, including rate shaping, AQM, loss/delay emulation"
 
     # get internal addresses
@@ -400,6 +403,7 @@ def init_pipe(counter='1', source='', dest='', rate='', delay='', rtt='', loss='
             queue_disc,
             queue_disc_params,
             bidir,
-            attach_to_queue)
+            attach_to_queue,
+            avg_packet_size)
     else:
         abort("Router must be running FreeBSD or Linux")
