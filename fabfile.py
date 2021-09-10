@@ -246,7 +246,8 @@ def _experiment_done(test_id=''):
 ## Check config file and log config information
 #  @param test_id Test ID
 def config_check_and_log(test_id):
-    execute(check_config, hosts=['MAIN'])  # use a dummy host here and below
+    if getattr(config, 'TPCONF_check_config', True):
+        execute(check_config, hosts=['MAIN'])  # use a dummy host here and below
 
     # create sub directory for test id prefix
     mkdir_p(test_id)
