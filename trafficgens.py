@@ -304,11 +304,16 @@ def start_iperf_client(counter='1', file_prefix='', remote_dir='', port='',
 
 ## Start iperf sender and receiver
 ## For parameters see start_iperf_client() and start_iperf_server()
+## @param condition=True Condition for actually starting this generator
 def start_iperf(counter='1', file_prefix='', remote_dir='', local_dir='',
                 port='', client='', server='', duration='', congestion_algo='',
                 mss='', buf_size='', proto='tcp', rate='', extra_params_client='',
-                extra_params_server='', check='1', wait='', kill='0'):
+                extra_params_server='', check='1', wait='', kill='0',
+                condition=True):
     "Start iperf traffic sender and receiver"
+
+    if not condition:
+        return
 
     server, server_internal = get_address_pair(server)
     client, dummy = get_address_pair(client)
