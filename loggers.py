@@ -40,22 +40,13 @@ from hosttype import get_type_cached
 from hostint import get_netint_cached, get_netint_windump_cached
 from getfile import getfile
 from runbg import runbg
-
+from internalutil import _find_params
 
 ## Collect all the arguments (here basically a dummy method because we
 ## don't used the return value)
 def _args(*_nargs, **_kwargs):
     "Collect parameters for a call"
     return _nargs, _kwargs
-
-
-## Function to collect used parameters
-def _param_used(name, adict):
-    "Store used paramter"
-    adict[name] = 1
-
-    return 0
-
 
 # Function to replace the variable names with the values
 def _param(name, adict):
@@ -75,11 +66,7 @@ def _param(name, adict):
 #  @param used_vars List where we add used variables
 def add_vars_router_queues(queue_spec, used_vars):
     for c, v in queue_spec:
-        # prepare so that _params is called
-        v = re.sub("(V_[a-zA-Z0-9_-]*)", "_param_used('\\1', used_vars)", v)
-        # evaluate the string
-        eval('_args(%s)' % v)
-
+        used_vars |= _find_params(v)
 
 ## Log varying variables used for a series of experiments
 ## This really only logs the variables used and their V_ paramters and
@@ -120,18 +107,13 @@ def log_config_params(
     "Dump parameters from config file"
 
     cfg_vars = {}
-    used_vars = {}
 
     fname = '%s/%s_config_vars.log' % (local_dir, file_prefix)
 
     # first identify all used parameters
 
     # add the special ones
-    used_vars['V_duration'] = 1
-    used_vars['V_ecn'] = 1
-    used_vars['V_tcp_cc_algo'] = 1
-    used_vars['V_runs'] = 1
-
+    used_vars = {'V_duration', 'V_ecn', 'V_tcp_cc_algo', 'V_runs'}
     
     if isinstance(config.TPCONF_router_queues, list):
         add_vars_router_queues(config.TPCONF_router_queues, used_vars)
@@ -145,10 +127,7 @@ def log_config_params(
         arg_list = v.split(',')
         arg_list.pop(0)
         v = ', '.join(arg_list)
-        # prepare so that _params is called
-        v = re.sub("(V_[a-zA-Z0-9_-]*)", "_param_used('\\1', used_vars)", v)
-        # evaluate the string
-        eval('_args(%s)' % v)
+        used_vars |= _find_params(v)
 
     for host_cfg in config.TPCONF_host_TCP_algo_params.values():
         for algo, algo_params in host_cfg.items():
@@ -156,22 +135,11 @@ def log_config_params(
             for entry in algo_params:
                 if entry != '':
                     sysctl_name, val = entry.split('=')
-                    # eval the value (could be variable name)
-                    val = re.sub(
-                        "(V_[a-zA-Z0-9_-]*)",
-                        "_param_used('\\1', used_vars)",
-                        val)
-                    eval('%s' % val)
+                    used_vars |= _find_params(v)
 
     for cmds in config.TPCONF_host_init_custom_cmds.values():
         for cmd in cmds:
-            if re.search("V_[a-zA-Z0-9_-]*", cmd):
-                # XXX this only works if we have only V_ variable
-                val = re.sub(
-                    ".*(V_[a-zA-Z0-9_-]*).*",
-                    "_param_used('\\1', used_vars)",
-                    cmd)
-                eval('%s' % val)
+            used_vars |= _find_params(v)
 
     # second write parameters to file
 

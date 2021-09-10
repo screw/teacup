@@ -32,6 +32,7 @@
 
 import os
 import errno
+import re
 
 
 ## Build a list of strings from a number of string lines
@@ -66,3 +67,10 @@ def valid_dir(path):
 
     return path
 
+## Find all V_ params (in a sensible manner!)
+def _find_params(cmdspec):
+    # Note: the regexp used before to match V_-params
+    # was wrong. It matched inside tokens ("EV_foo") as well
+    # as empty names ("V_").
+    params = re.findall(r"\b(V_[a-zA-Z0-9_-]+)", cmdspec)
+    return set(params)

@@ -31,7 +31,6 @@
 
 import sys
 import os
-import re
 import datetime
 import config
 from fabric.api import task, warn, local, run, execute, abort, hosts, \
@@ -39,6 +38,7 @@ from fabric.api import task, warn, local, run, execute, abort, hosts, \
 from hosttype import get_type_cached
 from hostint import get_netint_cached, get_netint_windump_cached
 from hostmac import get_netmac_cached
+from internalutil import _find_params
 
 from trafficgens import start_iperf, start_ping, \
     start_http_server, start_httperf, \
@@ -52,14 +52,11 @@ def _args(*_nargs, **_kwargs):
     "Collect parameters for a call"
     return _nargs, _kwargs
 
-
-# helper method for variable name checking
-def _reg_vname(name, vnames, entry):
-    vnames[name] = entry
-    # hacky: return 0 so we don't break mathematical operations on the
-    # parameters and eval fails
-    return 0
-
+# Register referenced V_-params
+def _register_vnames(spec, locus, reftable):
+    vnames = _find_params(spec)
+    for vname in vnames:
+        reftable[vname] = locus
 
 ## Check router queues
 #  @param queue_spec Queue specification from config
@@ -69,12 +66,7 @@ def check_router_queues(queue_spec, vnames_referenced):
     entry = 1
     for c, v in queue_spec:
         # insert all variable names used in vnames referenced
-        v = re.sub(
-            "(V_[a-zA-Z0-9_-]*)",
-            "_reg_vname('\\1', vnames_referenced, 'TPCONF_router_queues entry %s')" %
-            entry,
-            v)
-        eval('_args(%s)' % v)
+        _register_vnames(v, 'TPCONF_router_queues entry %s' % entry, vnames_referenced)
 
         if c in ids:
             abort(
@@ -245,12 +237,7 @@ def check_config():
         entry = 1
         for t, c, v in config.TPCONF_traffic_gens:
             # insert all variable names used in vnames referenced
-            v = re.sub(
-                "(V_[a-zA-Z0-9_-]*)",
-                "_reg_vname('\\1', vnames_referenced, 'TPCONF_traffic_gens entry %s')" %
-                entry,
-                v)
-            eval('_args(%s)' % v)
+            _register_vnames(v, 'TPCONF_traffic_gens entry %s' % entry, vnames_referenced)
 
             try:
                 t = float(t)
