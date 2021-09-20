@@ -1668,3 +1668,51 @@ def start_nginx_server(counter='1', file_prefix='', remote_dir='', local_dir='',
         docroot,
         check,
         hosts=[server])
+
+
+# Support for executing a custom, arbitrary command as traffic generator.
+# Author: Fredrik Haugseth
+# For documentation etc. see his thesis, section A.2.1:
+# http://urn.nb.no/URN:NBN:no-67127
+def start_custom_traffic_local(counter='1', file_prefix='', remote_dir='', name='', directory='',
+                               copy_file='0', add_prefix='0', duration='', parameters='',
+                               check='1', wait=''):
+    logfile = remote_dir + file_prefix + '_' + \
+              env.host_string.replace(':', '_') + '_' + counter + '_customtraffic.log'
+
+    custom_cmd = ''
+    if name == '':
+        abort('Custom logging: "name" variable must be set to the name of the command to run.')
+
+    if directory == '':
+        if copy_file == '0' or copy_file == 0:
+            pass
+        else:
+            abort('Custom logging: "copy_file" is set, but "directory" is not set.')
+    else:
+        if directory[-1] != '/':
+            directory = directory + '/'
+        if copy_file == '0' or copy_file == 0:
+            custom_cmd = directory
+        else:
+            put(directory + name, '/usr/bin')
+            run('chmod a+x /usr/bin/' + name, pty=False)
+            run('which ' + name, pty=False)
+
+    if add_prefix == '0' or add_prefix == 0:
+        custom_cmd += name + ' ' + parameters
+    else:
+        custom_cmd += name + ' ' + file_prefix + '_' + \
+                      env.host_string.replace(':', '_') + ' ' + parameters
+
+    pid = runbg(custom_cmd, wait, out_file=logfile)
+    bgproc.register_proc(env.host_string, name, counter, pid, logfile)
+
+def start_custom_traffic(counter='1', file_prefix='', remote_dir='', local_dir='',
+                          name='', directory='', copy_file='0', add_prefix='0',
+                          hostname='', duration='', parameters='', check='1', wait=''):
+    hostn, host_internal = get_address_pair(hostname)
+
+    execute(start_custom_traffic_local, counter, file_prefix, remote_dir,
+            name, directory, copy_file, add_prefix, duration, parameters,
+            check, wait, hosts=[hostn])
